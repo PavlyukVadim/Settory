@@ -1,0 +1,19 @@
+{
+  "name": "Settory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "moment": "^2.17.1",
+    "path": "^0.12.7",
+    "react-datepicker": "^0.39.0"
+  },
+  "devDependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
+}
