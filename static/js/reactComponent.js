@@ -1,6 +1,3 @@
-$(document).ready(function(){
-   
-});
 var Example = React.createClass({
   displayName: 'Example',
 
@@ -18,83 +15,74 @@ var Example = React.createClass({
 
   render: function() {
     return <DatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange} />;
+      selected={this.state.startDate}
+      onChange={this.handleChange} />;
   }
 });
+
+
 var UserCheck =  React.createClass({
     render:function(){
         if(this.props.user == 1 ){
             return (
-             <div className="nav-right_custom">
-                <a className="nav-item" id="promo">
-                  Промокод
-                </a>
-                <a className="nav-item" id="user">
-                  Користувачі
-                </a>
-                <a className="nav-item"id="order">
-                  Замовлення
-                </a>
-                 <a className="nav-item" id="userOrder">
-                  Ваші прибирання
-                </a>
-                <a className="nav-item" href="../">
-                  Вийти
-                </a>
-            </div>    
+                <div className="nav-right_custom">
+                  <a className="nav-item" id="promo"> Промокод </a>
+                  <a className="nav-item" id="user">Користувачі</a>
+                  <a className="nav-item"id="order">Замовлення</a>
+                  <a className="nav-item" id="userOrder">Ваші прибирання</a>
+                  <a className="nav-item" href="../">Вийти</a>
+                </div>    
             )
-        }
-        else{
+        } else {
             return (
                 <div className="nav">
-                <div className="nav-left">
-                <a className="nav-item" href="../">Settory
-                </a>
-          </div>
-            <div className="nav-right_custom">
-                
-                 <a className="nav-item" id="userOrder">
-                  Ваші прибирання
-                </a>
-                <a className="nav-item" href="../">
-                  Вийти
-                </a>
-          </div>
+                  <div className="nav-left">
+                    <a className="nav-item" href="../">Settory</a>
+                  </div>
+                  <div className="nav-right_custom">
+                    <a className="nav-item" id="userOrder">Ваші прибирання</a>
+                    <a className="nav-item" href="../">Вийти</a>
+                  </div>
                 </div>
             )
         }
     }
 });
+
+
 $(document).ready(function(){
-ReactDOM.render(<OrderBox />, document.getElementById('reactBox'))
+  ReactDOM.render(<OrderBox />, document.getElementById('reactBox'));
 })
+
 var userBox = 1;
-ReactDOM.render(<UserCheck user={userBox} />,document.getElementById('hederRow'))
+ReactDOM.render(<UserCheck user={userBox} />, document.getElementById('hederRow'));
+
 var i = 0;
 var j =0;
-function PromoCod(cof,dTime,mesg) {
-    this.cof = cof,
-    this.dTime = dTime,
-    this.mesg = mesg
+
+function PromoCod(cof, dTime, mesg) {
+  this.cof = cof,
+  this.dTime = dTime,
+  this.mesg = mesg
 }
 function dataCod(mail,dTime,phone) {
-    this.mail = mail,
-    this.dTime = dTime,
-    this.phone = phone
+  this.mail = mail,
+  this.dTime = dTime,
+  this.phone = phone
 }
-function orderCod(numberValue,mail,phone,adress,room,dTimeH,dTimeD,option,pay,status) {
-    this.numberValue = numberValue,
-    this.mail = mail,
-    this.phone = phone,
-    this.adress = adress,
-    this.room = room,
-    this.dTimeH = dTimeH,
-    this.dTimeD = dTimeD,
-    this.option = option,
-    this.pay = pay,
-    this.status = status
+function orderCod(numberValue, mail, phone, adress, room, dTimeH, dTimeD, option, pay, status) {
+  this.numberValue = numberValue,
+  this.mail = mail,
+  this.phone = phone,
+  this.adress = adress,
+  this.room = room,
+  this.dTimeH = dTimeH,
+  this.dTimeD = dTimeD,
+  this.option = option,
+  this.pay = pay,
+  this.status = status
 }
+
 var data1 = new dataCod('1asdasf@mail','2012-10-10','000665');
 var data2 = new dataCod('2f@mail','2012-11-11','000665555');
 var data3 = new dataCod('3f@mail','2012-12-12','000');
@@ -109,99 +97,93 @@ var promoArr = [Fpromo,Spromo,Thpromo];
 var orderArr =[order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3];
 var spliceArr = [];
 var copyArr = orderArr.slice();
+
 do {
-    spliceArr.push(copyArr.splice(0,20))
+  spliceArr.push(copyArr.splice(0,20))
 }
 while(copyArr[0] !== undefined)
 
 
 var Timepick = React.createClass({
-    getInitialState:function(){
-       return{ setTimeVal:'8:00',
-             newDate:new Date()
-             }
-    },
-    componentWillMount:function(){
-        this.getInitialState()
-        this.timeCheck();
-    },
-    timeCheck:function(){
-         $('#forTime').val('')
-        $('#forTime').timepicker({
-            'minTime': this.state.setTimeVal,
-            'timeFormat': 'H:i',
-            'interval': 30,
-            'forceRoundTime': true,
-            'autoclose':false,
-            'show2400' : true,
-            'scrollDefault': 'now',
-            'maxTime': '19:00'
-            });
-            
-        
-    },
-    timepick:function(){
-       $('#forTime').val('')
-        var ab = $("#datapicker1").datepicker('getDate');
-        
-        this.setState({newDate: ab})
-     
-        var currDate = new Date();
-        
-        if(currDate.getDay() == this.state.newDate.getDay() && currDate.getMonth() == this.state.newDate.getMonth() && currDate.getYear() == this.state.newDate.getYear()){
-            
-            var currTime = new Date();
-            var lime = currTime.getHours();
-            lime += 3;
-            console.log('lime', lime);
-            if(lime >= 19) {
-                  this.setState({setTimeVal: '8:00'}) ;
-                let a = new Date().valueOf()+24*60*60*1000;
-        $( "#datapicker1" ).datepicker( "setDate",new Date(a))
-       
-            }
-            else {
-                if(lime <= 8){
-                   this.setState({setTimeVal: '8:00'}) ; 
-                   
-                }
-                else{
-               
-                lime = lime + ':00'
-                 
-                 this.setState({setTimeVal: lime}) ;
-  $('#forTime').timepicker('option','minTime',this.state.setTimeVal);
-            }
-        }
-        }
-        else {
-            this.setState({setTimeVal: '8:00'}) ;
-      
-        }
-       this.timeCheck()
+  getInitialState:function(){
+    return { 
+        setTimeVal: '8:00',
+        newDate: new Date()
+      }
+  },
+  componentWillMount: function(){
+    this.getInitialState()
+    this.timeCheck();
+  },
+  timeCheck:function(){
+    $('#forTime').val('');
+    $('#forTime').timepicker({
+      'minTime': this.state.setTimeVal,
+      'timeFormat': 'H:i',
+      'interval': 30,
+      'forceRoundTime': true,
+      'autoclose':false,
+      'show2400' : true,
+      'scrollDefault': 'now',
+      'maxTime': '19:00'
+    });  
+  },
+  timepick: function() {
+    $('#forTime').val('');
+    var ab = $("#datapicker1").datepicker('getDate');    
+    this.setState({newDate: ab});
+    var currDate = new Date();
     
+    if(currDate.getDay() == this.state.newDate.getDay() && 
+       currDate.getMonth() == this.state.newDate.getMonth() && 
+       currDate.getYear() == this.state.newDate.getYear()) {
+            
+      var currTime = new Date();
+      var lime = currTime.getHours();
+      lime += 3;
+      console.log('lime', lime);
+      if(lime >= 19) {
+        this.setState({setTimeVal: '8:00'});
+        var a = new Date().valueOf() + 24 * 60 * 60 * 1000;
+        $('#datapicker1').datepicker('setDate', new Date(a)); 
+      } else {
+        if(lime <= 8) {
+          this.setState({setTimeVal: '8:00'}); 
+        } else {
+          lime = lime + ':00'
+          this.setState({setTimeVal: lime});
+          $('#forTime').timepicker('option', 'minTime', this.state.setTimeVal);
+        }
+      }
+    } else {
+      this.setState({setTimeVal: '8:00'}) ;
+    }
+    this.timeCheck()
     },
-    render:function(){
-        return(
+    render: function() {
+      return (
         <input className="input timepicker" id="forTime"  onClick={this.timepick} type="text" required />
-        )
+      )
     }
 })
+
+
 var ShowOrderWrap = React.createClass({
-    render: function(){
-        return (
+  render: function(){
+    return (
         <div>
-            <div className="wrapperNav">
-        <div className="navText">
-          <p><strong>Замовлення</strong>
-            Опрацювати кожне необхідно протягом 5 хвилин</p>
+          <div className="wrapperNav">
+            <div className="navText">
+              <p><strong>Замовлення</strong> Опрацювати кожне необхідно протягом 5 хвилин</p>
+            </div>
+          </div>
+            <ShowOrder itemsIn={spliceArr}  />
         </div>
-      </div>
-            <ShowOrder itemsIn={ spliceArr }  />
-    </div>
-        )
+      )
     }
 });
+
+
 var FilterOrder = React.createClass({
     getInitialState: function(){
       let defaultArr = this.props.itemsIn
@@ -429,7 +411,7 @@ var ShowOrder = React.createClass({
             var arr = item.option.map(function(items){
                 if(items == 1) el.push('Миття вікон')
                 if(items == 2) el.push('Миття посуду')
-                if(items ==3) el.push('Чистка холодильника')
+                if(items == 3) el.push('Чистка холодильника')
                 if(items == 4) el.push('Чистка духовки')
                 if(items == 5) el.push('Прасування')
             })
@@ -445,16 +427,15 @@ var ShowOrder = React.createClass({
             });
              return (
                 <tr>
-                    <td>{item.numberValue}</td>
-                    <td>{item.mail}</td>
-                    <td>{item.phone}</td>
-                    <td>{item.adress}</td>
-                    <td>{item.room}</td>
-                    <td>{item.dTimeH} {item.dTimeD}</td>
-                    <td><ul>{length}</ul>
-                    </td>
-                    <td>{item.pay}</td>
-                    <td>{statusChecked}</td>
+                  <td>{item.numberValue}</td>
+                  <td>{item.mail}</td>
+                  <td>{item.phone}</td>
+                  <td>{item.adress}</td>
+                  <td>{item.room}</td>
+                  <td>{item.dTimeH} {item.dTimeD}</td>
+                  <td><ul>{length}</ul></td>
+                  <td>{item.pay}</td>
+                  <td>{statusChecked}</td>
                 </tr>
              )
          });
@@ -463,17 +444,17 @@ var ShowOrder = React.createClass({
             <table className="table is-narrow">
             <tbody>
             <tr>
-                <td><strong>#</strong></td>
-                <td><strong>Пошта</strong></td>
-                <td><strong>Номер телефону</strong></td>
-                <td><strong>Адреса</strong></td>
-                <td><strong>К</strong></td>
-                <td><strong>Час  і  дата</strong></td>
-                <td><strong>Опції</strong></td>
-                <td><strong>Сплачено</strong></td>
-                <td><strong>Статус</strong></td>
+              <td><strong>#</strong></td>
+              <td><strong>Пошта</strong></td>
+              <td><strong>Номер телефону</strong></td>
+              <td><strong>Адреса</strong></td>
+              <td><strong>К</strong></td>
+              <td><strong>Час  і  дата</strong></td>
+              <td><strong>Опції</strong></td>
+              <td><strong>Сплачено</strong></td>
+              <td><strong>Статус</strong></td>
             </tr>
-             { list }
+              {list}
             </tbody>
             </table>
             <nav className="pagination">
@@ -722,9 +703,9 @@ var OrderBox = React.createClass({
           <div className="orderBox" id="cost">
             <span>Сума замовлення: &nbsp;&nbsp;</span>
             <span id="price"></span>
-            <p>Ми зв'яжемось з вами за годину до прибирання :)</p>
+            <p>Ми зв{'\''}яжемось з вами за годину до прибирання :)</p>
             <p className="control">
-              <input className="input" type="text" placeholder="Промокод,якщо є" />
+              <input className="input" type="text" placeholder="Промокод, якщо є" />
             </p>
             <input type="button" onClick={this.make_pay} className="button is-info" defaultValue="Забронювати" />
           </div>
@@ -733,22 +714,26 @@ var OrderBox = React.createClass({
         )
     }
 });
+
 $('#reloadF').click(function(){
      $('reactBox').empty();
     ReactDOM.render(<OrderBox />,document.getElementById('reactBox'))
 });
+
 $('#order').click(function(){
     $('#reactBox').empty();
      $('.nav-item').removeClass("is-active")
     $('#order').addClass("is-active")
    ReactDOM.render(<ShowOrderWrap  />,document.getElementById('reactBox'))
 });
+
 var pure = function(){
     $('#reactBox').empty();
      $('.nav-item').removeClass("is-active")
     $('#order').addClass("is-active")
    ReactDOM.render(<ShowOrderWrap />, document.getElementById('reactBox'))
 };
+
 var pureFilter = function(bool1){
     if(bool1) {
     setTimeout(function(){
@@ -760,18 +745,21 @@ var pureFilter = function(bool1){
     $('#userOrder').addClass("is-active")
    ReactDOM.render(<FilterOrder itemsIn={ orderArr } check={ bool1 }/>, document.getElementById('reactBox'))
 };
+
 $('#promo').click(function(){
      $('#reactBox').empty();
     $('.nav-item').removeClass("is-active")
     $('#promo').addClass("is-active")
     ReactDOM.render(<ShowPromo items={ promoArr } />,document.getElementById('reactBox'))
 });
+
 $('#user').click(function(){
     $('#reactBox').empty();
      $('.nav-item').removeClass("is-active")
     $('#user').addClass("is-active")
    ReactDOM.render(<FilteredList itemsIn={ dataArr }/>,document.getElementById('reactBox'))
 });
+
 $('#userOrder').click(function(){
     var bool1 = false
     $('#reactBox').empty();
