@@ -1,12 +1,10 @@
-var express = require("express"); 
-var app = express(); 
-var path = require("path"); 
-var React = require('react');
-var DatePicker = require('react-datepicker');
+var express = require('express'); 
+var path = require('path'); 
 var moment = require('moment');
+var app = express(); 
 
 app.get('/',function(req,res) { 
-	res.sendFile(path.join(__dirname+'/index.html')); 
+	res.sendFile(path.join(__dirname + '/index.html')); 
 }); 
 
 app.use('/', express.static(__dirname + '/')); 
