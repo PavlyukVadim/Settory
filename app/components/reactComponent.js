@@ -21,41 +21,12 @@ var Example = React.createClass({
 });
 
 
-var UserCheck =  React.createClass({
-    render:function(){
-        if(this.props.user == 1 ){
-            return (
-                <div className="nav-right_custom">
-                  <a className="nav-item" id="promo"> Промокод </a>
-                  <a className="nav-item" id="user">Користувачі</a>
-                  <a className="nav-item"id="order">Замовлення</a>
-                  <a className="nav-item" id="userOrder">Ваші прибирання</a>
-                  <a className="nav-item" href="../">Вийти</a>
-                </div>    
-            )
-        } else {
-            return (
-                <div className="nav">
-                  <div className="nav-left">
-                    <a className="nav-item" href="../">Settory</a>
-                  </div>
-                  <div className="nav-right_custom">
-                    <a className="nav-item" id="userOrder">Ваші прибирання</a>
-                    <a className="nav-item" href="../">Вийти</a>
-                  </div>
-                </div>
-            )
-        }
-    }
-});
-
-
 $(document).ready(function(){
   ReactDOM.render(<OrderBox />, document.getElementById('reactBox'));
 })
 
 var userBox = 1;
-ReactDOM.render(<UserCheck user={userBox} />, document.getElementById('hederRow'));
+ReactDOM.render(<UserDetect user={userBox} />, document.getElementById('hederRow'));
 
 var i = 0;
 var j =0;
@@ -102,70 +73,6 @@ do {
   spliceArr.push(copyArr.splice(0,20))
 }
 while(copyArr[0] !== undefined)
-
-
-var Timepick = React.createClass({
-  getInitialState:function(){
-    return { 
-        setTimeVal: '8:00',
-        newDate: new Date()
-      }
-  },
-  componentWillMount: function(){
-    this.getInitialState()
-    this.timeCheck();
-  },
-  timeCheck:function(){
-    $('#forTime').val('');
-    $('#forTime').timepicker({
-      'minTime': this.state.setTimeVal,
-      'timeFormat': 'H:i',
-      'interval': 30,
-      'forceRoundTime': true,
-      'autoclose':false,
-      'show2400' : true,
-      'scrollDefault': 'now',
-      'maxTime': '19:00'
-    });  
-  },
-  timepick: function() {
-    $('#forTime').val('');
-    var ab = $("#datapicker1").datepicker('getDate');    
-    this.setState({newDate: ab});
-    var currDate = new Date();
-    
-    if(currDate.getDay() == this.state.newDate.getDay() && 
-       currDate.getMonth() == this.state.newDate.getMonth() && 
-       currDate.getYear() == this.state.newDate.getYear()) {
-            
-      var currTime = new Date();
-      var lime = currTime.getHours();
-      lime += 3;
-      console.log('lime', lime);
-      if(lime >= 19) {
-        this.setState({setTimeVal: '8:00'});
-        var a = new Date().valueOf() + 24 * 60 * 60 * 1000;
-        $('#datapicker1').datepicker('setDate', new Date(a)); 
-      } else {
-        if(lime <= 8) {
-          this.setState({setTimeVal: '8:00'}); 
-        } else {
-          lime = lime + ':00'
-          this.setState({setTimeVal: lime});
-          $('#forTime').timepicker('option', 'minTime', this.state.setTimeVal);
-        }
-      }
-    } else {
-      this.setState({setTimeVal: '8:00'}) ;
-    }
-    this.timeCheck()
-    },
-    render: function() {
-      return (
-        <input className="input timepicker" id="forTime"  onClick={this.timepick} type="text" required />
-      )
-    }
-})
 
 
 var ShowOrderWrap = React.createClass({
