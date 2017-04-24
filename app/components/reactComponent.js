@@ -216,7 +216,7 @@ var OrderBox = React.createClass({
             <p className="control">
               < Timepick />
             </p>
-            <label className="label">Додаткові опції</label>
+            <label className="label">додаткові опції</label>
             <p className="control checkBoxBox">
               <label className="checkbox">
                 <input type="checkbox" id="1stOpt" onChange={this.summa}/>

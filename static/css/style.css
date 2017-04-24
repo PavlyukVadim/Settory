@@ -366,6 +366,7 @@ em {
 
 #why-we .mainContentChildText.content p {
     margin: 5%;
+    margin-left: 0;
 }
 
 .mainContentChildText {
@@ -715,13 +716,22 @@ html body .wrapperInfoBlock .box {
     -ms-flex-align: center;
     align-items: center;
     font-size: 24px;
+    position: relative;
 }
+
 .image.is-64x64 p {
     margin: 0;
     margin-left: auto;
     margin-right: auto;
     font-size: 30px;
     color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    line-height: 100%;
+    transform: translateX(-50%) translateY(-50%);
+    width: auto;
+    padding: 0 !important;
 }
 
 
