@@ -91,153 +91,6 @@ var ShowOrderWrap = React.createClass({
 });
 
 
-var FilterOrder = React.createClass({
-    getInitialState: function(){
-      let defaultArr = this.props.itemsIn
-     return {
-       defaultArr,
-       items: []
-     }
-  },
-    componentWillMount: function(){
-    this.setState({items: this.state.defaultArr})
-    if(this.props.check) {
-        this.FilterList()
-    }
-    else {
-        this.ActiveFilter()
-    }
-  },
-    ActiveFilter: function(){
-        var updatedList = this.state.defaultArr;
-        updatedList = updatedList.filter(function(item){
-            if(item.status == false) {
-                return item
-            }
-        })
-       this.setState({items: updatedList});
-    },
-    FilterList: function(){
-        var updatedList = this.state.defaultArr;
-        updatedList = updatedList.filter(function(item){
-            if(item.status == true) {
-                return item
-            }
-        })
-        this.setState({items: updatedList});
-    },
-    test: function(){
-        if($('#toggle').prop("checked")) this.FilterList()
-        else this.ActiveFilter()
-    },
-    multiArrCreate: function(){
-         var promiseArr = this.state.items.slice();
-        var multiArr = [];
-        do {
-           multiArr.push(promiseArr.splice(0,20))
-        }
-        while(promiseArr[0] !== undefined)
-            return multiArr
-    },
-    i: 0,
-    plus: function(){
-        var miss = this.multiArrCreate()
-        var check = miss[0][0].status
-        if(j !== miss.length && j < miss.length-1) j += 1
-        pureFilter(check = miss[0][0].status)
-    },
-    minus: function(){
-        var miss = this.multiArrCreate()
-        var check = miss[0][0].status
-        if(j !== 0 && j > 0) j -= 1
-        pureFilter(check = miss[0][0].status)
-    },
-    render: function(){
-        var miss = this.multiArrCreate()
-        var check = miss[0][0].status
-
-         var list = miss[j].map(function(item){
-            var el = [];
-            var statusChecked;
-            var arr = item.option.map(function(items){
-                if(items == 1) el.push('Миття вікон')
-                if(items == 2) el.push('Миття посуду')
-                if(items ==3) el.push('Чистка холодильника')
-                if(items == 4) el.push('Чистка духовки')
-                if(items == 5) el.push('Прасування')
-            })
-            if(item.status == false) {
-                statusChecked = 'Активно'
-            }
-            else {statusChecked = 'Завершено'
-                 }
-            var length = el.map(function(option){
-                return (
-                    <li>{ option }</li>
-                 )
-            });
-             return (
-                <tr>
-                    <td>{item.numberValue}</td>
-                    <td>{item.mail}</td>
-                    <td>{item.phone}</td>
-                    <td>{item.adress}</td>
-                    <td>{item.room}</td>
-                    <td>{item.dTimeH} {item.dTimeD}</td>
-                    <td><ul>{length}</ul>
-                    </td>
-                    <td>{item.pay}</td>
-                    <td>{statusChecked}</td>
-                </tr>
-             )
-         });
-        return (<div>
-                <div className="wrapperNav">
-                <div className="navText">
-                  <p><strong>Ваші прибирання</strong>
-                    Заплануйте нові прибирання та контролюйте вже заплановані</p>
-                </div>
-              </div>
-                <div>
-                <div className="navButton">
-                <div className="firstButtonBlock">
-                    <a className="button is-info" >Заплановані прибирання</a>
-                    <div className="toggleBox">
-                    <input type="checkbox" name="toggle" id="toggle" onChange={this.test}/>
-                    <label htmlFor="toggle" />
-                  </div>
-                    <a className="button" >Проведені прибирання</a>
-                </div>
-                    <a className="button is-success" href="order.html">Замовити прибирання</a>
-            </div>
-                </div>
-    <div className="wrapperTable1">
-            <table className="table is-narrow">
-            <tbody>
-            <tr>
-                <td><strong>#</strong></td>
-                <td><strong>Пошта</strong></td>
-                <td><strong>Номер телефону</strong></td>
-                <td><strong>Адреса</strong></td>
-                <td><strong>К</strong></td>
-                <td><strong>Час  і  дата</strong></td>
-                <td><strong>Опції</strong></td>
-                <td><strong>Сплачено</strong></td>
-                <td><strong>Статус</strong></td>
-            </tr>
-             { list }
-            </tbody>
-            </table>
-            <nav className="pagination">
-          <a className="button" onClick={this.minus}>Попередня</a>
-          <a className="button" onClick={this.plus}>Наступна</a>
-
-        </nav>
-            </div>
-                </div>
-            )
-    }
-});
 var ShowPromo = React.createClass({
     dataPic: function(){
 
@@ -441,7 +294,7 @@ var List = React.createClass({
 });
 
 var OrderBox = React.createClass({
-    
+
     make_pay:function(){
         console.log('start')
         var onAjaxSuccess=function(data)
@@ -452,10 +305,10 @@ var OrderBox = React.createClass({
  $('#form_responce form').submit() //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
  console.log('toto')
  }
-        
+
  $.get("../payment/makeform.php",{price: $('#price').text()},onAjaxSuccess)
- 
-    }, 
+
+    },
     minus1: function(){
     $("input[name='roomQuantity']").val(function(index,newVal){
         if(newVal-1 < 1) return 1
@@ -489,11 +342,11 @@ var OrderBox = React.createClass({
         this.dataPic();
          let a = new Date().valueOf()+24*60*60*1000;
         $( "#datapicker1" ).datepicker( "setDate",new Date(a))
-        
+
     },
     timepick:function(){
         console.log('time');
-      
+
     },
     dataPic: function(inter = 0){
         $("#datapicker1").datepicker({
@@ -501,7 +354,7 @@ var OrderBox = React.createClass({
             'minDate': inter,
             });
         $('#forTime').val('')
-        
+
     },
     summa: function (){
         var sum = 0;
