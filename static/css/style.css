@@ -47,14 +47,41 @@ html body {
   border: 1px solid transparent;
   background: #E8E8E8;
   z-index: 100;
-  background-image: url(../img/artop.png);
   outline: 0!important;
-  transition: 0.4s;
+  transition: 0.3s;
   cursor: pointer;
+}
+.totop .arrow {
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  background-color: transparent;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+  margin: 0 auto;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.totop span {
+  display: block;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s;
 }
 
 .totop:hover {
-    background-color: #000;
+    background-color: #1F9DE0;
+}
+
+.totop:hover span{
+  color: #fff;
+}
+
+.totop:hover div{
+  border-color: #fff;
 }
 
 .totop.active {
@@ -1013,7 +1040,7 @@ html body .wrapperInfoBlock .box {
                 justify-content: center;
         flex-flow: row wrap;
     }
-   
+
     .wrapperCardBlock .card {
         width: 100%;
     }

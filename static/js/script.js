@@ -9,7 +9,7 @@ $(document).ready(function(){
 });
 
 $(function() {
-  $('body').append('<button class="totop" />');
+  $('body').append('<div class="totop"><div class="arrow"></div><span>Наверх</span></div>');
 
   $('.totop').click(() => {
     $('body').animate({'scrollTop': 0}, 1000);
@@ -26,7 +26,7 @@ function fadeOutnojquery(el) {
   el.style.opacity = 1;
   var interhellopreloader = setInterval(function() {
     el.style.opacity = el.style.opacity - 0.05;
-    if (el.style.opacity <= 0.05){ 
+    if (el.style.opacity <= 0.05){
       clearInterval(interhellopreloader);
       hellopreloader.style.display = 'none';
     }
