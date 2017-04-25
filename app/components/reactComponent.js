@@ -31,16 +31,12 @@ ReactDOM.render(<UserDetect user={userBox} />, document.getElementById('hederRow
 var i = 0;
 var j =0;
 
-function PromoCod(cof, dTime, mesg) {
-  this.cof = cof,
-  this.dTime = dTime,
-  this.mesg = mesg
-}
 function dataCod(mail,dTime,phone) {
   this.mail = mail,
   this.dTime = dTime,
   this.phone = phone
 }
+
 function orderCod(numberValue, mail, phone, adress, room, dTimeH, dTimeD, option, pay, status) {
   this.numberValue = numberValue,
   this.mail = mail,
@@ -54,18 +50,27 @@ function orderCod(numberValue, mail, phone, adress, room, dTimeH, dTimeD, option
   this.status = status
 }
 
-var data1 = new dataCod('1asdasf@mail','2012-10-10','000665');
-var data2 = new dataCod('2f@mail','2012-11-11','000665555');
-var data3 = new dataCod('3f@mail','2012-12-12','000');
-var Fpromo = new PromoCod('10','2012-10-10','Blablabla1');
-var Spromo = new PromoCod('20','2012-11-11','Blablabla2');
-var Thpromo = new PromoCod('30','2012-12-12','Blablabla3');
 var order1 = new orderCod(1,'blabla@mail.com','0935556644','ShitIt st',2,'20:16','2k16',[1,2],500,false);
 var order2 = new orderCod(2,'albalb@mail.com','0932223311','ShitHi st',1,'20:15','2k14',[1,4],600,false);
 var order3 = new orderCod(3,'lablab@mail.com','0507778899','ShitHer st',3,'20:20','2k15',[1,3],700,true);
-var dataArr = [data1,data2,data3];
-var promoArr = [Fpromo,Spromo,Thpromo];
-var orderArr =[order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3,order1,order2,order3];
+
+var dataArr = [new dataCod('1asdasf@mail','2012-10-10','000665'),
+               new dataCod('2f@mail','2012-11-11','000665555'),
+               new dataCod('3f@mail','2012-12-12','000')];
+
+var promoArr = [new PromoCode('10', '2012-10-10', 'Blablabla1'),
+                new PromoCode('20', '2012-11-11', 'Blablabla2'),
+                new PromoCode('30', '2012-12-12', 'Blablabla3')];
+
+var orderArr = [order1,order2,order3,
+                order1,order2,order3,
+                order1,order2,order3,
+                order1,order2,order3,
+                order1,order2,order3,
+                order1,order2,order3,
+                order1,order2,order3,
+                order1,order2,order3];
+
 var spliceArr = [];
 var copyArr = orderArr.slice();
 
@@ -302,11 +307,11 @@ var pureFilter = function(bool1){
    ReactDOM.render(<FilterOrder itemsIn={ orderArr } check={ bool1 }/>, document.getElementById('reactBox'))
 };
 
-$('#promo').click(function(){
-     $('#reactBox').empty();
-    $('.nav-item').removeClass("is-active")
-    $('#promo').addClass("is-active")
-    ReactDOM.render(<ShowPromo items={ promoArr } />,document.getElementById('reactBox'))
+$('#promo').click(function() {
+  $('#reactBox').empty();
+  $('.nav-item').removeClass('is-active')
+  $('#promo').addClass('is-active')
+  ReactDOM.render(<ShowPromo items={promoArr} />, document.getElementById('reactBox'));
 });
 
 $('#user').click(function(){
