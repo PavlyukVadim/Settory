@@ -109,6 +109,44 @@ html body {
   color: #57a342;
 }
 
+.navbar {
+    -webkit-backface-visibility: hidden;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    background-color: #0070ff;
+}
+
+.navbar .navbarLogo {
+    display: inline-block;
+    float: left;
+    margin-left: 15%;
+}
+
+.navbar .navbarLogo pre {
+    background-color: #0070ff;
+    color: #fff;
+    font-weight: bold;
+    margin-left: 15%;
+    letter-spacing: -3px; 
+    font-size: 18px;
+}
+
+.navbar .mobile {
+    display: inline-block;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    float: right;
+    margin-right: 15%;
+    padding: 20px;
+}
+
+.navbar .mobile i {
+    padding: 4px;
+}
+
 @media screen and (max-width: 768px) {
   .totop {
     display: none;
@@ -190,18 +228,6 @@ html body {
 header {
     position: relative;
 }
-.navbar {
-    width: 100%;
-    background-color: #eae9e9;
-    top: 0;
-    z-index: 10;
-    min-height:40px;
-    position: fixed;
-    max-height: 65px;
-}
-.navbar {
-    margin: 0;
-}
 .bxslider {
     height: 100%;
 }
@@ -212,67 +238,39 @@ header {
     display: none !important;
 }
 
-.navbarLogo {
-    width: auto;
-    margin-left: 15%;
-    height: 100%;
-    max-width: 25%;
-    display: flex;
-    align-items: center;
-}
-.navbarLogo pre {
-  line-height: 1.1;
-  margin-top: 7px;
-  font-weight: 900;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 18px;
-    color: white;
-    background-color: #eae9e9;
-}
 
-.navbarDownButton {
-    width: auto;
-    position: absolute;
-    top: 50%;
-    right: 5%;
-    transform: translateY(-50%);
-    max-width: 25%;
-}
-@media screen and (max-width: 768px){
-  .navbarLogo pre {
-    margin-top: 0;
-    font-size: 15px;
-  }
-}
-.navbarLogo.column.is-2.is-pulled-left {
-    padding: 0;
-}
-.button.is-primary.navButt,.headerContentBlock .button.is-large.is-primary {
-    background-color: #1f9de0;
-    transition-duration: .3s;
-    margin: auto;
-}
+@media screen and (max-width: 768px) {
+    .navbarLogo.column.is-2.is-pulled-left {
+        padding: 0;
+    }
 
-.button.is-primary.navButt:hover , .button.is-large.is-primary:hover {
-    background-color: #006bbd;
-}
+    .button.is-primary.navButt,.headerContentBlock .button.is-large.is-primary {
+        background-color: #1f9de0;
+        transition-duration: .3s;
+        margin: auto;
+    }
 
+    .button.is-primary.navButt:hover , .button.is-large.is-primary:hover {
+        background-color: #006bbd;
+    }
 
-.headerContentBlock button {
-  margin-top: 20px !important;
-}
-.headerContentBlock p {
-    margin-top: 5%;
-    font-size: 1.2rem;
-    padding-right: 10%;
-}
+    .headerContentBlock button {
+      margin-top: 20px !important;
+    }
 
-.headerContentBlock h1 {
-    margin: 0;
-    font-size: 35px;
-    color: #363636;
-    font-weight: 300;
-    line-height: 1.125;
+    .headerContentBlock p {
+        margin-top: 5%;
+        font-size: 1.2rem;
+        padding-right: 10%;
+    }
+
+    .headerContentBlock h1 {
+        margin: 0;
+        font-size: 35px;
+        color: #363636;
+        font-weight: 300;
+        line-height: 1.125;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -288,12 +286,11 @@ header {
     padding-right: 0;
   }
 }
+
 .container {
   padding: 75px 1.5rem !important;
 }
 
-.first-screen {
-}
 @media screen and (max-width: 768px) {
   .first-screen .columns {
     display: -webkit-box;
@@ -925,17 +922,10 @@ html body .wrapperInfoBlock .box {
         font-size: 1.2rem;
 
     }
-    .navbarLogo span {
-        height: auto;
-    }
-    .header {
-    }
-
 }
 @media screen and (max-width: 800px){
     .header {
-        -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap;
+        
     }
     .navbarDownButton {
         margin-right: 5%;
@@ -1031,9 +1021,6 @@ html body .wrapperInfoBlock .box {
         height: auto;
         font-size: 15px;
     }
-    .navbar {
-        height: 7%;
-    }
     .footerContent {
         -webkit-box-pack: center;
             -ms-flex-pack: center;
@@ -1059,9 +1046,7 @@ html body .wrapperInfoBlock .box {
     .header {
         height: 70%;
     }
-    .navbar {
-        height: 10%;
-    }
+
     .navbarDownButton {
         max-width: none;
     }
