@@ -201,14 +201,11 @@ html body {
     margin-top: 2%;
     font-size: 2em;
     width: 100%;
-
 }
-.h4_main1 {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    width: 100%;
-
+.title-section {
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 20px;
 }
 
 .navbarLogo span,.footerLogo span{
@@ -546,7 +543,7 @@ em {
     height: auto;
  /*   background-color: #eae9e9;
     background-color: #1f9de0;*/
-    background-color:   #1f9de0;
+    background-color:   #0070FF;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -600,13 +597,29 @@ em {
 }
 
 .footerLogo {
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
-    margin: 3%;
-    min-width: 150px;
+  position: relative;
+  width: 100px !important;
+  margin-bottom: 10px;
+}
+.footerLogo p {
+  height: 20px;
+  font-weight: bold;
 }
 
+#logo-part-1 {
+  text-align: left;
+  transform: translateX(10px);
+}
+#logo-part-2 {
+  text-align: center;
+  transform: translateX(10px);
+}
+#logo-part-3 {
+  transform: translateX(-8px);
+}
+.wrapperFooter a:hover {
+  color: #E8E8E8 !important;
+}
 .footerContent .button {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
@@ -912,14 +925,21 @@ html body .wrapperInfoBlock .box {
 .icon.is-large {
     margin: 1%;
 }
-.icon.is-large i {
+.icon-fa {
     color: white;
+    margin: 0 10px;
+}
+.icon-fa:hover i{
+  color: #E8E8E8;
+}
+.icon-fa i {
+  font-style: 30px !important;
 }
 /*.icon.is-large i:hover {
     color:#006bbd;
 }*/
 .footerContentBox .SettoryId:hover {
-    color:#006bbd;
+    color:#E8E8E8;
 }
 .tile.is-child.box {
     padding-top: 2%;
