@@ -122,14 +122,13 @@ html body {
 .navbar .navbarLogo {
     display: inline-block;
     float: left;
-    margin-left: 15%;
+    margin-left: 5%;
 }
 
 .navbar .navbarLogo pre {
     background-color: #0070ff;
     color: #fff;
     font-weight: bold;
-    margin-left: 15%;
     letter-spacing: -3px; 
     font-size: 18px;
 }
@@ -160,12 +159,12 @@ html body {
     font-weight: bold;
     font-size: 16px;
     float: right;
-    margin-right: 10%;
+    margin-right: 5%;
     padding: 20px;
 }
 
 .navbar .mobile i {
-    padding: 4px;
+    margin-right: 5px;
 }
 
 #slider {
@@ -178,6 +177,10 @@ html body {
 
 #slider li img {
     height: 100vh;
+}
+
+.bx-viewport {
+    margin-left: 4px;
 }
 
 .headerContentBlock { 
@@ -240,8 +243,8 @@ html body {
     padding-top: 3%;
 }
 
-#how-it-work, #safety{
-   /* background-color: #f4f4f5;*/
+#how-it-work {
+    padding-top: 50px;
 }
 
 #how-it-work .media {
@@ -372,7 +375,7 @@ header {
 }
 
 .wrapperHeaderRightBlock {
-    background-color: #c4d3da;
+    /*background-color: #c4d3da;*/
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
