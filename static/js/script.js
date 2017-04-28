@@ -1,26 +1,11 @@
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-$(document).ready(function(){
-  $('.bxslider').bxSlider({
-    auto: true,
-    autoControls: true,
-    touchEnabled: false,
-    controls: false,
-    pause: 3000
-  });
-});
-
-$(function() {
-  $('body').append('<div class="totop"><div class="arrow"></div><span>Наверх</span></div>');
-
-  $('.totop').click(() => {
-    $('body').animate({'scrollTop': 0}, 1000);
-    $('html').animate({'scrollTop': 0}, 1000);
-  });
-
-  $(window).scroll(() => {
-    ($(window).scrollTop() > 200) ? $('.totop').addClass('active'):$('.totop').removeClass('active');
-  });
+$('.bxslider').bxSlider({
+  auto: true,
+  autoControls: true,
+  touchEnabled: false,
+  controls: false,
+  pause: 3000
 });
 
 var hellopreloader = document.getElementById('hellopreloader_preload');
@@ -35,42 +20,62 @@ function fadeOutnojquery(el) {
   },16);
 }
 
-var slider = {
-  slides: ['static/img/example_img_1.jpg', 'static/img/example_img_5.jpg', 'static/img/example_img_6.jpg'],
-  titleArr: ['для житлових кімнат','для кухні', 'для ванної та туалету', 'для коридору'],
-  frame: 0,
-  set: function (image, title) { // установка нужного фона слайдеру
-    setTimeout(function () {
-    document.getElementById('sliderTitle').style.opacity = "1";
-    document.getElementById('sliderTitle').innerHTML="" + title + "";
-    document.getElementById('sliderTitle').style.transition = "opacity 0.5s linear"}, 500)
-  },
-  init: function () {
-    this.set(this.slides[this.frame], this.titleArr[this.frame]);
-  },
-  left: function () {
-    this.frame--;
-    if (this.frame < 0) this.frame = this.slides.length - 1;
-    this.set(this.slides[this.frame], this.titleArr[this.frame]);
-  },
-  right: function () {
-    this.frame++;
-    if (this.frame == this.slides.length) this.frame = 0;
-    document.getElementById('sliderTitle').style.opacity = "0";
-    document.getElementById('sliderTitle').style.transition = "opacity 0.5s linear";
-    this.set(this.slides[this.frame], this.titleArr[this.frame]); 
-  }
-};
-
-slider.init();
-setInterval(function () {
-  slider.right();
-}, 3000);
-
 setTimeout(function() {
   fadeOutnojquery(hellopreloader);
 }, 100);
 
+
+(function scrollToComponent() {
+  $('body').append('<div class="totop"><div class="arrow"></div><span>Наверх</span></div>');
+  $('.totop').click(() => {
+    $('body').animate({'scrollTop': 0}, 1000);
+    $('html').animate({'scrollTop': 0}, 1000);
+  });
+  $(window).scroll(() => {
+    ($(window).scrollTop() > 200) ? $('.totop').addClass('active'):$('.totop').removeClass('active');
+  });
+})();
+
+
+(function sliderComponent() {
+
+  var slider = {
+    titleArr: ['для житлових кімнат','для кухні', 'для ванної та туалету', 'для коридору'],
+    indexOfSlides: 0,
+    set: function (title) {
+      setTimeout(function () {
+        document.getElementById('sliderTitle').style.opacity = '1';
+        document.getElementById('sliderTitle').innerHTML = title;
+        document.getElementById('sliderTitle').style.transition = 'opacity 0.5s linear';
+      }, 500);
+    },
+    init: function () {
+      this.set(this.titleArr[this.indexOfSlides]);
+    },
+    left: function () {
+      this.indexOfSlides--;
+      if (this.indexOfSlides < 0) {
+        this.indexOfSlides = this.titleArr.length - 1;
+      }
+      this.set(this.titleArr[this.indexOfSlides]);
+    },
+    right: function () {
+      this.indexOfSlides++;
+      if (this.indexOfSlides === this.titleArr.length) {
+        this.indexOfSlides = 0;
+      }
+      document.getElementById('sliderTitle').style.opacity = '0';
+      document.getElementById('sliderTitle').style.transition = 'opacity 0.5s linear';
+      this.set(this.titleArr[this.indexOfSlides]); 
+    }
+  };
+
+  slider.init();
+  setInterval(function () {
+    slider.right();
+  }, 3000);
+
+})();
 
 (function scrollToComponent() {
     
