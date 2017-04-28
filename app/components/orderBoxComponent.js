@@ -36,11 +36,10 @@ var OrderBox = React.createClass({
   },
 
   componentDidMount: function(){
-    var currDate = new Date();
-    var tomorrow = currDate.setDate(currDate.getDate() + 1);
+    var now = new Date();
     this.multiCheck();
     this.dataPick();
-    $("#datapicker1").datepicker('setDate', new Date(tomorrow));
+    $("#datapicker1").datepicker('setDate', now);
   },
 
   dataPick: function(inter) {
@@ -66,7 +65,7 @@ var OrderBox = React.createClass({
     sum += $("input[name='roomQuantity']").val() * 100 + 400;
     sum += ($("input[name='bathQuantity']").val() - 1) * 100;
     $('#price').empty();
-    $('#price').text(sum);
+    $('#price').text(sum + ' грн');
   },
 
   inputsValidation: function() {
@@ -167,13 +166,12 @@ var OrderBox = React.createClass({
             </p>
           </div>
           <div className="orderBox" id="cost">
-            <span>Сума замовлення: &nbsp;&nbsp;</span>
-            <span id="price"></span>
+            <p className="order-amount">Сума замовлення: &nbsp;<span id="price"></span></p>
             <p>Ми зв{'\''}яжемось з вами за годину до прибирання :)</p>
             <p className="control">
               <input className="input" type="text" placeholder="Промокод, якщо є" />
             </p>
-            <input type="button" onClick={this.make_pay} className="button is-info" defaultValue="Забронювати" />
+            <input id="reserve" type="button" onClick={this.make_pay} className="button is-info" defaultValue="Забронювати" />
           </div>
         </form>
       </div>

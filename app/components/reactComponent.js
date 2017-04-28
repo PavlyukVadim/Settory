@@ -20,33 +20,32 @@ var Example = React.createClass({
   }
 });
 
-$(document).ready(function(){
-  ReactDOM.render(<OrderBox />, document.getElementById('reactBox'));
-})
 
 var userBox = 1;
-ReactDOM.render(<UserDetect user={userBox} />, document.getElementById('hederRow'));
+ReactDOM.render(<MyHeader user={userBox}/>, $('header')[0]);
+ReactDOM.render(<OrderBox/>, document.getElementById('reactBox'));
+ReactDOM.render(<MyFooter/>, $('footer')[0]);
 
 var i = 0;
 var j =0;
 
 function dataCod(mail,dTime,phone) {
-  this.mail = mail,
-  this.dTime = dTime,
-  this.phone = phone
+  this.mail = mail;
+  this.dTime = dTime;
+  this.phone = phone;
 }
 
 function orderCod(numberValue, mail, phone, adress, room, dTimeH, dTimeD, option, pay, status) {
-  this.numberValue = numberValue,
-  this.mail = mail,
-  this.phone = phone,
-  this.adress = adress,
-  this.room = room,
-  this.dTimeH = dTimeH,
-  this.dTimeD = dTimeD,
-  this.option = option,
-  this.pay = pay,
-  this.status = status
+  this.numberValue = numberValue;
+  this.mail = mail;
+  this.phone = phone;
+  this.adress = adress;
+  this.room = room;
+  this.dTimeH = dTimeH;
+  this.dTimeD = dTimeD;
+  this.option = option;
+  this.pay = pay;
+  this.status = status;
 }
 
 var order1 = new orderCod(1,'blabla@mail.com','0935556644','ShitIt st',2,'20:16','2k16',[1,2],500,false);
@@ -93,56 +92,55 @@ var ShowOrderWrap = React.createClass({
     }
 });
 
-
-$('#reloadF').click(function(){
-     $('reactBox').empty();
-    ReactDOM.render(<OrderBox />,document.getElementById('reactBox'))
+$('#reloadF').click(function() {
+  $('reactBox').empty();
+  ReactDOM.render(<OrderBox/>, document.getElementById('reactBox'));
 });
 
-$('#order').click(function(){
-    $('#reactBox').empty();
-     $('.nav-item').removeClass("is-active")
-    $('#order').addClass("is-active")
-   ReactDOM.render(<ShowOrderWrap  />,document.getElementById('reactBox'))
-});
-
-var pure = function(){
-    $('#reactBox').empty();
-     $('.nav-item').removeClass("is-active")
-    $('#order').addClass("is-active")
-   ReactDOM.render(<ShowOrderWrap />, document.getElementById('reactBox'))
-};
-
-var pureFilter = function(bool1){
-    if(bool1) {
-    setTimeout(function(){
-        $('#toggle').prop('checked',true)
-    }),10
-    }
-    $('#reactBox').empty();
-     $('.nav-item').removeClass("is-active")
-    $('#userOrder').addClass("is-active")
-   ReactDOM.render(<FilterOrder itemsIn={ orderArr } check={ bool1 }/>, document.getElementById('reactBox'))
-};
-
-$('#promo').click(function() {
+$(".orders-link").click(function() {
   $('#reactBox').empty();
-  $('.nav-item').removeClass('is-active')
-  $('#promo').addClass('is-active')
-  ReactDOM.render(<ShowPromo items={promoArr} />, document.getElementById('reactBox'));
+  $('.nav-item').removeClass("is-active");
+  $('.orders-link').addClass("is-active");
+  ReactDOM.render(<ShowOrderWrap/>, document.getElementById('reactBox'));
 });
 
-$('#user').click(function(){
-    $('#reactBox').empty();
-     $('.nav-item').removeClass("is-active")
-    $('#user').addClass("is-active")
-   ReactDOM.render(<FilteredList itemsIn={ dataArr }/>,document.getElementById('reactBox'))
+var pure = function() {
+  $('#reactBox').empty();
+  $('.nav-item').removeClass("is-active");
+  $('.orders-link').addClass("is-active");
+  ReactDOM.render(<ShowOrderWrap />, document.getElementById('reactBox'));
+};
+
+var pureFilter = function(bool1) {
+  if(bool1) {
+    setTimeout(function() {
+      $('#toggle').prop('checked',true)
+    }, 10);
+  }
+  $('#reactBox').empty();
+  $('.nav-item').removeClass("is-active");
+  $('#userOrder').addClass("is-active");
+  ReactDOM.render(<FilterOrder itemsIn={orderArr} check={bool1}/>, document.getElementById('reactBox'));
+};
+
+$('.promocode-link').click(function() {
+  $('#reactBox').empty();
+  $('.nav-item').removeClass('is-active');
+  $('.promocode-link').addClass('is-active');
+  ReactDOM.render(<ShowPromo items={promoArr}/>, document.getElementById('reactBox'));
 });
 
-$('#userOrder').click(function(){
-    var bool1 = false
-    $('#reactBox').empty();
-     $('.nav-item').removeClass("is-active")
-    $('#userOrder').addClass("is-active")
-   ReactDOM.render(<FilterOrder itemsIn={ orderArr } check={ bool1 } />,document.getElementById('reactBox'))
+$('.users-link').click(function() {
+  $('#reactBox').empty();
+  $('.nav-item').removeClass("is-active");
+  $('.users-link').addClass("is-active");
+  ReactDOM.render(<FilteredList itemsIn={dataArr}/>, document.getElementById('reactBox'));
+});
+
+$('.our-cleaning-link').click(function() {
+  var bool1 = false;
+  $('#reactBox').empty();
+  $('.nav-item').removeClass("is-active");
+  $('.our-cleaning-link').addClass("is-active");
+  ReactDOM.render(<FilterOrder itemsIn={orderArr} check={bool1}/>, document.getElementById('reactBox'))
 });
