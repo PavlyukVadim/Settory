@@ -375,7 +375,6 @@ header {
 }
 
 .wrapperHeaderRightBlock {
-    /*background-color: #c4d3da;*/
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
@@ -407,17 +406,16 @@ header {
 .columns .column {
     padding: 0;
 }
+
 #why-we .container {
     padding: 0 !important;
     width: 100%;
 }
+
 #why-we hr {
     border: 2px solid #1f9de0;
     width: 20%;
     border-radius: 1px;
-}
-#why-we .mainContentChildImg img{
-  /*border: 2px solid #1f9de0;*/
 }
 
 .mainContentChildImg {
@@ -427,7 +425,7 @@ header {
 
 #why-we .mainContentChildText.content h1 {
     margin: 0;
-    font-size: 36px;
+    font-size: 30px;
 }
 
 em {

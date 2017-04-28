@@ -24,7 +24,6 @@ setTimeout(function() {
   fadeOutnojquery(hellopreloader);
 }, 100);
 
-
 (function scrollToComponent() {
   $('body').append('<div class="totop"><div class="arrow"></div><span>Наверх</span></div>');
   $('.totop').click(() => {
@@ -32,13 +31,15 @@ setTimeout(function() {
     $('html').animate({'scrollTop': 0}, 1000);
   });
   $(window).scroll(() => {
-    ($(window).scrollTop() > 200) ? $('.totop').addClass('active'):$('.totop').removeClass('active');
+    if ($(window).scrollTop() > 200 && $(window).scrollTop() < $(document).height() - $(window).height()) {
+      $('.totop').addClass('active');
+    } else {
+      $('.totop').removeClass('active');
+    }
   });
 })();
 
-
 (function sliderComponent() {
-
   var slider = {
     titleArr: ['для житлових кімнат','для кухні', 'для ванної та туалету', 'для коридору'],
     indexOfSlides: 0,
@@ -77,8 +78,7 @@ setTimeout(function() {
 
 })();
 
-(function scrollToComponent() {
-    
+(function scrollToComponent() { 
   var navLinks = document.getElementsByClassName('nav-link');
   var navbar = document.getElementsByClassName('navbar')[0];
   var mapOfTargetElements = {};
