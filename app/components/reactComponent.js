@@ -109,7 +109,7 @@ $(".orders-link").click(function() {
   $('#reactBox').empty();
   $('.nav-item').removeClass("is-active");
   $('.orders-link').addClass("is-active");
-  ReactDOM.render(<AllOrdersWrap/>, document.getElementById('reactBox'));
+  ReactDOM.render(<AllOrdersComponent ordersArr={ordersArr}/>, document.getElementById('reactBox'));
 });
 
 $('.promocode-link').click(function() {

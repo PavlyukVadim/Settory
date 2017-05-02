@@ -62,7 +62,7 @@ var YourOrders = React.createClass({
     var optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
     var ordersOnPage = 10;
     var currPage = this.state.page;
-    var currFilterByStatus = this.state.filterByStatus
+    var currFilterByStatus = this.state.filterByStatus;
     var orders = this.state.orders.filter(function(order) {
       return order.status === currFilterByStatus;
     });
