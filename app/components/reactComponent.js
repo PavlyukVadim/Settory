@@ -111,22 +111,6 @@ do {
 } while(copyArr[0] !== undefined);
 */
 
-var AllOrdersWrap = React.createClass({
-  render: function(){
-    return (
-        <div>
-          <div className="wrapperNav">
-            <div className="navText">
-              <p><strong>Замовлення</strong> Опрацювати кожне необхідно протягом 5 хвилин</p>
-            </div>
-          </div>
-            <AllOrders ordersArr={ordersArr}  />
-        </div>
-      )
-    }
-});
-
-
 $('#reloadF, .logo').click(function() {
   $('reactBox').empty();
   ReactDOM.render(<OrderBox/>, document.getElementById('reactBox'));
@@ -138,13 +122,6 @@ $(".orders-link").click(function() {
   $('.orders-link').addClass("is-active");
   ReactDOM.render(<AllOrdersWrap/>, document.getElementById('reactBox'));
 });
-
-var pure = function() {
-  $('#reactBox').empty();
-  $('.nav-item').removeClass("is-active");
-  $('.orders-link').addClass("is-active");
-  ReactDOM.render(<AllOrdersWrap />, document.getElementById('reactBox'));
-};
 
 var pureFilter = function(bool1) {
   if(bool1) {
@@ -177,5 +154,5 @@ $('.our-cleaning-link').click(function() {
   $('#reactBox').empty();
   $('.nav-item').removeClass("is-active");
   $('.our-cleaning-link').addClass("is-active");
-  ReactDOM.render(<FilterOrder itemsIn={orderArr} check={bool1}/>, document.getElementById('reactBox'))
+  ReactDOM.render(<FilterOrder itemsIn={ordersArr} check={bool1}/>, document.getElementById('reactBox'))
 });
