@@ -1,13 +1,8 @@
-@font-face {
-    font-family: evolventa;
-    src: url(../fonts/evolventa.ttf);
-}
-
 * {
     margin: 0;
     padding: 0;
     text-decoration: none;
-    font-family: evolventa, serif;
+    font-family: 'Lora', serif;
 }
 
 a {
@@ -72,7 +67,7 @@ html body {
 }
 
 .totop:hover {
-    background-color: #1F9DE0;
+    background-color: #0070ff;
 }
 
 .totop:hover span{
@@ -217,7 +212,7 @@ html body {
 .h4_main2 {
     text-align: center;
     font-size: 2em;
-    /*border-bottom: 2px solid #1f9de0;*/
+    /*border-bottom: 2px solid #0070ff;*/
 }
 
 .h4_main3 {
@@ -277,7 +272,7 @@ header {
     }
 
     .button.is-primary.navButt,.headerContentBlock .button.is-large.is-primary {
-        background-color: #1f9de0;
+        background-color: #0070ff;
         transition-duration: .3s;
         margin: auto;
     }
@@ -344,7 +339,7 @@ header {
 
 #sliderTitle {
     margin-top: 0;
-    color: #1f9de0;
+    color: #0070ff;
 }
 
 .inputHeader {
@@ -352,11 +347,11 @@ header {
 }
 
 .input.is-large:active {
-    border-color: #1f9de0;
+    border-color: #0070ff;
 }
 
 .input.is-large:focus {
-    border-color: #1f9de0;
+    border-color: #0070ff;
 }
 
 .wrapperHeaderRightBlock {
@@ -374,7 +369,7 @@ header {
 
 
 .button.is-large.is-primary:visited, .button.is-large.is-primary:hover {
-    background-color: #1f9de0;
+    background-color: #0844a4;
     opacity: 1;
 }
 
@@ -398,7 +393,7 @@ header {
 }
 
 #why-we hr {
-    border: 2px solid #1f9de0;
+    border: 2px solid #0070ff;
     width: 20%;
     border-radius: 1px;
 }
@@ -417,7 +412,7 @@ em {
     font-style: normal;
     font-size: 36px;
     margin: 0;
-    color: #1f9de0;
+    color: #0070ff;
 }
 
 #why-we .mainContentChildText.content p {
@@ -477,11 +472,11 @@ em {
 }
 
 #downButoon .button:hover {
-    color: #1f9de0;
+    color: #0070ff;
 }
 
 #downButoon .button:active {
-    border-color: #1f9de0;
+    border-color: #0070ff;
 }
 
 
@@ -702,10 +697,10 @@ em {
 }
 
 .control.has-addons .select select {
-    border-color:  #1f9de0;
+    border-color:  #0070ff;
 }
 .control.has-addons .select:after {
-    border-color:  #1f9de0;
+    border-color:  #0070ff;
 }
 .download .button {
     width: 25%;
@@ -720,11 +715,11 @@ em {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    color:  #1f9de0;
+    color:  #0070ff;
     margin-bottom: 4%;
 }
 .footerContent.end a {
-     color:  #1f9de0;
+     color:  #0070ff;
 }
 
 .wrapperCardBlock {
@@ -762,7 +757,7 @@ em {
 
 .wrapperInfoBlock {
     width: 100%;
-    border-bottom:2px solid #1f9de0;
+    border-bottom:2px solid #0070ff;
     padding-top: 3%;
     padding-bottom: 10%;
 }
@@ -775,7 +770,7 @@ html body .wrapperInfoBlock .box {
 }
 
 .image.is-64x64  {
-    background-color: #1f9de0;
+    background-color: #0070ff;
     border-radius: 100%;
     display: -webkit-box;
     display: -ms-flexbox;

@@ -92,7 +92,8 @@ var ShowOrderWrap = React.createClass({
     }
 });
 
-$('#reloadF').click(function() {
+
+$('#reloadF, .logo').click(function() {
   $('reactBox').empty();
   ReactDOM.render(<OrderBox/>, document.getElementById('reactBox'));
 });
