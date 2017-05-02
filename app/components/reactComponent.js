@@ -16,7 +16,7 @@ var Example = React.createClass({
   render: function() {
     return <DatePicker
       selected={this.state.startDate}
-      onChange={this.handleChange} />;
+      onChange={this.handleChange}/>;
   }
 });
 
@@ -24,9 +24,6 @@ var userBox = 1;
 ReactDOM.render(<MyHeader user={userBox}/>, $('header')[0]);
 ReactDOM.render(<OrderBox/>, document.getElementById('reactBox'));
 ReactDOM.render(<MyFooter/>, $('footer')[0]);
-
-var i = 0;
-var j = 0;
 
 function userData(mail, dTime, phone) {
   this.mail = mail;
@@ -103,15 +100,7 @@ var ordersArr = [order1,order2,order3,
                 order1,order2,order3,
                 order1,order2,order3];
 
-/*var spliceArr = [];
-var copyArr = orderArr.slice();
-
-do {
-  spliceArr.push(copyArr.splice(0,20))
-} while(copyArr[0] !== undefined);
-*/
-
-$('#reloadF, .logo').click(function() {
+$('#reloadF, .logo, .order-cleaning').click(function() {
   $('reactBox').empty();
   ReactDOM.render(<OrderBox/>, document.getElementById('reactBox'));
 });
@@ -122,18 +111,6 @@ $(".orders-link").click(function() {
   $('.orders-link').addClass("is-active");
   ReactDOM.render(<AllOrdersWrap/>, document.getElementById('reactBox'));
 });
-
-var pureFilter = function(bool1) {
-  if(bool1) {
-    setTimeout(function() {
-      $('#toggle').prop('checked',true)
-    }, 10);
-  }
-  $('#reactBox').empty();
-  $('.nav-item').removeClass("is-active");
-  $('#userOrder').addClass("is-active");
-  ReactDOM.render(<FilterOrder itemsIn={orderArr} check={bool1}/>, document.getElementById('reactBox'));
-};
 
 $('.promocode-link').click(function() {
   $('#reactBox').empty();
@@ -149,10 +126,9 @@ $('.users-link').click(function() {
   ReactDOM.render(<FilteredList itemsIn={dataArr}/>, document.getElementById('reactBox'));
 });
 
-$('.our-cleaning-link').click(function() {
-  var bool1 = false;
+$('.your-cleaning-link').click(function() {
   $('#reactBox').empty();
   $('.nav-item').removeClass("is-active");
   $('.our-cleaning-link').addClass("is-active");
-  ReactDOM.render(<FilterOrder itemsIn={ordersArr} check={bool1}/>, document.getElementById('reactBox'))
+  ReactDOM.render(<YourOrdersWrap/>, document.getElementById('reactBox'))
 });

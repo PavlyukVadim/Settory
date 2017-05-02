@@ -12,7 +12,7 @@ var MyHeader =  React.createClass({
                 <a className="nav-item promocode-link">Промокод</a>
                 <a className="nav-item users-link">Користувачі</a>
                 <a className="nav-item orders-link">Замовлення</a>
-                <a className="nav-item our-cleaning-link">Ваші прибирання</a>
+                <a className="nav-item your-cleaning-link">Ваші прибирання</a>
                 <a className="nav-item" href="../">Вийти</a>  
               </div>
             </div>
