@@ -9530,6 +9530,10 @@ var _Header = __webpack_require__(188);
 
 var _Header2 = _interopRequireDefault(_Header);
 
+var _OrderBox = __webpack_require__(190);
+
+var _OrderBox2 = _interopRequireDefault(_OrderBox);
+
 var _Footer = __webpack_require__(189);
 
 var _Footer2 = _interopRequireDefault(_Footer);
@@ -9558,6 +9562,7 @@ var App = function (_Component) {
         'div',
         { className: 'app' },
         _react2.default.createElement(_Header2.default, { user: 1 }),
+        _react2.default.createElement(_OrderBox2.default, null),
         _react2.default.createElement(_Footer2.default, null)
       );
     }
@@ -22873,6 +22878,347 @@ var Footer = function (_Component) {
 }(_react.Component);
 
 exports.default = Footer;
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OrderBox = function (_Component) {
+  _inherits(OrderBox, _Component);
+
+  function OrderBox(props) {
+    _classCallCheck(this, OrderBox);
+
+    var _this = _possibleConstructorReturn(this, (OrderBox.__proto__ || Object.getPrototypeOf(OrderBox)).call(this, props));
+
+    _this.make_pay = _this.make_pay.bind(_this);
+    _this.decreaseNumberOfRooms = _this.decreaseNumberOfRooms.bind(_this);
+    _this.increaseNumberOfRooms = _this.increaseNumberOfRooms.bind(_this);
+    _this.decreaseNumberOfBathrooms = _this.decreaseNumberOfBathrooms.bind(_this);
+    _this.increaseNumberOfBathrooms = _this.increaseNumberOfBathrooms.bind(_this);
+    _this.dataPick = _this.dataPick.bind(_this);
+    _this.summa = _this.summa.bind(_this);
+    _this.inputsValidation = _this.inputsValidation.bind(_this);
+    return _this;
+  }
+
+  _createClass(OrderBox, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var now = new Date();
+      this.multiCheck();
+      this.dataPick();
+      $("#datapicker1").datepicker('setDate', now);
+    }
+  }, {
+    key: 'make_pay',
+    value: function make_pay() {
+      var onAjaxSuccess = function onAjaxSuccess(data) {
+        $('#form_responce').html(data); //И передаем эту форму в невидимое поле form_responce
+        $('#form_responce form').submit(); //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
+      };
+      $.get('../payment/makeform.php', { price: $('#price').text() }, onAjaxSuccess);
+    }
+  }, {
+    key: 'decreaseNumberOfRooms',
+    value: function decreaseNumberOfRooms() {
+      var numberOfRooms = +this.numberOfRoomsInput.value;
+      this.numberOfRoomsInput.value = numberOfRooms - 1 < 1 ? 1 : numberOfRooms - 1;
+      this.multiCheck();
+    }
+  }, {
+    key: 'increaseNumberOfRooms',
+    value: function increaseNumberOfRooms() {
+      var numberOfRooms = +this.numberOfRoomsInput.value;
+      this.numberOfRoomsInput.value = numberOfRooms >= 10 ? 10 : numberOfRooms + 1;
+      this.multiCheck();
+    }
+  }, {
+    key: 'decreaseNumberOfBathrooms',
+    value: function decreaseNumberOfBathrooms() {
+      var numberOfBathrooms = +this.numberOfBathroomsInput.value;
+      this.numberOfBathroomsInput.value = numberOfBathrooms - 1 < 1 ? 1 : numberOfBathrooms - 1;
+      this.multiCheck();
+    }
+  }, {
+    key: 'increaseNumberOfBathrooms',
+    value: function increaseNumberOfBathrooms() {
+      var numberOfBathrooms = +this.numberOfBathroomsInput.value;
+      this.numberOfBathroomsInput.value = numberOfBathrooms >= 10 ? 10 : numberOfBathrooms + 1;
+      this.multiCheck();
+    }
+  }, {
+    key: 'dataPick',
+    value: function dataPick(inter) {
+      inter = inter || 0;
+      $("#datapicker1").datepicker({
+        'dateFormat': 'dd MM yy',
+        'minDate': inter
+      });
+      $('#forTime').val('');
+    }
+  }, {
+    key: 'summa',
+    value: function summa() {
+      var sum = 0;
+      if ($('#1stOpt').prop("checked")) sum += 300;
+      if ($('#2stOpt').prop("checked")) sum += 100;
+      if ($('#3stOpt').prop("checked")) sum += 150;
+      if ($('#4stOpt').prop("checked")) sum += 150;
+      if ($('#5stOpt').prop("checked")) sum += 125;
+      if ($('#6stOpt').prop("checked")) sum += 150;
+      if ($('#7stOpt').prop("checked")) sum += 200;
+      if ($('#8stOpt').prop("checked")) sum += 150;
+      if ($('#9stOpt').prop("checked")) sum += 50;
+      sum += $("input[name='roomQuantity']").val() * 100 + 400;
+      sum += ($("input[name='bathQuantity']").val() - 1) * 100;
+      $('#price').empty();
+      $('#price').text(sum + ' грн');
+    }
+  }, {
+    key: 'inputsValidation',
+    value: function inputsValidation() {
+      var numberOfRooms = +this.numberOfRoomsInput.value || 0;
+      var numberOfBathrooms = +this.numberOfBathroomsInput.value || 0;
+
+      numberOfRooms = numberOfRooms > 10 ? numberOfRooms % 10 : numberOfRooms;
+      numberOfRooms = numberOfRooms < 1 ? 1 : numberOfRooms;
+      this.numberOfRoomsInput.value = numberOfRooms;
+
+      numberOfBathrooms = numberOfBathrooms > 10 ? numberOfBathrooms % 10 : numberOfBathrooms;
+      numberOfBathrooms = numberOfBathrooms < 1 ? 1 : numberOfBathrooms;
+      this.numberOfBathroomsInput.value = numberOfBathrooms;
+    }
+  }, {
+    key: 'multiCheck',
+    value: function multiCheck() {
+      this.inputsValidation();
+      this.summa();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { key: i, className: 'wrapperOrderBlock' },
+        _react2.default.createElement(
+          'form',
+          { id: 'orderForm' },
+          _react2.default.createElement(
+            'div',
+            { className: 'orderBlock' },
+            _react2.default.createElement(
+              'label',
+              { className: 'label' },
+              '\u0410\u0434\u0440\u0435\u0441\u0430 \u043A\u0432\u0430\u0440\u0442\u0438\u0440\u0438'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control' },
+              _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u0432\u0443\u043B\u0438\u0446\u044F \u0411\u043E\u0433\u0434\u0430\u043D\u0430 \u0425\u043C\u0435\u043B\u044C\u043D\u0438\u0446\u044C\u043A\u043E\u0433\u043E 64,\u043A\u0432\u0430\u0440\u0442\u0438\u0440\u043013', required: true })
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'label' },
+              '\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u043A\u0456\u043C\u043D\u0430\u0442'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control has-addons' },
+              _react2.default.createElement(
+                'a',
+                { className: 'button', id: 'minus', onClick: this.decreaseNumberOfRooms },
+                '-'
+              ),
+              _react2.default.createElement('input', { className: 'input is-expanded',
+                type: 'text',
+                ref: function ref(input) {
+                  _this2.numberOfRoomsInput = input;
+                },
+                onChange: this.multiCheck,
+                name: 'roomQuantity',
+                min: 1,
+                defaultValue: 1,
+                maxLength: 2,
+                required: true }),
+              _react2.default.createElement(
+                'a',
+                { className: 'button', id: 'plus', onClick: this.increaseNumberOfRooms },
+                '+'
+              )
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'label' },
+              '\u041A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u0430\u043D\u0432\u0443\u0437\u043B\u0456\u0432'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control has-addons' },
+              _react2.default.createElement(
+                'a',
+                { className: 'button', id: 'minus1', onClick: this.decreaseNumberOfBathrooms },
+                '-'
+              ),
+              _react2.default.createElement('input', { className: 'input is-expanded',
+                type: 'text',
+                ref: function ref(input) {
+                  _this2.numberOfBathroomsInput = input;
+                },
+                onChange: this.multiCheck,
+                maxLength: 2,
+                defaultValue: 1,
+                name: 'bathQuantity',
+                min: 1,
+                required: true }),
+              _react2.default.createElement(
+                'a',
+                { className: 'button', id: 'plus1', onClick: this.increaseNumberOfBathrooms },
+                '+'
+              )
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'label' },
+              '\u041D\u0430 \u044F\u043A\u0443 \u0434\u0430\u0442\u0443?'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control' },
+              _react2.default.createElement('input', { type: 'text', className: 'input',
+                id: 'datapicker1',
+                onClick: this.dataPick,
+                required: true })
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'label', id: 'time' },
+              '\u041D\u0430 \u044F\u043A\u0438\u0439 \u0447\u0430\u0441?'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control' },
+              _react2.default.createElement(Timepick, null)
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'label' },
+              '\u0414\u043E\u0434\u0430\u0442\u043A\u043E\u0432\u0456 \u043E\u043F\u0446\u0456\u0457'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control checkBoxBox' },
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '1stOpt', onChange: this.summa }),
+                '\u041C\u0438\u0442\u0442\u044F \u0432\u0456\u043A\u043E\u043D'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '2stOpt', onChange: this.summa }),
+                '\u041C\u0438\u0442\u0442\u044F \u043F\u043E\u0441\u0443\u0434\u0443'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '3stOpt', onChange: this.summa }),
+                '\u0427\u0438\u0441\u0442\u043A\u0430 \u0445\u043E\u043B\u043E\u0434\u0438\u043B\u044C\u043D\u0438\u043A\u0438'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '4stOpt', onChange: this.summa }),
+                '\u0427\u0438\u0441\u0442\u043A\u0430 \u0434\u0443\u0445\u043E\u0432\u043A\u0438'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '5stOpt', onChange: this.summa }),
+                '\u041F\u0440\u0430\u0441\u0443\u0432\u0430\u043D\u043D\u044F'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '6stOpt', onChange: this.summa }),
+                '\u0427\u0438\u0441\u0442\u043A\u0430 \u043C\u0456\u043A\u0440\u043E\u0445\u0432\u0456\u043B\u044C\u043E\u0432\u043E\u0457 \u043F\u0435\u0447\u0456'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '7stOpt', onChange: this.summa }),
+                '\u041F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F \u0432 \u043A\u0443\u0445\u043E\u043D\u043D\u0438\u0445 \u0448\u0430\u0444\u0430\u0445'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '8stOpt', onChange: this.summa }),
+                '\u041C\u0438\u0442\u0442\u044F \u043A\u0443\u0445\u043E\u043D\u043D\u043E\u0457 \u0432\u0438\u0442\u044F\u0436\u043A\u0438'
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'checkbox' },
+                _react2.default.createElement('input', { type: 'checkbox', id: '9stOpt', onChange: this.summa }),
+                '\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u043E\u0434\u043D\u0456\u0454\u0457 \u043F\u0430\u0440\u0442\u0456\u0457 \u0431\u0456\u043B\u0438\u0437\u043D\u0438'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'orderBox', id: 'cost' },
+            _react2.default.createElement(
+              'p',
+              { className: 'order-amount' },
+              '\u0421\u0443\u043C\u0430 \u0437\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F: \xA0',
+              _react2.default.createElement('span', { id: 'price' })
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              '\u041C\u0438 \u0437\u0432',
+              '\'',
+              '\u044F\u0436\u0435\u043C\u043E\u0441\u044C \u0437 \u0432\u0430\u043C\u0438 \u0437\u0430 \u0433\u043E\u0434\u0438\u043D\u0443 \u0434\u043E \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F :)'
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control' },
+              _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434, \u044F\u043A\u0449\u043E \u0454' })
+            ),
+            _react2.default.createElement('input', { id: 'reserve', type: 'button', onClick: this.make_pay, className: 'button is-info', defaultValue: '\u0417\u0430\u0431\u0440\u043E\u043D\u044E\u0432\u0430\u0442\u0438' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return OrderBox;
+}(_react.Component);
+
+exports.default = OrderBox;
 
 /***/ })
 /******/ ]);

@@ -1,58 +1,69 @@
-var OrderBox = React.createClass({
-  make_pay: function() {
-    console.log('start');
-    var onAjaxSuccess = function(data) {
-      // Здесь мы получаем данные в переменную data
-      console.log(data)
-      $('#form_responce').html(data); //И передаем эту форму в невидимое поле form_responce
-      $('#form_responce form').submit() //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
-      console.log('toto');
-    }
-    $.get('../payment/makeform.php', {price: $('#price').text()}, onAjaxSuccess);
-  },
+import React, { Component } from 'react';
 
-  decreaseNumberOfRooms: function() {
-    var numberOfRooms = +this.numberOfRoomsInput.value;
-    this.numberOfRoomsInput.value = numberOfRooms - 1 < 1 ? 1 : numberOfRooms - 1;
-    this.multiCheck()
-  },
+class OrderBox extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.make_pay = this.make_pay.bind(this);
+    this.decreaseNumberOfRooms = this.decreaseNumberOfRooms.bind(this);
+    this.increaseNumberOfRooms = this.increaseNumberOfRooms.bind(this);
+    this.decreaseNumberOfBathrooms = this.decreaseNumberOfBathrooms.bind(this);
+    this.increaseNumberOfBathrooms = this.increaseNumberOfBathrooms.bind(this);
+    this.dataPick = this.dataPick.bind(this);
+    this.summa = this.summa.bind(this);
+    this.inputsValidation = this.inputsValidation.bind(this);
+  }
 
-  increaseNumberOfRooms: function() {
-    var numberOfRooms = +this.numberOfRoomsInput.value;
-    this.numberOfRoomsInput.value = numberOfRooms >= 10 ? 10 : numberOfRooms + 1;
-    this.multiCheck()
-  },
-
-  decreaseNumberOfBathrooms: function() {
-    var numberOfBathrooms = +this.numberOfBathroomsInput.value;
-    this.numberOfBathroomsInput.value = numberOfBathrooms - 1 < 1 ? 1 : numberOfBathrooms - 1;
-    this.multiCheck();
-  },
-
-  increaseNumberOfBathrooms: function() {
-    var numberOfBathrooms = +this.numberOfBathroomsInput.value;
-    this.numberOfBathroomsInput.value = numberOfBathrooms >= 10 ? 10 : numberOfBathrooms + 1;
-    this.multiCheck();
-  },
-
-  componentDidMount: function(){
-    var now = new Date();
+  componentDidMount() {
+    let now = new Date();
     this.multiCheck();
     this.dataPick();
     $("#datapicker1").datepicker('setDate', now);
-  },
+  }
 
-  dataPick: function(inter) {
+  make_pay() {
+    let onAjaxSuccess = (data) => {
+      $('#form_responce').html(data); //И передаем эту форму в невидимое поле form_responce
+      $('#form_responce form').submit() //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
+    }
+    $.get('../payment/makeform.php', {price: $('#price').text()}, onAjaxSuccess);
+  }
+
+  decreaseNumberOfRooms() {
+    let numberOfRooms = +this.numberOfRoomsInput.value;
+    this.numberOfRoomsInput.value = numberOfRooms - 1 < 1 ? 1 : numberOfRooms - 1;
+    this.multiCheck();
+  }
+
+  increaseNumberOfRooms() {
+    let numberOfRooms = +this.numberOfRoomsInput.value;
+    this.numberOfRoomsInput.value = numberOfRooms >= 10 ? 10 : numberOfRooms + 1;
+    this.multiCheck();
+  }
+
+  decreaseNumberOfBathrooms() {
+    let numberOfBathrooms = +this.numberOfBathroomsInput.value;
+    this.numberOfBathroomsInput.value = numberOfBathrooms - 1 < 1 ? 1 : numberOfBathrooms - 1;
+    this.multiCheck();
+  }
+
+  increaseNumberOfBathrooms() {
+    let numberOfBathrooms = +this.numberOfBathroomsInput.value;
+    this.numberOfBathroomsInput.value = numberOfBathrooms >= 10 ? 10 : numberOfBathrooms + 1;
+    this.multiCheck();
+  }
+
+  dataPick(inter) {
     inter = inter || 0;
     $("#datapicker1").datepicker({
       'dateFormat': 'dd MM yy',
       'minDate': inter,
     });
     $('#forTime').val('');
-  },
+  }
   
-  summa: function () {
-    var sum = 0;
+  summa() {
+    let sum = 0;
     if ($('#1stOpt').prop("checked")) sum += 300;
     if ($('#2stOpt').prop("checked")) sum += 100;
     if ($('#3stOpt').prop("checked")) sum += 150;
@@ -66,11 +77,11 @@ var OrderBox = React.createClass({
     sum += ($("input[name='bathQuantity']").val() - 1) * 100;
     $('#price').empty();
     $('#price').text(sum + ' грн');
-  },
+  }
 
-  inputsValidation: function() {
-    var numberOfRooms = +this.numberOfRoomsInput.value || 0;
-    var numberOfBathrooms = +this.numberOfBathroomsInput.value || 0;
+  inputsValidation() {
+    let numberOfRooms = +this.numberOfRoomsInput.value || 0;
+    let numberOfBathrooms = +this.numberOfBathroomsInput.value || 0;
     
     numberOfRooms = numberOfRooms > 10 ? numberOfRooms % 10 : numberOfRooms;
     numberOfRooms = numberOfRooms < 1 ? 1 : numberOfRooms;
@@ -79,14 +90,14 @@ var OrderBox = React.createClass({
     numberOfBathrooms = numberOfBathrooms > 10 ? numberOfBathrooms % 10 : numberOfBathrooms;
     numberOfBathrooms = numberOfBathrooms < 1 ? 1 : numberOfBathrooms;
     this.numberOfBathroomsInput.value = numberOfBathrooms;
-  },
+  }
 
-  multiCheck: function() {
+  multiCheck() {
     this.inputsValidation();
     this.summa();
-  },
+  }
 
-  render: function(i) {
+  render() {
     return (
       <div  key={i} className="wrapperOrderBlock">
         <form id="orderForm">
@@ -175,6 +186,8 @@ var OrderBox = React.createClass({
           </div>
         </form>
       </div>
-    )
+    );
   }
-});
+}
+
+export default OrderBox;
