@@ -1,8 +1,10 @@
-var MyHeader =  React.createClass({
-    
-    render: function() {
-      if (this.props.user == 1 ) {
-        return (
+import React, { Component } from 'react';
+
+class Header extends Component {
+  render() {
+    if (this.props.user == 1 ) {
+      return (
+        <header>
           <div className="wrapperHeader ">
             <div className="navbar">
               <div className="navbarLogo">
@@ -17,9 +19,11 @@ var MyHeader =  React.createClass({
               </div>
             </div>
           </div>
-        )
-      } else {
-          return (
+        </header>
+      )
+    } else {
+        return (
+          <header>
             <div className="nav">
               <div className="nav-left">
                 <a className="nav-item" href="../">Settory</a>
@@ -29,7 +33,10 @@ var MyHeader =  React.createClass({
                 <a className="nav-item" href="../">Вийти</a>
               </div>
             </div>
-          )
-      }
+          </header>
+        )
     }
-});
+  }
+}
+
+export default Header;

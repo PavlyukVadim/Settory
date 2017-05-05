@@ -9526,6 +9526,10 @@ var _react = __webpack_require__(50);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Header = __webpack_require__(188);
+
+var _Header2 = _interopRequireDefault(_Header);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9544,9 +9548,13 @@ var App = function (_Component) {
   }
 
   _createClass(App, [{
-    key: "render",
+    key: 'render',
     value: function render() {
-      return _react2.default.createElement("div", { className: "app" });
+      return _react2.default.createElement(
+        'div',
+        { className: 'app' },
+        _react2.default.createElement(_Header2.default, { user: 1 })
+      );
     }
   }]);
 
@@ -22577,6 +22585,131 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_Component) {
+  _inherits(Header, _Component);
+
+  function Header() {
+    _classCallCheck(this, Header);
+
+    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+  }
+
+  _createClass(Header, [{
+    key: "render",
+    value: function render() {
+      if (this.props.user == 1) {
+        return _react2.default.createElement(
+          "header",
+          null,
+          _react2.default.createElement(
+            "div",
+            { className: "wrapperHeader " },
+            _react2.default.createElement(
+              "div",
+              { className: "navbar" },
+              _react2.default.createElement(
+                "div",
+                { className: "navbarLogo" },
+                _react2.default.createElement("img", { className: "logo", src: "../../static/img/logo.png" })
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "mobile" },
+                _react2.default.createElement(
+                  "a",
+                  { className: "nav-item promocode-link" },
+                  "\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434"
+                ),
+                _react2.default.createElement(
+                  "a",
+                  { className: "nav-item users-link" },
+                  "\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456"
+                ),
+                _react2.default.createElement(
+                  "a",
+                  { className: "nav-item orders-link" },
+                  "\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F"
+                ),
+                _react2.default.createElement(
+                  "a",
+                  { className: "nav-item your-cleaning-link" },
+                  "\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F"
+                ),
+                _react2.default.createElement(
+                  "a",
+                  { className: "nav-item", href: "../" },
+                  "\u0412\u0438\u0439\u0442\u0438"
+                )
+              )
+            )
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          "header",
+          null,
+          _react2.default.createElement(
+            "div",
+            { className: "nav" },
+            _react2.default.createElement(
+              "div",
+              { className: "nav-left" },
+              _react2.default.createElement(
+                "a",
+                { className: "nav-item", href: "../" },
+                "Settory"
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "nav-right_custom" },
+              _react2.default.createElement(
+                "a",
+                { className: "nav-item", id: "userOrder" },
+                "\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F"
+              ),
+              _react2.default.createElement(
+                "a",
+                { className: "nav-item", href: "../" },
+                "\u0412\u0438\u0439\u0442\u0438"
+              )
+            )
+          )
+        );
+      }
+    }
+  }]);
+
+  return Header;
+}(_react.Component);
+
+exports.default = Header;
 
 /***/ })
 /******/ ]);
