@@ -22,19 +22,19 @@ class Header extends Component {
         </header>
       )
     } else {
-        return (
-          <header>
-            <div className="nav">
-              <div className="nav-left">
-                <a className="nav-item" href="../">Settory</a>
-              </div>
-              <div className="nav-right_custom">
-                <a className="nav-item" id="userOrder">Ваші прибирання</a>
-                <a className="nav-item" href="../">Вийти</a>
-              </div>
+      return (
+        <header>
+          <div className="nav">
+            <div className="nav-left">
+              <a className="nav-item" href="../">Settory</a>
             </div>
-          </header>
-        )
+            <div className="nav-right_custom">
+              <a className="nav-item" id="userOrder">Ваші прибирання</a>
+              <a className="nav-item" href="../">Вийти</a>
+            </div>
+          </div>
+        </header>
+      )
     }
   }
 }

@@ -9530,6 +9530,10 @@ var _Header = __webpack_require__(188);
 
 var _Header2 = _interopRequireDefault(_Header);
 
+var _Footer = __webpack_require__(189);
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9553,7 +9557,8 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'app' },
-        _react2.default.createElement(_Header2.default, { user: 1 })
+        _react2.default.createElement(_Header2.default, { user: 1 }),
+        _react2.default.createElement(_Footer2.default, null)
       );
     }
   }]);
@@ -22710,6 +22715,164 @@ var Header = function (_Component) {
 }(_react.Component);
 
 exports.default = Header;
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Footer = function (_Component) {
+  _inherits(Footer, _Component);
+
+  function Footer() {
+    _classCallCheck(this, Footer);
+
+    return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+  }
+
+  _createClass(Footer, [{
+    key: "render",
+
+
+    /*toPromocode: function() {
+      ReactDOM.render(<ShowPromo items={promoArr}/>, document.getElementById('reactBox'));
+    },
+     toUsers: function() {
+      ReactDOM.render(<FilteredList itemsIn={dataArr}/>, document.getElementById('reactBox'));
+    },
+     toOrders: function() {
+      ReactDOM.render(<ShowOrderWrap/>, document.getElementById('reactBox'));
+    },
+     toOurCleaning: function() {
+      var bool1 = false;
+      ReactDOM.render(<FilterOrder itemsIn={orderArr} check={bool1}/>, document.getElementById('reactBox'))
+    },*/
+
+    value: function render() {
+      return _react2.default.createElement(
+        "footer",
+        null,
+        _react2.default.createElement(
+          "div",
+          { className: "wrapperFooter" },
+          _react2.default.createElement(
+            "div",
+            { className: "footerBlock" },
+            _react2.default.createElement(
+              "div",
+              { className: "footerContent" },
+              _react2.default.createElement(
+                "div",
+                { className: "footerContentBox" },
+                _react2.default.createElement("img", { className: "logo", src: "../../static/img/logo.png", alt: "" }),
+                _react2.default.createElement(
+                  "div",
+                  { className: "tags" },
+                  _react2.default.createElement(
+                    "a",
+                    { href: "https://www.instagram.com/settory/", className: "SettoryId" },
+                    "#settory"
+                  ),
+                  _react2.default.createElement(
+                    "a",
+                    { href: "https://www.instagram.com/explore/tags/settoryclean/", className: "SettoryId" },
+                    "#settoryclean"
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "footerContentBox" },
+                _react2.default.createElement(
+                  "div",
+                  { className: "site-map" },
+                  _react2.default.createElement(
+                    "a",
+                    { className: "nav-link promocode-link" },
+                    "\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434"
+                  ),
+                  _react2.default.createElement(
+                    "a",
+                    { className: "nav-link users-link" },
+                    "\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456"
+                  ),
+                  _react2.default.createElement(
+                    "a",
+                    { className: "nav-link orders-link" },
+                    "\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F"
+                  ),
+                  _react2.default.createElement(
+                    "a",
+                    { className: "nav-link our-cleaning-link" },
+                    "\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F"
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "footerContentBox iconBlock" },
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement(
+                    "p",
+                    null,
+                    "\u041F\u043E\u0442\u0440\u0456\u0431\u043D\u0430 \u0434\u043E\u043F\u043E\u043C\u043E\u0433\u0430 - \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443\u0439\u0442\u0435: ",
+                    _react2.default.createElement("br", null),
+                    " 068 305 82 54"
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    null,
+                    _react2.default.createElement(
+                      "a",
+                      { href: "mailto:settory@i.ua", "class": "icon-fa" },
+                      _react2.default.createElement("i", { "class": "fa fa-envelope", "aria-hidden": "true" })
+                    ),
+                    _react2.default.createElement(
+                      "a",
+                      { href: "https://www.facebook.com/settory.clean/", "class": "icon-fa" },
+                      _react2.default.createElement("i", { "class": "fa fa-facebook-official", "aria-hidden": "true" })
+                    ),
+                    _react2.default.createElement(
+                      "a",
+                      { href: "https://www.instagram.com/settory/", "class": "icon-fa" },
+                      _react2.default.createElement("i", { "class": "fa fa-instagram", "aria-hidden": "true" })
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Footer;
+}(_react.Component);
+
+exports.default = Footer;
 
 /***/ })
 /******/ ]);
