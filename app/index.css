@@ -206,7 +206,7 @@ table#fc {
     color: #000;
 }
 
-#reactBox {
+#root > div > div {
     min-height: calc(100vh - 285px);
 }
 

@@ -1160,3 +1160,20 @@ html body .wrapperInfoBlock .box {
         height: auto;
     }
 }
+
+#how-it-work, #why-we{
+  background-color: #F5F5F5;
+}
+
+#how-it-work{
+  padding-top: 50px;
+}
+
+.site-map a {
+ font-size: 16px;
+ text-align: left;
+}
+
+#safety p {
+  text-align: left;
+}

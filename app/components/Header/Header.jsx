@@ -12,10 +12,10 @@ class Header extends Component {
                 <img className="logo" src="./static/img/logo.png"></img>
               </div>
               <div className="mobile">
-                <Link to="/promoCodes">Промокод</Link>
-                <Link to="/allUsers">Користувачі</Link>
-                <Link to="/allOrders">Замовлення</Link>
-                <Link to="/yourOrders">Ваші прибирання</Link>
+                <Link to="/promoCodes" className="nav-item">Промокод</Link>
+                <Link to="/allUsers" className="nav-item">Користувачі</Link>
+                <Link to="/allOrders" className="nav-item">Замовлення</Link>
+                <Link to="/yourOrders" className="nav-item">Ваші прибирання</Link>
                 <a className="nav-item" href="../">Вийти</a>  
               </div>
             </div>
@@ -30,7 +30,7 @@ class Header extends Component {
               <a className="nav-item" href="../">Settory</a>
             </div>
             <div className="nav-right_custom">
-              <Link to="/yourOrders">Ваші прибирання</Link>
+              <Link to="/yourOrders" className="nav-item">Ваші прибирання</Link>
               <a className="nav-item" href="../">Вийти</a>
             </div>
           </div>
