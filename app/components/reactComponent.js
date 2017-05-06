@@ -87,10 +87,6 @@ var dataArr = [new userData('sample.mail1@mail.com','2012-10-10','0935556644'),
                new userData('sample.mail2@mail.com','2012-11-11','0932223311'),
                new userData('sample.mail3@mail.com','2012-12-12','0507778899')];
 
-var promoArr = [new PromoCode('10', '2012-10-10', 'PromoCode1'),
-                new PromoCode('20', '2012-11-11', 'PromoCode2'),
-                new PromoCode('30', '2012-12-12', 'PromoCode3')];
-
 var ordersArr = [order1,order2,order3,
                 order1,order2,order3,
                 order1,order2,order3,

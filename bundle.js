@@ -9534,6 +9534,10 @@ var _OrderBox = __webpack_require__(190);
 
 var _OrderBox2 = _interopRequireDefault(_OrderBox);
 
+var _PromoCodes = __webpack_require__(192);
+
+var _PromoCodes2 = _interopRequireDefault(_PromoCodes);
+
 var _Footer = __webpack_require__(189);
 
 var _Footer2 = _interopRequireDefault(_Footer);
@@ -9563,6 +9567,7 @@ var App = function (_Component) {
         { className: 'app' },
         _react2.default.createElement(_Header2.default, { user: 1 }),
         _react2.default.createElement(_OrderBox2.default, null),
+        _react2.default.createElement(_PromoCodes2.default, null),
         _react2.default.createElement(_Footer2.default, null)
       );
     }
@@ -23314,6 +23319,217 @@ var TimePicker = function (_Component) {
 }(_react.Component);
 
 exports.default = TimePicker;
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function PromoCode(discount, dTime, code) {
+  this.discount = discount;
+  this.dTime = dTime;
+  this.code = code;
+}
+
+var PromoCodes = function (_Component) {
+  _inherits(PromoCodes, _Component);
+
+  function PromoCodes(props) {
+    _classCallCheck(this, PromoCodes);
+
+    var _this = _possibleConstructorReturn(this, (PromoCodes.__proto__ || Object.getPrototypeOf(PromoCodes)).call(this, props));
+
+    _this.state = {
+      arrayOfPromoCodes: _this.getInitialPromoCodes()
+    };
+    _this.addPromoCode = _this.addPromoCode.bind(_this);
+    _this.timePick = _this.timePick.bind(_this);
+    _this.getPromoCodes = _this.getPromoCodes.bind(_this);
+    _this.deletePromoCode = _this.deletePromoCode.bind(_this);
+    return _this;
+  }
+
+  _createClass(PromoCodes, [{
+    key: 'getInitialPromoCodes',
+    value: function getInitialPromoCodes() {
+      return [new PromoCode('10', '2012-10-10', 'PromoCode1'), new PromoCode('20', '2012-11-11', 'PromoCode2'), new PromoCode('30', '2012-12-12', 'PromoCode3')];
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.timePick();
+    }
+  }, {
+    key: 'timePick',
+    value: function timePick() {
+      $('#datapicker2').datepicker({
+        dateFormat: 'dd/mm/yy'
+      });
+    }
+  }, {
+    key: 'deletePromoCode',
+    value: function deletePromoCode(i) {
+      this.setState(function (prevState) {
+        prevState.arrayOfPromoCodes.splice(i, 1);
+        return {
+          arrayOfPromoCodes: prevState.arrayOfPromoCodes
+        };
+      });
+    }
+  }, {
+    key: 'addPromoCode',
+    value: function addPromoCode(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.setState(function (prevState) {
+        var newPromoCode = new PromoCode(_this2.discountInput.value, _this2.dTimeInput.value, _this2.codeInput.value);
+        prevState.arrayOfPromoCodes.push(newPromoCode);
+        return {
+          arrayOfPromoCodes: prevState.arrayOfPromoCodes
+        };
+      });
+    }
+  }, {
+    key: 'getPromoCodes',
+    value: function getPromoCodes() {
+      var _this3 = this;
+
+      var promoCodes = this.state.arrayOfPromoCodes.map(function (item, i) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'promoCodShow', key: i },
+          _react2.default.createElement(
+            'p',
+            null,
+            '\u041F\u0440\u043E\u043C\u043E \u043D\u0430 ',
+            item.discount,
+            '% \u0434\u0456\u0439\u0441\u043D\u0435 \u0434\u043E ',
+            item.dTime,
+            ', \u043A\u043E\u0434:',
+            item.code
+          ),
+          _react2.default.createElement(
+            'a',
+            { className: 'deletepromo', onClick: function onClick() {
+                return _this3.deletePromoCode(i);
+              } },
+            '\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438'
+          )
+        );
+      });
+      return promoCodes;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
+
+      var promoCodes = this.getPromoCodes();
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'wrapperPromoCreate' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434\u0438'
+          ),
+          _react2.default.createElement(
+            'form',
+            { id: 'promoCreate', onSubmit: this.addPromoCode },
+            _react2.default.createElement(
+              'p',
+              { className: 'control has-addons' },
+              _react2.default.createElement('input', { className: 'input', type: 'text',
+                ref: function ref(input) {
+                  _this4.discountInput = input;
+                },
+                placeholder: '\u043F\u0440\u043E\u0446\u0435\u043D\u0442',
+                required: true }),
+              _react2.default.createElement(
+                'a',
+                { className: 'button' },
+                '%'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control has-addons' },
+              _react2.default.createElement('input', { type: 'text', className: 'input',
+                id: 'datapicker2',
+                onClick: this.timePick,
+                ref: function ref(input) {
+                  _this4.dTimeInput = input;
+                },
+                placeholder: '\u0434\u0435\u043D\u044C/\u043C\u0456\u0441\u044F\u0446\u044C/\u0440\u0456\u043A',
+                required: true }),
+              _react2.default.createElement(
+                'a',
+                { className: 'button' },
+                '\u0414\u0410\u0422\u0410'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control has-addons' },
+              _react2.default.createElement('input', { className: 'input', type: 'text',
+                ref: function ref(input) {
+                  _this4.codeInput = input;
+                },
+                placeholder: '\u043A\u043E\u0434' }),
+              _react2.default.createElement(
+                'a',
+                { className: 'button' },
+                '\u041A\u041E\u0414'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'control' },
+              _react2.default.createElement(
+                'button',
+                { className: 'button is-success', type: 'submit' },
+                '\u0414\u043E\u0434\u0430\u0442\u0438 \u043F\u0440\u043E\u043C\u043E'
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'promoShowContent' },
+          promoCodes
+        )
+      );
+    }
+  }]);
+
+  return PromoCodes;
+}(_react.Component);
+
+exports.default = PromoCodes;
 
 /***/ })
 /******/ ]);

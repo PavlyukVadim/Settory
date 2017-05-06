@@ -1,39 +1,54 @@
+import React, { Component } from 'react';
+
 function PromoCode(discount, dTime, code) {
   this.discount = discount;
   this.dTime = dTime;
   this.code = code;
 }
 
-var ShowPromo = React.createClass({
-  getInitialState: function() {
-    return {
-      arrayOfPromoCodes: this.props.items
-    }
-  },
+class PromoCodes extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrayOfPromoCodes: this.getInitialPromoCodes()
+    };
+    this.addPromoCode = this.addPromoCode.bind(this);
+    this.timePick = this.timePick.bind(this);
+    this.getPromoCodes = this.getPromoCodes.bind(this);
+    this.deletePromoCode = this.deletePromoCode.bind(this);
+  }
 
-  componentDidMount: function() {
-    this.timepick();
-  },
+  getInitialPromoCodes() {
+    return [new PromoCode('10', '2012-10-10', 'PromoCode1'),
+            new PromoCode('20', '2012-11-11', 'PromoCode2'),
+            new PromoCode('30', '2012-12-12', 'PromoCode3')];
 
-  timepick: function() {
+  }
+
+  componentDidMount() {
+    this.timePick();
+  }
+
+  timePick() {
     $('#datapicker2').datepicker({
       dateFormat: 'dd/mm/yy'
     });
-  },
+  }
 
-  deletePromoCode: function(i) {
+  deletePromoCode(i) {
     this.setState((prevState) => {
       prevState.arrayOfPromoCodes.splice(i, 1);
       return {
         arrayOfPromoCodes: prevState.arrayOfPromoCodes
       };
     })
-  },
+  }
 
-  addPromoCode: function(e) {
+  addPromoCode(e) {
     e.preventDefault();
     this.setState((prevState) => {
-      var newPromoCode = new PromoCode(this.discountInput.value,
+      let newPromoCode = new PromoCode(this.discountInput.value,
                                        this.dTimeInput.value,
                                        this.codeInput.value);
       prevState.arrayOfPromoCodes.push(newPromoCode);
@@ -41,10 +56,10 @@ var ShowPromo = React.createClass({
         arrayOfPromoCodes: prevState.arrayOfPromoCodes
       };
     })
-  },
+  }
 
-  getPromoCodes: function() {
-    var promoCodes = this.state.arrayOfPromoCodes.map((item, i) => {
+  getPromoCodes() {
+    let promoCodes = this.state.arrayOfPromoCodes.map((item, i) => {
       return (
         <div className="promoCodShow" key={i}>
           <p>Промо на {item.discount}% дійсне до {item.dTime}, код:{item.code}</p>
@@ -53,14 +68,15 @@ var ShowPromo = React.createClass({
       );
     });
     return promoCodes;
-  },
+  }
 
-  render: function() {
+  render() {
+    let promoCodes = this.getPromoCodes();
     return (
       <div>
         <div className="wrapperPromoCreate">
           <h2>Промокоди</h2>
-          <form id="promoCreate" onSubmit={this.addPromoCode}>
+          <form id="promoCreate" onSubmit={ this.addPromoCode }>
             <p className="control has-addons">
               <input className="input" type="text" 
                      ref={(input) => { this.discountInput = input; }}
@@ -71,7 +87,7 @@ var ShowPromo = React.createClass({
             <p className="control has-addons">
               <input type="text" className="input"
                      id="datapicker2"
-                     onClick={this.timepick} 
+                     onClick={ this.timePick } 
                      ref={(input) => { this.dTimeInput = input; }}
                      placeholder="день/місяць/рік" 
                      required />
@@ -88,8 +104,12 @@ var ShowPromo = React.createClass({
             </p>
           </form>
         </div>
-        <div className="promoShowContent">{this.getPromoCodes()}</div>
+        <div className="promoShowContent">
+          {promoCodes}
+        </div>
       </div>
     )
   }
-});
+}
+
+export default PromoCodes;
