@@ -26,7 +26,7 @@ class Footer extends Component {
           <div className="footerBlock">
             <div className="footerContent">
               <div className="footerContentBox">
-                <img className="logo" src="../../static/img/logo.png" alt=""></img>
+                <img className="logo" src="./static/img/logo.png"></img>
                 <div className="tags">
                   <a href="https://www.instagram.com/settory/" className="SettoryId">#settory</a>
                   <a href="https://www.instagram.com/explore/tags/settoryclean/" className="SettoryId">#settoryclean</a>
@@ -44,9 +44,15 @@ class Footer extends Component {
                 <div>
                   <p>Потрібна допомога - телефонуйте: <br></br> 068 305 82 54</p>
                   <div>
-                    <a href="mailto:settory@i.ua" class="icon-fa"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-                    <a href="https://www.facebook.com/settory.clean/" class="icon-fa"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com/settory/" class="icon-fa"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="mailto:settory@i.ua" className="icon-fa">
+                      <i className="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.facebook.com/settory.clean/" className="icon-fa">
+                      <i className="fa fa-facebook-official" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.instagram.com/settory/" className="icon-fa">
+                      <i className="fa fa-instagram" aria-hidden="true"></i>
+                    </a>
                   </div>
                 </div>
               </div>

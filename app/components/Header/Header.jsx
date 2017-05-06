@@ -8,7 +8,7 @@ class Header extends Component {
           <div className="wrapperHeader ">
             <div className="navbar">
               <div className="navbarLogo">
-                <img className="logo" src="../../static/img/logo.png"></img>
+                <img className="logo" src="./static/img/logo.png"></img>
               </div>
               <div className="mobile">
                 <a className="nav-item promocode-link">Промокод</a>

@@ -22646,7 +22646,7 @@ var Header = function (_Component) {
               _react2.default.createElement(
                 "div",
                 { className: "navbarLogo" },
-                _react2.default.createElement("img", { className: "logo", src: "../../static/img/logo.png" })
+                _react2.default.createElement("img", { className: "logo", src: "./static/img/logo.png" })
               ),
               _react2.default.createElement(
                 "div",
@@ -22789,7 +22789,7 @@ var Footer = function (_Component) {
               _react2.default.createElement(
                 "div",
                 { className: "footerContentBox" },
-                _react2.default.createElement("img", { className: "logo", src: "../../static/img/logo.png", alt: "" }),
+                _react2.default.createElement("img", { className: "logo", src: "./static/img/logo.png" }),
                 _react2.default.createElement(
                   "div",
                   { className: "tags" },
@@ -22851,18 +22851,18 @@ var Footer = function (_Component) {
                     null,
                     _react2.default.createElement(
                       "a",
-                      { href: "mailto:settory@i.ua", "class": "icon-fa" },
-                      _react2.default.createElement("i", { "class": "fa fa-envelope", "aria-hidden": "true" })
+                      { href: "mailto:settory@i.ua", className: "icon-fa" },
+                      _react2.default.createElement("i", { className: "fa fa-envelope", "aria-hidden": "true" })
                     ),
                     _react2.default.createElement(
                       "a",
-                      { href: "https://www.facebook.com/settory.clean/", "class": "icon-fa" },
-                      _react2.default.createElement("i", { "class": "fa fa-facebook-official", "aria-hidden": "true" })
+                      { href: "https://www.facebook.com/settory.clean/", className: "icon-fa" },
+                      _react2.default.createElement("i", { className: "fa fa-facebook-official", "aria-hidden": "true" })
                     ),
                     _react2.default.createElement(
                       "a",
-                      { href: "https://www.instagram.com/settory/", "class": "icon-fa" },
-                      _react2.default.createElement("i", { "class": "fa fa-instagram", "aria-hidden": "true" })
+                      { href: "https://www.instagram.com/settory/", className: "icon-fa" },
+                      _react2.default.createElement("i", { className: "fa fa-instagram", "aria-hidden": "true" })
                     )
                   )
                 )
@@ -22896,6 +22896,10 @@ var _react = __webpack_require__(50);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _TimePicker = __webpack_require__(191);
+
+var _TimePicker2 = _interopRequireDefault(_TimePicker);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22912,7 +22916,7 @@ var OrderBox = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (OrderBox.__proto__ || Object.getPrototypeOf(OrderBox)).call(this, props));
 
-    _this.make_pay = _this.make_pay.bind(_this);
+    _this.makePay = _this.makePay.bind(_this);
     _this.decreaseNumberOfRooms = _this.decreaseNumberOfRooms.bind(_this);
     _this.increaseNumberOfRooms = _this.increaseNumberOfRooms.bind(_this);
     _this.decreaseNumberOfBathrooms = _this.decreaseNumberOfBathrooms.bind(_this);
@@ -22932,8 +22936,8 @@ var OrderBox = function (_Component) {
       $("#datapicker1").datepicker('setDate', now);
     }
   }, {
-    key: 'make_pay',
-    value: function make_pay() {
+    key: 'makePay',
+    value: function makePay() {
       var onAjaxSuccess = function onAjaxSuccess(data) {
         $('#form_responce').html(data); //И передаем эту форму в невидимое поле form_responce
         $('#form_responce form').submit(); //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
@@ -22972,7 +22976,7 @@ var OrderBox = function (_Component) {
     key: 'dataPick',
     value: function dataPick(inter) {
       inter = inter || 0;
-      $("#datapicker1").datepicker({
+      $('#datapicker1').datepicker({
         'dateFormat': 'dd MM yy',
         'minDate': inter
       });
@@ -23023,7 +23027,7 @@ var OrderBox = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { key: i, className: 'wrapperOrderBlock' },
+        { className: 'wrapperOrderBlock' },
         _react2.default.createElement(
           'form',
           { id: 'orderForm' },
@@ -23121,7 +23125,7 @@ var OrderBox = function (_Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement(Timepick, null)
+              _react2.default.createElement(_TimePicker2.default, null)
             ),
             _react2.default.createElement(
               'label',
@@ -23208,7 +23212,7 @@ var OrderBox = function (_Component) {
               { className: 'control' },
               _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434, \u044F\u043A\u0449\u043E \u0454' })
             ),
-            _react2.default.createElement('input', { id: 'reserve', type: 'button', onClick: this.make_pay, className: 'button is-info', defaultValue: '\u0417\u0430\u0431\u0440\u043E\u043D\u044E\u0432\u0430\u0442\u0438' })
+            _react2.default.createElement('input', { id: 'reserve', type: 'button', onClick: this.makePay, className: 'button is-info', defaultValue: '\u0417\u0430\u0431\u0440\u043E\u043D\u044E\u0432\u0430\u0442\u0438' })
           )
         )
       );
@@ -23219,6 +23223,97 @@ var OrderBox = function (_Component) {
 }(_react.Component);
 
 exports.default = OrderBox;
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TimePicker = function (_Component) {
+  _inherits(TimePicker, _Component);
+
+  function TimePicker(props) {
+    _classCallCheck(this, TimePicker);
+
+    var _this = _possibleConstructorReturn(this, (TimePicker.__proto__ || Object.getPrototypeOf(TimePicker)).call(this, props));
+
+    _this.state = {
+      orderDate: new Date()
+    };
+    _this.timePick = _this.timePick.bind(_this);
+    return _this;
+  }
+
+  _createClass(TimePicker, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.timeCheck();
+    }
+  }, {
+    key: 'timeCheck',
+    value: function timeCheck() {
+      $('#forTime').timepicker({
+        'minTime': this.state.orderTime,
+        'timeFormat': 'H:i',
+        'interval': 30,
+        'forceRoundTime': true,
+        'autoclose': false,
+        'show2400': true,
+        'scrollDefault': 'now',
+        'maxTime': '19:00'
+      });
+    }
+  }, {
+    key: 'timePick',
+    value: function timePick() {
+      var selectedTime = $("#datapicker1").datepicker('getDate');
+      var currDate = new Date();
+      this.setState({ orderDate: selectedTime });
+
+      if (selectedTime.toDateString() === currDate.toDateString()) {
+        var closestTime = currDate.getHours() + 3;
+        if (closestTime >= 19) {
+          var tomorrow = currDate.setDate(currDate.getDate() + 1);
+          $('#datapicker1').datepicker('setDate', new Date(tomorrow));
+        } else if (closestTime > 8) {
+          $('#forTime').timepicker('option', 'minTime', closestTime + ':00');
+        }
+      } else {
+        $('#forTime').timepicker('option', 'minTime', '8:00');
+      }
+      $('#forTime').timepicker('show');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('input', { className: 'input timepicker', id: 'forTime', onClick: this.timePick, type: 'text', required: true });
+    }
+  }]);
+
+  return TimePicker;
+}(_react.Component);
+
+exports.default = TimePicker;
 
 /***/ })
 /******/ ]);

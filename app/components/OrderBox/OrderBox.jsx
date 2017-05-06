@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import TimePicker from '../TimePicker/TimePicker.jsx';
 
 class OrderBox extends Component {
   
   constructor(props) {
     super(props);
-    this.make_pay = this.make_pay.bind(this);
+    this.makePay = this.makePay.bind(this);
     this.decreaseNumberOfRooms = this.decreaseNumberOfRooms.bind(this);
     this.increaseNumberOfRooms = this.increaseNumberOfRooms.bind(this);
     this.decreaseNumberOfBathrooms = this.decreaseNumberOfBathrooms.bind(this);
@@ -21,7 +22,7 @@ class OrderBox extends Component {
     $("#datapicker1").datepicker('setDate', now);
   }
 
-  make_pay() {
+  makePay() {
     let onAjaxSuccess = (data) => {
       $('#form_responce').html(data); //И передаем эту форму в невидимое поле form_responce
       $('#form_responce form').submit() //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
@@ -55,7 +56,7 @@ class OrderBox extends Component {
 
   dataPick(inter) {
     inter = inter || 0;
-    $("#datapicker1").datepicker({
+    $('#datapicker1').datepicker({
       'dateFormat': 'dd MM yy',
       'minDate': inter,
     });
@@ -99,7 +100,7 @@ class OrderBox extends Component {
 
   render() {
     return (
-      <div  key={i} className="wrapperOrderBlock">
+      <div className="wrapperOrderBlock">
         <form id="orderForm">
           <div className="orderBlock">
             <label className="label">Адреса квартири</label>
@@ -143,7 +144,7 @@ class OrderBox extends Component {
             </p>
             <label className="label" id="time">На який час?</label>
             <p className="control">
-              <Timepick/>
+              <TimePicker/>
             </p>
             <label className="label">Додаткові опції</label>
             <p className="control checkBoxBox">
@@ -182,7 +183,7 @@ class OrderBox extends Component {
             <p className="control">
               <input className="input" type="text" placeholder="Промокод, якщо є" />
             </p>
-            <input id="reserve" type="button" onClick={this.make_pay} className="button is-info" defaultValue="Забронювати" />
+            <input id="reserve" type="button" onClick={this.makePay} className="button is-info" defaultValue="Забронювати" />
           </div>
         </form>
       </div>
