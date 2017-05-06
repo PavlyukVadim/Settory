@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   render() {
@@ -11,10 +12,10 @@ class Header extends Component {
                 <img className="logo" src="./static/img/logo.png"></img>
               </div>
               <div className="mobile">
-                <a className="nav-item promocode-link">Промокод</a>
-                <a className="nav-item users-link">Користувачі</a>
-                <a className="nav-item orders-link">Замовлення</a>
-                <a className="nav-item your-cleaning-link">Ваші прибирання</a>
+                <Link to="/promoCodes">Промокод</Link>
+                <Link to="/allUsers">Користувачі</Link>
+                <Link to="/allOrders">Замовлення</Link>
+                <Link to="/yourOrders">Ваші прибирання</Link>
                 <a className="nav-item" href="../">Вийти</a>  
               </div>
             </div>
@@ -29,7 +30,7 @@ class Header extends Component {
               <a className="nav-item" href="../">Settory</a>
             </div>
             <div className="nav-right_custom">
-              <a className="nav-item" id="userOrder">Ваші прибирання</a>
+              <Link to="/yourOrders">Ваші прибирання</Link>
               <a className="nav-item" href="../">Вийти</a>
             </div>
           </div>

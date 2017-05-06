@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Footer extends Component {
   
-  /*toPromocode: function() {
-    ReactDOM.render(<ShowPromo items={promoArr}/>, document.getElementById('reactBox'));
-  },
-
-  toUsers: function() {
-    ReactDOM.render(<FilteredList itemsIn={dataArr}/>, document.getElementById('reactBox'));
-  },
-
-  toOrders: function() {
-    ReactDOM.render(<ShowOrderWrap/>, document.getElementById('reactBox'));
-  },
-
-  toOurCleaning: function() {
-    var bool1 = false;
-    ReactDOM.render(<FilterOrder itemsIn={orderArr} check={bool1}/>, document.getElementById('reactBox'))
-  },*/
-
   render() {
     return (
       <footer>
@@ -34,10 +18,10 @@ class Footer extends Component {
               </div>
               <div className="footerContentBox">
                 <div className="site-map">
-                  <a className="nav-link promocode-link">Промокод</a>
-                  <a className="nav-link users-link">Користувачі</a>
-                  <a className="nav-link orders-link">Замовлення</a>
-                  <a className="nav-link our-cleaning-link">Ваші прибирання</a> 
+                  <Link to="/promoCodes">Промокод</Link>
+                  <Link to="/allUsers">Користувачі</Link>
+                  <Link to="/allOrders">Замовлення</Link>
+                  <Link to="/yourOrders">Ваші прибирання</Link>
                 </div>
               </div>
               <div className="footerContentBox iconBlock">

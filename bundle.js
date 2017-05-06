@@ -12503,6 +12503,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(101);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12521,113 +12523,97 @@ var Footer = function (_Component) {
   }
 
   _createClass(Footer, [{
-    key: "render",
-
-
-    /*toPromocode: function() {
-      ReactDOM.render(<ShowPromo items={promoArr}/>, document.getElementById('reactBox'));
-    },
-     toUsers: function() {
-      ReactDOM.render(<FilteredList itemsIn={dataArr}/>, document.getElementById('reactBox'));
-    },
-     toOrders: function() {
-      ReactDOM.render(<ShowOrderWrap/>, document.getElementById('reactBox'));
-    },
-     toOurCleaning: function() {
-      var bool1 = false;
-      ReactDOM.render(<FilterOrder itemsIn={orderArr} check={bool1}/>, document.getElementById('reactBox'))
-    },*/
-
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "footer",
+        'footer',
         null,
         _react2.default.createElement(
-          "div",
-          { className: "wrapperFooter" },
+          'div',
+          { className: 'wrapperFooter' },
           _react2.default.createElement(
-            "div",
-            { className: "footerBlock" },
+            'div',
+            { className: 'footerBlock' },
             _react2.default.createElement(
-              "div",
-              { className: "footerContent" },
+              'div',
+              { className: 'footerContent' },
               _react2.default.createElement(
-                "div",
-                { className: "footerContentBox" },
-                _react2.default.createElement("img", { className: "logo", src: "./static/img/logo.png" }),
+                'div',
+                { className: 'footerContentBox' },
+                _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' }),
                 _react2.default.createElement(
-                  "div",
-                  { className: "tags" },
+                  'div',
+                  { className: 'tags' },
                   _react2.default.createElement(
-                    "a",
-                    { href: "https://www.instagram.com/settory/", className: "SettoryId" },
-                    "#settory"
+                    'a',
+                    { href: 'https://www.instagram.com/settory/', className: 'SettoryId' },
+                    '#settory'
                   ),
                   _react2.default.createElement(
-                    "a",
-                    { href: "https://www.instagram.com/explore/tags/settoryclean/", className: "SettoryId" },
-                    "#settoryclean"
+                    'a',
+                    { href: 'https://www.instagram.com/explore/tags/settoryclean/', className: 'SettoryId' },
+                    '#settoryclean'
                   )
                 )
               ),
               _react2.default.createElement(
-                "div",
-                { className: "footerContentBox" },
+                'div',
+                { className: 'footerContentBox' },
                 _react2.default.createElement(
-                  "div",
-                  { className: "site-map" },
+                  'div',
+                  { className: 'site-map' },
                   _react2.default.createElement(
-                    "a",
-                    { className: "nav-link promocode-link" },
-                    "\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434"
+                    _reactRouterDom.Link,
+                    { to: '/promoCodes' },
+                    '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434'
                   ),
                   _react2.default.createElement(
-                    "a",
-                    { className: "nav-link users-link" },
-                    "\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456"
+                    _reactRouterDom.Link,
+                    { to: '/allUsers' },
+                    '\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456'
                   ),
                   _react2.default.createElement(
-                    "a",
-                    { className: "nav-link orders-link" },
-                    "\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F"
+                    _reactRouterDom.Link,
+                    { to: '/allOrders' },
+                    '\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
                   ),
                   _react2.default.createElement(
-                    "a",
-                    { className: "nav-link our-cleaning-link" },
-                    "\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F"
+                    _reactRouterDom.Link,
+                    { to: '/yourOrders' },
+                    '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
                   )
                 )
               ),
               _react2.default.createElement(
-                "div",
-                { className: "footerContentBox iconBlock" },
+                'div',
+                { className: 'footerContentBox iconBlock' },
                 _react2.default.createElement(
-                  "div",
+                  'div',
                   null,
                   _react2.default.createElement(
-                    "p",
+                    'p',
                     null,
-                    "\u041F\u043E\u0442\u0440\u0456\u0431\u043D\u0430 \u0434\u043E\u043F\u043E\u043C\u043E\u0433\u0430 - \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443\u0439\u0442\u0435: ",
-                    _react2.default.createElement("br", null),
-                    " 068 305 82 54"
+                    '\u041F\u043E\u0442\u0440\u0456\u0431\u043D\u0430 \u0434\u043E\u043F\u043E\u043C\u043E\u0433\u0430 - \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443\u0439\u0442\u0435: ',
+                    _react2.default.createElement('br', null),
+                    ' 068 305 82 54'
                   ),
                   _react2.default.createElement(
-                    "div",
+                    'div',
                     null,
                     _react2.default.createElement(
-                      "a",
-                      { href: "mailto:settory@i.ua", className: "icon-fa" },
-                      _react2.default.createElement("i", { className: "fa fa-envelope", "aria-hidden": "true" })
+                      'a',
+                      { href: 'mailto:settory@i.ua', className: 'icon-fa' },
+                      _react2.default.createElement('i', { className: 'fa fa-envelope', 'aria-hidden': 'true' })
                     ),
                     _react2.default.createElement(
-                      "a",
-                      { href: "https://www.facebook.com/settory.clean/", className: "icon-fa" },
-                      _react2.default.createElement("i", { className: "fa fa-facebook-official", "aria-hidden": "true" })
+                      'a',
+                      { href: 'https://www.facebook.com/settory.clean/', className: 'icon-fa' },
+                      _react2.default.createElement('i', { className: 'fa fa-facebook-official', 'aria-hidden': 'true' })
                     ),
                     _react2.default.createElement(
-                      "a",
-                      { href: "https://www.instagram.com/settory/", className: "icon-fa" },
-                      _react2.default.createElement("i", { className: "fa fa-instagram", "aria-hidden": "true" })
+                      'a',
+                      { href: 'https://www.instagram.com/settory/', className: 'icon-fa' },
+                      _react2.default.createElement('i', { className: 'fa fa-instagram', 'aria-hidden': 'true' })
                     )
                   )
                 )
@@ -12661,6 +12647,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(101);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12679,50 +12667,50 @@ var Header = function (_Component) {
   }
 
   _createClass(Header, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       if (this.props.user == 1) {
         return _react2.default.createElement(
-          "header",
+          'header',
           null,
           _react2.default.createElement(
-            "div",
-            { className: "wrapperHeader " },
+            'div',
+            { className: 'wrapperHeader ' },
             _react2.default.createElement(
-              "div",
-              { className: "navbar" },
+              'div',
+              { className: 'navbar' },
               _react2.default.createElement(
-                "div",
-                { className: "navbarLogo" },
-                _react2.default.createElement("img", { className: "logo", src: "./static/img/logo.png" })
+                'div',
+                { className: 'navbarLogo' },
+                _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' })
               ),
               _react2.default.createElement(
-                "div",
-                { className: "mobile" },
+                'div',
+                { className: 'mobile' },
                 _react2.default.createElement(
-                  "a",
-                  { className: "nav-item promocode-link" },
-                  "\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434"
+                  _reactRouterDom.Link,
+                  { to: '/promoCodes' },
+                  '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434'
                 ),
                 _react2.default.createElement(
-                  "a",
-                  { className: "nav-item users-link" },
-                  "\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456"
+                  _reactRouterDom.Link,
+                  { to: '/allUsers' },
+                  '\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456'
                 ),
                 _react2.default.createElement(
-                  "a",
-                  { className: "nav-item orders-link" },
-                  "\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F"
+                  _reactRouterDom.Link,
+                  { to: '/allOrders' },
+                  '\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
                 ),
                 _react2.default.createElement(
-                  "a",
-                  { className: "nav-item your-cleaning-link" },
-                  "\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F"
+                  _reactRouterDom.Link,
+                  { to: '/yourOrders' },
+                  '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
                 ),
                 _react2.default.createElement(
-                  "a",
-                  { className: "nav-item", href: "../" },
-                  "\u0412\u0438\u0439\u0442\u0438"
+                  'a',
+                  { className: 'nav-item', href: '../' },
+                  '\u0412\u0438\u0439\u0442\u0438'
                 )
               )
             )
@@ -12730,32 +12718,32 @@ var Header = function (_Component) {
         );
       } else {
         return _react2.default.createElement(
-          "header",
+          'header',
           null,
           _react2.default.createElement(
-            "div",
-            { className: "nav" },
+            'div',
+            { className: 'nav' },
             _react2.default.createElement(
-              "div",
-              { className: "nav-left" },
+              'div',
+              { className: 'nav-left' },
               _react2.default.createElement(
-                "a",
-                { className: "nav-item", href: "../" },
-                "Settory"
+                'a',
+                { className: 'nav-item', href: '../' },
+                'Settory'
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "nav-right_custom" },
+              'div',
+              { className: 'nav-right_custom' },
               _react2.default.createElement(
-                "a",
-                { className: "nav-item", id: "userOrder" },
-                "\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F"
+                _reactRouterDom.Link,
+                { to: '/yourOrders' },
+                '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
               ),
               _react2.default.createElement(
-                "a",
-                { className: "nav-item", href: "../" },
-                "\u0412\u0438\u0439\u0442\u0438"
+                'a',
+                { className: 'nav-item', href: '../' },
+                '\u0412\u0438\u0439\u0442\u0438'
               )
             )
           )
@@ -13010,11 +12998,11 @@ _reactDom2.default.render(_react2.default.createElement(
     'div',
     null,
     _react2.default.createElement(_Header2.default, { user: 1 }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/neworder', component: _OrderBox2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/promocodes', component: _PromoCodes2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/allusers', component: _AdminUsers2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/allorders', component: _AdminOrders2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/yourorders', component: _ClientOrders2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/newOrder', component: _OrderBox2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/promoCodes', component: _PromoCodes2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/allUsers', component: _AdminUsers2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/allOrders', component: _AdminOrders2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/yourOrders', component: _ClientOrders2.default }),
     _react2.default.createElement(_Footer2.default, null)
   )
 ), document.getElementById('root'));
