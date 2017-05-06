@@ -8,6 +8,10 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/app/assets/'
   },
+  watch: true,
+  watchOptions: {
+    poll: true
+  },
   module: {
     loaders: [
       {
