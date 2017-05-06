@@ -74,7 +74,6 @@ class AdminOrders extends Component {
     this.changeFilterByStatus = this.changeFilterByStatus.bind(this);
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
-    this.changeFilterByStatus = this.changeFilterByStatus.bind(this);
     this.getTBody = this.getTBody.bind(this);
   }
 

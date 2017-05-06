@@ -9538,6 +9538,18 @@ var _PromoCodes = __webpack_require__(192);
 
 var _PromoCodes2 = _interopRequireDefault(_PromoCodes);
 
+var _AdminUsers = __webpack_require__(193);
+
+var _AdminUsers2 = _interopRequireDefault(_AdminUsers);
+
+var _AdminOrders = __webpack_require__(195);
+
+var _AdminOrders2 = _interopRequireDefault(_AdminOrders);
+
+var _ClientOrders = __webpack_require__(196);
+
+var _ClientOrders2 = _interopRequireDefault(_ClientOrders);
+
 var _Footer = __webpack_require__(189);
 
 var _Footer2 = _interopRequireDefault(_Footer);
@@ -9568,6 +9580,9 @@ var App = function (_Component) {
         _react2.default.createElement(_Header2.default, { user: 1 }),
         _react2.default.createElement(_OrderBox2.default, null),
         _react2.default.createElement(_PromoCodes2.default, null),
+        _react2.default.createElement(_AdminUsers2.default, null),
+        _react2.default.createElement(_AdminOrders2.default, null),
+        _react2.default.createElement(_ClientOrders2.default, null),
         _react2.default.createElement(_Footer2.default, null)
       );
     }
@@ -23530,6 +23545,1001 @@ var PromoCodes = function (_Component) {
 }(_react.Component);
 
 exports.default = PromoCodes;
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ListOfUsers = __webpack_require__(194);
+
+var _ListOfUsers2 = _interopRequireDefault(_ListOfUsers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function userData(mail, dTime, phone) {
+  this.mail = mail;
+  this.dTime = dTime;
+  this.phone = phone;
+};
+
+var initialArr = [new userData('sample.mail1@mail.com', '2012-10-10', '0935556644'), new userData('sample.mail2@mail.com', '2012-11-11', '0932223311'), new userData('sample.mail3@mail.com', '2012-12-12', '0507778899')];
+
+var AdminUsers = function (_Component) {
+  _inherits(AdminUsers, _Component);
+
+  function AdminUsers(props) {
+    _classCallCheck(this, AdminUsers);
+
+    var _this = _possibleConstructorReturn(this, (AdminUsers.__proto__ || Object.getPrototypeOf(AdminUsers)).call(this, props));
+
+    _this.state = {
+      items: initialArr
+    };
+    _this.filterList = _this.filterList.bind(_this);
+    return _this;
+  }
+
+  _createClass(AdminUsers, [{
+    key: 'filterList',
+    value: function filterList(e) {
+      var updatedList = [].concat(initialArr);
+      updatedList = updatedList.filter(function (item) {
+        return ~item.mail.toLowerCase().search(e.target.value.toLowerCase()) || ~item.phone.toLowerCase().search(e.target.value.toLowerCase());
+      });
+      this.setState({ items: updatedList });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'wrapperNav' },
+          _react2.default.createElement(
+            'div',
+            { className: 'navText' },
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'strong',
+                null,
+                '\u041D\u0430\u0448\u0456 \u043A\u043B\u0456\u0454\u043D\u0442\u0438'
+              ),
+              '\u0406\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0456\u044F \u043F\u0440\u043E \u043D\u0438\u0445'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'filter-list' },
+          _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u0422\u0435\u043B\u0435\u0444\u043E\u043D \u0430\u0431\u043E \u0435\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u0430 \u043F\u043E\u0448\u0442\u0430', onChange: this.filterList }),
+          _react2.default.createElement(_ListOfUsers2.default, { items: this.state.items })
+        )
+      );
+    }
+  }]);
+
+  return AdminUsers;
+}(_react.Component);
+
+exports.default = AdminUsers;
+
+/***/ }),
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListOfUsers = function (_Component) {
+  _inherits(ListOfUsers, _Component);
+
+  function ListOfUsers() {
+    _classCallCheck(this, ListOfUsers);
+
+    return _possibleConstructorReturn(this, (ListOfUsers.__proto__ || Object.getPrototypeOf(ListOfUsers)).apply(this, arguments));
+  }
+
+  _createClass(ListOfUsers, [{
+    key: "render",
+    value: function render() {
+      var promoArrShow = this.props.items.map(function (item, i) {
+        return _react2.default.createElement(
+          "div",
+          { key: i, className: "vueCodShow" },
+          _react2.default.createElement(
+            "div",
+            { className: "vueMesg" },
+            _react2.default.createElement(
+              "h2",
+              null,
+              item.mail
+            ),
+            _react2.default.createElement(
+              "p",
+              null,
+              item.phone
+            )
+          ),
+          _react2.default.createElement(
+            "div",
+            { className: "vueRightBlock" },
+            _react2.default.createElement(
+              "p",
+              null,
+              "\u041F\u0440\u0438\u0454\u0434\u043D\u0430\u0432\u0441\u044F"
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "vueMesg" },
+              _react2.default.createElement(
+                "h2",
+                null,
+                item.dTime
+              ),
+              _react2.default.createElement(
+                "a",
+                null,
+                "\u0414\u0435\u0442\u0430\u043B\u044C\u043D\u0456\u0448\u0435"
+              )
+            )
+          )
+        );
+      });
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        promoArrShow
+      );
+    }
+  }]);
+
+  return ListOfUsers;
+}(_react.Component);
+
+exports.default = ListOfUsers;
+
+/***/ }),
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function orderData(orderObj) {
+  this.orderNumber = orderObj.orderNumber;
+  this.mail = orderObj.mail;
+  this.phone = orderObj.phone;
+  this.address = orderObj.address;
+  this.numberOfRooms = orderObj.numberOfRooms;
+  this.time = orderObj.time;
+  this.date = orderObj.date;
+  this.options = orderObj.options;
+  this.price = orderObj.price;
+  this.status = orderObj.status;
+}
+
+var order1 = new orderData({
+  orderNumber: 1,
+  mail: 'sample.mail1@mail.com',
+  phone: '0935556644',
+  address: 'Atlantic City, NJ 08401',
+  numberOfRooms: 2,
+  time: '20:16',
+  date: '21/12/2016',
+  options: [1, 2],
+  price: 500,
+  status: 'Aктивно'
+});
+
+var order2 = new orderData({
+  orderNumber: 2,
+  mail: 'sample.mail1@mail.com',
+  phone: '093556544',
+  address: 'Atlantic City, NJ 08546',
+  numberOfRooms: 1,
+  time: '20:15',
+  date: '22/02/2009',
+  options: [1, 4],
+  price: 600,
+  status: 'Завершено'
+});
+
+var order3 = new orderData({
+  orderNumber: 3,
+  mail: 'sample.mail1@mail.com',
+  phone: '093556654',
+  address: 'Atlantic City, NJ 65335',
+  numberOfRooms: 3,
+  time: '12:56',
+  date: '22/02/2019',
+  options: [1, 3],
+  price: 700,
+  status: 'Очікується'
+});
+
+var ordersArr = [order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3];
+
+var AdminOrders = function (_Component) {
+  _inherits(AdminOrders, _Component);
+
+  function AdminOrders(props) {
+    _classCallCheck(this, AdminOrders);
+
+    var _this = _possibleConstructorReturn(this, (AdminOrders.__proto__ || Object.getPrototypeOf(AdminOrders)).call(this, props));
+
+    _this.state = {
+      orders: ordersArr,
+      page: 1,
+      filterByStatus: 'all'
+    };
+    _this.changeFilterByStatus = _this.changeFilterByStatus.bind(_this);
+    _this.nextPage = _this.nextPage.bind(_this);
+    _this.prevPage = _this.prevPage.bind(_this);
+    _this.getTBody = _this.getTBody.bind(_this);
+    return _this;
+  }
+
+  _createClass(AdminOrders, [{
+    key: 'nextPage',
+    value: function nextPage() {
+      var currPage = this.state.page;
+      var currFilterByStatus = this.state.filterByStatus;
+      var orders = this.state.orders.filter(function (order) {
+        if (currFilterByStatus === 'all' || currFilterByStatus === 'active' && order.status === 'Aктивно' || currFilterByStatus === 'completed' && order.status === 'Завершено' || currFilterByStatus === 'expected' && order.status === 'Очікується') {
+          return true;
+        }
+      });
+      if (currPage <= orders.length / 10) {
+        this.setState(function (prevState) {
+          return {
+            page: prevState.page + 1
+          };
+        });
+      }
+    }
+  }, {
+    key: 'prevPage',
+    value: function prevPage() {
+      var currPage = this.state.page;
+      if (currPage > 1) {
+        this.setState(function (prevState) {
+          return {
+            page: prevState.page - 1
+          };
+        });
+      }
+    }
+  }, {
+    key: 'changeFilterByStatus',
+    value: function changeFilterByStatus() {
+      var newValue = this.selectStatusFilter.value;
+      this.setState(function (prevState) {
+        return {
+          page: 1,
+          filterByStatus: newValue
+        };
+      });
+    }
+  }, {
+    key: 'getTBody',
+    value: function getTBody() {
+      var optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
+      var ordersOnPage = 10;
+      var currPage = this.state.page;
+      var currFilterByStatus = this.state.filterByStatus;
+      var orders = this.state.orders.filter(function (order) {
+        if (currFilterByStatus === 'all' || currFilterByStatus === 'active' && order.status === 'Aктивно' || currFilterByStatus === 'completed' && order.status === 'Завершено' || currFilterByStatus === 'expected' && order.status === 'Очікується') {
+          return true;
+        }
+      });
+      orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
+      var tBody = orders.map(function (order, orderIndex) {
+        var options = optionsArr.filter(function (optionTitle, index) {
+          return order.options.indexOf(index + 1) !== -1;
+        }).map(function (option, index) {
+          return _react2.default.createElement(
+            'li',
+            { key: index },
+            option
+          );
+        });
+
+        return _react2.default.createElement(
+          'tr',
+          { key: orderIndex },
+          _react2.default.createElement(
+            'td',
+            null,
+            order.orderNumber
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.mail
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.phone
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.address
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.numberOfRooms
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.time,
+            ' ',
+            order.date
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            _react2.default.createElement(
+              'ul',
+              null,
+              options
+            )
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.price
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.status
+          )
+        );
+      });
+      return tBody;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'wrapperNav' },
+          _react2.default.createElement(
+            'div',
+            { className: 'navText' },
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'strong',
+                null,
+                '\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
+              ),
+              ' \u041E\u043F\u0440\u0430\u0446\u044E\u0432\u0430\u0442\u0438 \u043A\u043E\u0436\u043D\u0435 \u043D\u0435\u043E\u0431\u0445\u0456\u0434\u043D\u043E \u043F\u0440\u043E\u0442\u044F\u0433\u043E\u043C 5 \u0445\u0432\u0438\u043B\u0438\u043D'
+            ),
+            _react2.default.createElement(
+              'select',
+              { defaultValue: 'all',
+                onChange: this.changeFilterByStatus,
+                ref: function ref(input) {
+                  _this2.selectStatusFilter = input;
+                } },
+              _react2.default.createElement(
+                'option',
+                { value: 'active' },
+                'A\u043A\u0442\u0438\u0432\u043D\u0456'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'completed' },
+                '\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0456'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'expected' },
+                '\u041E\u0447\u0456\u043A\u0443\u044E\u0442\u044C\u0441\u044F'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'all' },
+                '\u0423\u0441\u0456'
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'wrapperTable1' },
+          _react2.default.createElement(
+            'table',
+            { className: 'table is-narrow' },
+            _react2.default.createElement(
+              'thead',
+              null,
+              _react2.default.createElement(
+                'tr',
+                null,
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '#'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u041F\u043E\u0448\u0442\u0430'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u041D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u0410\u0434\u0440\u0435\u0441\u0430'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u041A'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u0427\u0430\u0441 \u0456 \u0434\u0430\u0442\u0430'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u041E\u043F\u0446\u0456\u0457'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u0421\u043F\u043B\u0430\u0447\u0435\u043D\u043E'
+                  )
+                ),
+                _react2.default.createElement(
+                  'td',
+                  null,
+                  _react2.default.createElement(
+                    'strong',
+                    null,
+                    '\u0421\u0442\u0430\u0442\u0443\u0441'
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'tbody',
+              null,
+              this.getTBody()
+            )
+          ),
+          _react2.default.createElement(
+            'nav',
+            { className: 'pagination' },
+            _react2.default.createElement(
+              'a',
+              { className: 'button', onClick: this.prevPage },
+              '\u041F\u043E\u043F\u0435\u0440\u0435\u0434\u043D\u044F'
+            ),
+            _react2.default.createElement(
+              'a',
+              { className: 'button', onClick: this.nextPage },
+              '\u041D\u0430\u0441\u0442\u0443\u043F\u043D\u0430'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return AdminOrders;
+}(_react.Component);
+
+exports.default = AdminOrders;
+
+/***/ }),
+/* 196 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(50);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function orderData(orderObj) {
+  this.orderNumber = orderObj.orderNumber;
+  this.mail = orderObj.mail;
+  this.phone = orderObj.phone;
+  this.address = orderObj.address;
+  this.numberOfRooms = orderObj.numberOfRooms;
+  this.time = orderObj.time;
+  this.date = orderObj.date;
+  this.options = orderObj.options;
+  this.price = orderObj.price;
+  this.status = orderObj.status;
+}
+
+var order1 = new orderData({
+  orderNumber: 1,
+  mail: 'sample.mail1@mail.com',
+  phone: '0935556644',
+  address: 'Atlantic City, NJ 08401',
+  numberOfRooms: 2,
+  time: '20:16',
+  date: '21/12/2016',
+  options: [1, 2],
+  price: 500,
+  status: 'Aктивно'
+});
+
+var order2 = new orderData({
+  orderNumber: 2,
+  mail: 'sample.mail1@mail.com',
+  phone: '093556544',
+  address: 'Atlantic City, NJ 08546',
+  numberOfRooms: 1,
+  time: '20:15',
+  date: '22/02/2009',
+  options: [1, 4],
+  price: 600,
+  status: 'Завершено'
+});
+
+var order3 = new orderData({
+  orderNumber: 3,
+  mail: 'sample.mail1@mail.com',
+  phone: '093556654',
+  address: 'Atlantic City, NJ 65335',
+  numberOfRooms: 3,
+  time: '12:56',
+  date: '22/02/2019',
+  options: [1, 3],
+  price: 700,
+  status: 'Очікується'
+});
+
+var ordersArr = [order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3];
+
+var ClientOrders = function (_Component) {
+  _inherits(ClientOrders, _Component);
+
+  function ClientOrders(props) {
+    _classCallCheck(this, ClientOrders);
+
+    var _this = _possibleConstructorReturn(this, (ClientOrders.__proto__ || Object.getPrototypeOf(ClientOrders)).call(this, props));
+
+    _this.state = {
+      orders: ordersArr,
+      page: 1,
+      filterByStatus: 'Очікується'
+    };
+    _this.nextPage = _this.nextPage.bind(_this);
+    _this.prevPage = _this.prevPage.bind(_this);
+    _this.switchFilter = _this.switchFilter.bind(_this);
+    _this.getTBody = _this.getTBody.bind(_this);
+    return _this;
+  }
+
+  _createClass(ClientOrders, [{
+    key: 'switchFilter',
+    value: function switchFilter() {
+      this.setState(function (prevState) {
+        return {
+          filterByStatus: prevState.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується'
+        };
+      });
+    }
+  }, {
+    key: 'nextPage',
+    value: function nextPage() {
+      var currPage = this.state.page;
+      var orders = this.state.orders.filter(function (order) {
+        return order.status === currFilterByStatus;
+      });
+      if (currPage <= orders.length / 10) {
+        this.setState(function (prevState) {
+          return {
+            page: prevState.page + 1
+          };
+        });
+      }
+    }
+  }, {
+    key: 'prevPage',
+    value: function prevPage() {
+      var currPage = this.state.page;
+      if (currPage > 1) {
+        this.setState(function (prevState) {
+          return {
+            page: prevState.page - 1
+          };
+        });
+      }
+    }
+  }, {
+    key: 'getTBody',
+    value: function getTBody() {
+      var optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
+      var ordersOnPage = 10;
+      var currPage = this.state.page;
+      var currFilterByStatus = this.state.filterByStatus;
+      var orders = this.state.orders.filter(function (order) {
+        return order.status === currFilterByStatus;
+      });
+      orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
+      var tBody = orders.map(function (order, orderIndex) {
+        var options = optionsArr.filter(function (optionTitle, index) {
+          return order.options.indexOf(index + 1) !== -1;
+        }).map(function (option, index) {
+          return _react2.default.createElement(
+            'li',
+            { key: index },
+            option
+          );
+        });
+        return _react2.default.createElement(
+          'tr',
+          { key: orderIndex },
+          _react2.default.createElement(
+            'td',
+            null,
+            order.orderNumber
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.mail
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.phone
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.address
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.numberOfRooms
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.time,
+            ' ',
+            order.date
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            _react2.default.createElement(
+              'ul',
+              null,
+              options
+            )
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.price
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            order.status
+          )
+        );
+      });
+      return tBody;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'wrapperNav' },
+          _react2.default.createElement(
+            'div',
+            { className: 'navText' },
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'strong',
+                null,
+                '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
+              ),
+              ' \u0417\u0430\u043F\u043B\u0430\u043D\u0443\u0439\u0442\u0435 \u043D\u043E\u0432\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F \u0442\u0430 \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u044E\u0439\u0442\u0435 \u0432\u0436\u0435 \u0437\u0430\u043F\u043B\u0430\u043D\u043E\u0432\u0430\u043D\u0456'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'div',
+              { className: 'navButton' },
+              _react2.default.createElement(
+                'div',
+                { className: 'firstButtonBlock' },
+                _react2.default.createElement(
+                  'a',
+                  { className: 'button is-info' },
+                  '\u0417\u0430\u043F\u043B\u0430\u043D\u043E\u0432\u0430\u043D\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'toggleBox' },
+                  _react2.default.createElement('input', { type: 'checkbox', name: 'toggle', id: 'toggle', onChange: this.switchFilter }),
+                  _react2.default.createElement('label', { htmlFor: 'toggle' })
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { className: 'button' },
+                  '\u041F\u0440\u043E\u0432\u0435\u0434\u0435\u043D\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
+                )
+              ),
+              _react2.default.createElement(
+                'a',
+                { className: 'button is-success order-cleaning' },
+                '\u0417\u0430\u043C\u043E\u0432\u0438\u0442\u0438 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'wrapperTable1' },
+            _react2.default.createElement(
+              'table',
+              { className: 'table is-narrow' },
+              _react2.default.createElement(
+                'thead',
+                null,
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '#'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u041F\u043E\u0448\u0442\u0430'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u041D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u0410\u0434\u0440\u0435\u0441\u0430'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u041A'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u0427\u0430\u0441 \u0456 \u0434\u0430\u0442\u0430'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u041E\u043F\u0446\u0456\u0457'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u0421\u043F\u043B\u0430\u0447\u0435\u043D\u043E'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'td',
+                    null,
+                    _react2.default.createElement(
+                      'strong',
+                      null,
+                      '\u0421\u0442\u0430\u0442\u0443\u0441'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'tbody',
+                null,
+                this.getTBody()
+              )
+            ),
+            _react2.default.createElement(
+              'nav',
+              { className: 'pagination' },
+              _react2.default.createElement(
+                'a',
+                { className: 'button', onClick: this.prevPage },
+                '\u041F\u043E\u043F\u0435\u0440\u0435\u0434\u043D\u044F'
+              ),
+              _react2.default.createElement(
+                'a',
+                { className: 'button', onClick: this.nextPage },
+                '\u041D\u0430\u0441\u0442\u0443\u043F\u043D\u0430'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ClientOrders;
+}(_react.Component);
+
+exports.default = ClientOrders;
 
 /***/ })
 /******/ ]);
