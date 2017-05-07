@@ -14,7 +14,7 @@ import './index.css';
 ReactDOM.render((
   <HashRouter>
     <div>
-			<Header user={1} />
+		<Header user={1} />
     	<Route path = "/newOrder" component = {OrderBox} />
     	<Route path = "/promoCodes" component = {PromoCodes} />
     	<Route path = "/allUsers" component = {AdminUsers} />

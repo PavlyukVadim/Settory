@@ -10,7 +10,9 @@ class Footer extends Component {
           <div className="footerBlock">
             <div className="footerContent">
               <div className="footerContentBox">
-                <img className="logo" src="./static/img/logo.png"></img>
+                <Link to="/newOrder">
+                  <img className="logo" src="./static/img/logo.png"></img>
+                </Link>
                 <div className="tags">
                   <a href="https://www.instagram.com/settory/" className="SettoryId">#settory</a>
                   <a href="https://www.instagram.com/explore/tags/settoryclean/" className="SettoryId">#settoryclean</a>
