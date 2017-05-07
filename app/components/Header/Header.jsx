@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
+import './Header.css';
 
 class Header extends Component {
   render() {
+    console.log(this.props);
     if (this.props.user == 1 ) {
       return (
         <header>
@@ -14,10 +17,10 @@ class Header extends Component {
                 </Link>
               </div>
               <div className="mobile">
-                <Link to="/promoCodes" className="nav-item">Промокод</Link>
-                <Link to="/allUsers" className="nav-item">Користувачі</Link>
-                <Link to="/allOrders" className="nav-item">Замовлення</Link>
-                <Link to="/yourOrders" className="nav-item">Ваші прибирання</Link>
+                <NavLink to="/promoCodes" activeClassName="selected" className="nav-item">Промокод</NavLink>
+                <NavLink to="/allUsers" activeClassName="selected" className="nav-item">Користувачі</NavLink>
+                <NavLink to="/allOrders" activeClassName="selected" className="nav-item">Замовлення</NavLink>
+                <NavLink to="/yourOrders" activeClassName="selected" className="nav-item">Ваші прибирання</NavLink>
                 <a className="nav-item" href="../">Вийти</a>  
               </div>
             </div>

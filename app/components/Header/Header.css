@@ -1,0 +1,91 @@
+header {
+    position: relative;
+}
+
+header .nav {
+    width: 90%;
+    border: 1px solid #ccc;
+    background-color: #f4f4f5;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2px;
+}
+
+.wrapperHeader {
+    background-color: white;
+    height: 112px;
+    max-height: 1000px;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navbar {
+    -webkit-backface-visibility: hidden;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    background-color: #0070ff;
+}
+
+.navbar .navbarLogo {
+    display: inline-block;
+    float: left;
+    margin-left: 5%;
+}
+
+
+.navbar .navbarLogo img {
+    margin-top: 12px;
+}
+
+.navbar .mobile {
+    display: inline-block;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    float: right;
+    margin-right: 5%;
+    padding: 10px;
+}
+
+
+.navbar .mobile a {
+    display: inline-block;
+    color: #fff;
+}
+
+.nav-right_custom {
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: auto;
+    margin-left: auto;
+}
+
+.nav-item {
+    height: 100%;
+}
+
+.nav-item.selected {
+    border-bottom: 2px solid #fff;
+}
+
+.nav-left .nav-item {
+    font-size: 1.2rem;
+}
+
+.nav-item {
+    font-weight: bold;
+}
