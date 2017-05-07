@@ -1,0 +1,219 @@
+.wrapperFooter {
+    width: 100%;
+    height: auto;
+    background-color: #0070FF;
+    display: block;
+    padding-bottom: 10px;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.footerBlock {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.footerContent {
+    width: 100%;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-around !important;
+    margin-top: 20px;
+}
+
+.wrapperFooter .footerBlock .iconBlock {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+.icon-fa {
+    color: white;
+    margin: 0 10px;
+}
+
+.footerLogo {
+  position: relative;
+  width: 100px !important;
+  margin-bottom: 10px;
+}
+
+.footerLogo p {
+  height: 20px;
+  font-weight: bold;
+}
+
+.wrapperFooter a:hover {
+  color: #E8E8E8 !important;
+}
+
+.footerContent .button {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    margin: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: auto;
+    border-color: #b5b5b5;
+    padding: 0;
+    border-radius: 2px;
+}
+
+.footerBlock hr {
+    border: 1px solid white;
+    width: 100%;
+    margin: 2%;
+}
+
+.footerContentBox {
+    width: 33%;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+
+}
+
+.footerDownloadPart {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 2rem;
+    color: white;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+}
+
+.footerDownloadPart a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    color: white;
+}
+
+.footerFirstRow {
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.footerDownExample {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+}
+
+.footerDownExample a {
+    margin-left: 7%;
+}
+
+.footerDownExample a:hover {
+    color:white;
+}
+
+.footerContentBox p {
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    color: white;
+}
+
+.footerContentBox a {
+    color: white;
+}
+
+.footerContentBox a:hover {
+    color: white;
+}
+
+.control.has-addons .select select {
+    border-color: #1f9de0;
+}
+
+.control.has-addons .select:after {
+    border-color:  #1f9de0;
+}
+
+.download .button {
+    width: 25%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.footerContent.end {
+    -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: #1f9de0;
+    margin-bottom: 4%;
+}
+
+.footerContent.end a {
+    color: #1f9de0;
+}
+
+.site-map a {
+    display: block;
+    line-height: 24px;
+    text-align: left;
+}
