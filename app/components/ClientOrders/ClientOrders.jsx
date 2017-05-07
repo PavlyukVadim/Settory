@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 function orderData(orderObj) {
   this.orderNumber = orderObj.orderNumber;
@@ -154,7 +155,7 @@ class ClientOrders extends Component {
                 </div>
                 <a className="button">Проведені прибирання</a>
               </div>
-              <a className="button is-success order-cleaning">Замовити прибирання</a>
+              <Link to="/newOrder" className="button is-success order-cleaning">Замовити прибирання</Link>
             </div>
           </div>
           <div className="wrapperTable1">
