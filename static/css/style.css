@@ -114,14 +114,14 @@ html body {
 }
 
 .headerContentBlock h1 {
-    font-size: 35px; 
-    color: rgb(54, 54, 54); 
-    font-weight: 300; 
-    line-height: 1.125; 
-    margin: 0px; 
+    font-size: 35px;
+    color: rgb(54, 54, 54);
+    font-weight: 300;
+    line-height: 1.125;
+    margin: 0px;
 }
 
-.headerContentBlock p { 
+.headerContentBlock p {
     margin-top: 5%;
     font-size: 1.2rem;
     padding-right: 10%;
@@ -163,7 +163,7 @@ html body {
     margin-left: 4px;
 }
 
-.headerContentBlock { 
+.headerContentBlock {
     left: 0;
     position: absolute;
     width: 40%;
@@ -223,8 +223,13 @@ html body {
     padding-top: 3%;
 }
 
+.logo {
+  cursor: pointer;
+}
+
 #how-it-work {
     padding-top: 50px;
+    margin-top: 20px;
 }
 
 #how-it-work .media {
@@ -982,7 +987,7 @@ html body .wrapperInfoBlock .box {
 }
 @media screen and (max-width: 800px){
     .header {
-        
+
     }
     .navbarDownButton {
         margin-right: 5%;
@@ -1045,7 +1050,7 @@ html body .wrapperInfoBlock .box {
         width: 100%;
         margin-top: 1%;
     }
-    
+
     .wrapperHeaderLeftBlock .headerContentBlock .contentText {
         -ms-flex-flow: column nowrap;
             flex-flow: column nowrap;
@@ -1150,7 +1155,7 @@ html body .wrapperInfoBlock .box {
         transform: translateX(0);
         left: 0;
     }
-    
+
     #slider {
         height: auto;
         margin-top: 85px;
@@ -1176,4 +1181,20 @@ html body .wrapperInfoBlock .box {
 
 #safety p {
   text-align: left;
+}
+#what-we-do .container {
+  padding-top: 10px !important;
+  padding-bottom: 0 !important;
+}
+#what-we-do h1 {
+  text-align: center;
+}
+#what-we-do .columns {
+   margin-bottom: 50px;
+}
+#what-we-do .mainContentChildImg {
+  margin-bottom: 10px;
+}
+#what-we-do .mainContentChildText {
+  margin-top: 10px;
 }

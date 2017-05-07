@@ -30,6 +30,10 @@ setTimeout(function() {
     $('body').animate({'scrollTop': 0}, 1000);
     $('html').animate({'scrollTop': 0}, 1000);
   });
+  $('.logo').click(() => {
+    $('body').animate({'scrollTop': 0}, 1000);
+    $('html').animate({'scrollTop': 0}, 1000);
+  });
   $(window).scroll(() => {
     if ($(window).scrollTop() > 200 && $(window).scrollTop() < $(document).height() - $(window).height()) {
       $('.totop').addClass('active');
@@ -47,7 +51,7 @@ setTimeout(function() {
       setTimeout(function () {
         document.getElementById('sliderTitle').style.opacity = '1';
         document.getElementById('sliderTitle').innerHTML = title;
-        document.getElementById('sliderTitle').style.transition = 'opacity 0.5s linear';
+        document.getElementById('sliderTitle').style.transition = 'opacity 0.3s linear';
       }, 500);
     },
     init: function () {
@@ -66,8 +70,8 @@ setTimeout(function() {
         this.indexOfSlides = 0;
       }
       document.getElementById('sliderTitle').style.opacity = '0';
-      document.getElementById('sliderTitle').style.transition = 'opacity 0.5s linear';
-      this.set(this.titleArr[this.indexOfSlides]); 
+      document.getElementById('sliderTitle').style.transition = 'opacity 0.3s linear';
+      this.set(this.titleArr[this.indexOfSlides]);
     }
   };
 
@@ -78,7 +82,7 @@ setTimeout(function() {
 
 })();
 
-(function scrollToComponent() { 
+(function scrollToComponent() {
   var navLinks = document.getElementsByClassName('nav-link');
   var navbar = document.getElementsByClassName('navbar')[0];
   var mapOfTargetElements = {};
@@ -89,23 +93,23 @@ setTimeout(function() {
   var scrolled = 0 || window.pageYOffset || document.documentElement.scrollTop;
   var SCROLL_TIME = 400; // ms
   var acceleration = true;
-  var isScrolling = false; 
+  var isScrolling = false;
   var shift = 10;
 
   for (i = 0; i < navLinks.length; i++) {
     selector = navLinks[i].dataset.scrollTo;
     element = document.querySelectorAll(selector)[0];
     mapOfTargetElements[selector] = element;
-  
+
     navLinks[i].onclick = (function(i) {
       return function() {
         if (!isScrolling) {
-          toggleScroll(mapOfTargetElements[navLinks[i].dataset.scrollTo].offsetTop, scrolled);  
+          toggleScroll(mapOfTargetElements[navLinks[i].dataset.scrollTo].offsetTop, scrolled);
         }
       }
     })(i);
   }
-  
+
   document.addEventListener('scroll', function() {
     scrolled = window.pageYOffset || document.documentElement.scrollTop;
   });
@@ -114,7 +118,7 @@ setTimeout(function() {
     if (!isMobile) {
       to = to - navbar.clientHeight;
     }
-    
+
     var distance = Math.abs(to - scrolled);
     var initialDistance = distance;
     var speed = distance / SCROLL_TIME * 10; // pixels/10ms
@@ -134,7 +138,7 @@ setTimeout(function() {
         speed = speed > step * 3 ? speed - step : speed;
       }
       var positionY = scrolled < to ? to - distance : to + distance;
-      window.scrollTo(0, positionY); 
+      window.scrollTo(0, positionY);
       if (distance <= shift) {
         isScrolling = false;
         isScrollingViaMenu = false;
