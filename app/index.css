@@ -646,3 +646,12 @@ div.nav {
         display: none;
     }
 }
+
+.pages {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.pagination a{
+    min-width: 90px;
+}

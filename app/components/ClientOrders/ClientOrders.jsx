@@ -60,7 +60,8 @@ var ordersArr = [order1,order2,order3,
                 order1,order2,order3,
                 order1,order2,order3,
                 order1,order2,order3,
-                order1,order2,order3];
+                order1,order2,order3,
+                order2,order2,order2,];
 
 
 class ClientOrders extends Component {
@@ -70,26 +71,32 @@ class ClientOrders extends Component {
     this.state = {
       orders: ordersArr,
       page: 1,
+      numberOfPages: Math.floor(ordersArr.filter((order) => order.status === 'Очікується').length / 10) + 1,
       filterByStatus: 'Очікується'
     };
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.switchFilter = this.switchFilter.bind(this);
     this.getTBody = this.getTBody.bind(this);
+    this.getPagination = this.getPagination.bind(this);
   }
   
   switchFilter() {
+    let currFilterByStatus = this.state.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується';
+    let orders = this.state.orders.filter((order) => order.status === currFilterByStatus);
+    let newNumberOfPages = Math.floor(orders.length / 10) + 1;
     this.setState((prevState) => {
       return {
-        filterByStatus: prevState.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується'
+        filterByStatus: prevState.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується',
+        numberOfPages: newNumberOfPages
       };
     })
   }
 
   nextPage() {
     let currPage = this.state.page;
-    let orders = this.state.orders.filter((order) => order.status === currFilterByStatus);
-    if (currPage <= orders.length / 10) {
+    let numberOfPages = this.state.numberOfPages;
+    if (currPage < numberOfPages) {
       this.setState((prevState) => {
         return {
           page: prevState.page + 1
@@ -136,6 +143,20 @@ class ClientOrders extends Component {
     return tBody;
   }
 
+  getPagination() {
+    let currPage = this.state.page;
+    let newNumberOfPages = this.state.numberOfPages;
+    if (newNumberOfPages > 1) {
+      return (
+        <p>{`${currPage} з ${newNumberOfPages}`}</p>
+      );
+    } else {
+      return (
+        <p></p>
+      );
+    } 
+  }
+
   render() {
     return (
       <div>
@@ -176,6 +197,7 @@ class ClientOrders extends Component {
               <tbody>{this.getTBody()}</tbody>
             </table>
             <nav className="pagination">
+              <div className="pages">{this.getPagination()}</div>
               <a className="button" onClick={this.prevPage}>Попередня</a>
               <a className="button" onClick={this.nextPage}>Наступна</a>
             </nav>

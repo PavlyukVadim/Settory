@@ -5,7 +5,6 @@ import './Header.css';
 
 class Header extends Component {
   render() {
-    console.log(this.props);
     if (this.props.user == 1 ) {
       return (
         <header>

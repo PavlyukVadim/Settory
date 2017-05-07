@@ -69,26 +69,20 @@ class AdminOrders extends Component {
     this.state = {
       orders: ordersArr,
       page: 1,
+      numberOfPages: Math.floor(ordersArr.length / 10) + 1,
       filterByStatus: 'all'
     };
     this.changeFilterByStatus = this.changeFilterByStatus.bind(this);
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.getTBody = this.getTBody.bind(this);
+    this.getPagination = this.getPagination.bind(this);
   }
 
   nextPage() {
     let currPage = this.state.page;
-    let currFilterByStatus = this.state.filterByStatus;
-    let orders = this.state.orders.filter((order) => {
-      if (currFilterByStatus === 'all' ||
-          currFilterByStatus === 'active' && order.status === 'Aктивно' ||
-          currFilterByStatus === 'completed' && order.status === 'Завершено' ||
-          currFilterByStatus === 'expected' && order.status === 'Очікується') {
-        return true;
-      }
-    });
-    if (currPage <= orders.length / 10) {
+    let numberOfPages = this.state.numberOfPages;
+    if (currPage < numberOfPages) {
       this.setState((prevState) => {
         return {
           page: prevState.page + 1
@@ -110,10 +104,20 @@ class AdminOrders extends Component {
 
   changeFilterByStatus() {
     let newValue = this.selectStatusFilter.value;
+    let orders = this.state.orders.filter((order) => {
+      if (newValue === 'all' ||
+          newValue === 'active' && order.status === 'Aктивно' ||
+          newValue === 'completed' && order.status === 'Завершено' ||
+          newValue === 'expected' && order.status === 'Очікується') {
+        return true;
+      }
+    });
+    let newNumberOfPages = Math.floor(orders.length / 10) + 1; 
     this.setState((prevState) => {
       return {
         page: 1,
-        filterByStatus: newValue
+        filterByStatus: newValue,
+        numberOfPages: newNumberOfPages
       };
     });
   }
@@ -156,6 +160,20 @@ class AdminOrders extends Component {
     return tBody;
   }
 
+  getPagination() {
+    let currPage = this.state.page;
+    let newNumberOfPages = this.state.numberOfPages;
+    if (newNumberOfPages > 1) {
+      return (
+        <p>{`${currPage} з ${newNumberOfPages}`}</p>
+      );
+    } else {
+      return (
+        <p></p>
+      );
+    } 
+  }
+
   render() {
     return (
       <div>
@@ -190,6 +208,7 @@ class AdminOrders extends Component {
             <tbody>{this.getTBody()}</tbody>
           </table>
           <nav className="pagination">
+            <div className="pages">{this.getPagination()}</div>
             <a className="button" onClick={this.prevPage}>Попередня</a>
             <a className="button" onClick={this.nextPage}>Наступна</a>
           </nav>

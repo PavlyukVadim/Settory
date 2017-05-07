@@ -11077,12 +11077,14 @@ var AdminOrders = function (_Component) {
     _this.state = {
       orders: ordersArr,
       page: 1,
+      numberOfPages: Math.floor(ordersArr.length / 10) + 1,
       filterByStatus: 'all'
     };
     _this.changeFilterByStatus = _this.changeFilterByStatus.bind(_this);
     _this.nextPage = _this.nextPage.bind(_this);
     _this.prevPage = _this.prevPage.bind(_this);
     _this.getTBody = _this.getTBody.bind(_this);
+    _this.getPagination = _this.getPagination.bind(_this);
     return _this;
   }
 
@@ -11090,13 +11092,8 @@ var AdminOrders = function (_Component) {
     key: 'nextPage',
     value: function nextPage() {
       var currPage = this.state.page;
-      var currFilterByStatus = this.state.filterByStatus;
-      var orders = this.state.orders.filter(function (order) {
-        if (currFilterByStatus === 'all' || currFilterByStatus === 'active' && order.status === 'Aктивно' || currFilterByStatus === 'completed' && order.status === 'Завершено' || currFilterByStatus === 'expected' && order.status === 'Очікується') {
-          return true;
-        }
-      });
-      if (currPage <= orders.length / 10) {
+      var numberOfPages = this.state.numberOfPages;
+      if (currPage < numberOfPages) {
         this.setState(function (prevState) {
           return {
             page: prevState.page + 1
@@ -11120,10 +11117,17 @@ var AdminOrders = function (_Component) {
     key: 'changeFilterByStatus',
     value: function changeFilterByStatus() {
       var newValue = this.selectStatusFilter.value;
+      var orders = this.state.orders.filter(function (order) {
+        if (newValue === 'all' || newValue === 'active' && order.status === 'Aктивно' || newValue === 'completed' && order.status === 'Завершено' || newValue === 'expected' && order.status === 'Очікується') {
+          return true;
+        }
+      });
+      var newNumberOfPages = Math.floor(orders.length / 10) + 1;
       this.setState(function (prevState) {
         return {
           page: 1,
-          filterByStatus: newValue
+          filterByStatus: newValue,
+          numberOfPages: newNumberOfPages
         };
       });
     }
@@ -11208,6 +11212,21 @@ var AdminOrders = function (_Component) {
         );
       });
       return tBody;
+    }
+  }, {
+    key: 'getPagination',
+    value: function getPagination() {
+      var currPage = this.state.page;
+      var newNumberOfPages = this.state.numberOfPages;
+      if (newNumberOfPages > 1) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          currPage + ' \u0437 ' + newNumberOfPages
+        );
+      } else {
+        return _react2.default.createElement('p', null);
+      }
     }
   }, {
     key: 'render',
@@ -11367,6 +11386,11 @@ var AdminOrders = function (_Component) {
           _react2.default.createElement(
             'nav',
             { className: 'pagination' },
+            _react2.default.createElement(
+              'div',
+              { className: 'pages' },
+              this.getPagination()
+            ),
             _react2.default.createElement(
               'a',
               { className: 'button', onClick: this.prevPage },
@@ -11567,7 +11591,7 @@ var order3 = new orderData({
   status: 'Очікується'
 });
 
-var ordersArr = [order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3];
+var ordersArr = [order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order2, order2, order2];
 
 var ClientOrders = function (_Component) {
   _inherits(ClientOrders, _Component);
@@ -11580,21 +11604,31 @@ var ClientOrders = function (_Component) {
     _this.state = {
       orders: ordersArr,
       page: 1,
+      numberOfPages: Math.floor(ordersArr.filter(function (order) {
+        return order.status === 'Очікується';
+      }).length / 10) + 1,
       filterByStatus: 'Очікується'
     };
     _this.nextPage = _this.nextPage.bind(_this);
     _this.prevPage = _this.prevPage.bind(_this);
     _this.switchFilter = _this.switchFilter.bind(_this);
     _this.getTBody = _this.getTBody.bind(_this);
+    _this.getPagination = _this.getPagination.bind(_this);
     return _this;
   }
 
   _createClass(ClientOrders, [{
     key: 'switchFilter',
     value: function switchFilter() {
+      var currFilterByStatus = this.state.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується';
+      var orders = this.state.orders.filter(function (order) {
+        return order.status === currFilterByStatus;
+      });
+      var newNumberOfPages = Math.floor(orders.length / 10) + 1;
       this.setState(function (prevState) {
         return {
-          filterByStatus: prevState.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується'
+          filterByStatus: prevState.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується',
+          numberOfPages: newNumberOfPages
         };
       });
     }
@@ -11602,10 +11636,8 @@ var ClientOrders = function (_Component) {
     key: 'nextPage',
     value: function nextPage() {
       var currPage = this.state.page;
-      var orders = this.state.orders.filter(function (order) {
-        return order.status === currFilterByStatus;
-      });
-      if (currPage <= orders.length / 10) {
+      var numberOfPages = this.state.numberOfPages;
+      if (currPage < numberOfPages) {
         this.setState(function (prevState) {
           return {
             page: prevState.page + 1
@@ -11703,6 +11735,21 @@ var ClientOrders = function (_Component) {
         );
       });
       return tBody;
+    }
+  }, {
+    key: 'getPagination',
+    value: function getPagination() {
+      var currPage = this.state.page;
+      var newNumberOfPages = this.state.numberOfPages;
+      if (newNumberOfPages > 1) {
+        return _react2.default.createElement(
+          'p',
+          null,
+          currPage + ' \u0437 ' + newNumberOfPages
+        );
+      } else {
+        return _react2.default.createElement('p', null);
+      }
     }
   }, {
     key: 'render',
@@ -11868,6 +11915,11 @@ var ClientOrders = function (_Component) {
             _react2.default.createElement(
               'nav',
               { className: 'pagination' },
+              _react2.default.createElement(
+                'div',
+                { className: 'pages' },
+                this.getPagination()
+              ),
               _react2.default.createElement(
                 'a',
                 { className: 'button', onClick: this.prevPage },
@@ -12081,7 +12133,6 @@ var Header = function (_Component) {
   _createClass(Header, [{
     key: 'render',
     value: function render() {
-      console.log(this.props);
       if (this.props.user == 1) {
         return _react2.default.createElement(
           'header',
@@ -13030,7 +13081,7 @@ exports = module.exports = __webpack_require__(108)(undefined);
 
 
 // module
-exports.push([module.i, "* {\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    font-family: 'Raleway', sans-serif;\n}\n\na {\n    cursor: pointer;\n}\n\nhtml body {\n    line-height: 2;\n    background-color: white;\n    min-height: 100vh;\n}\n\n.toggleBox {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n\n.wrapper {\n  max-width:300px;\n  margin:94px auto 0 auto;\n  text-align:center;\n}\n\ninput#toggle {\n    max-height: 0;\n    max-width: 0;\n    opacity: 0;\n}\n\ninput#toggle + label {\n    display: inline-block;\n    position: relative;\n    box-shadow: inset 0 0 0px 1px #d5d5d5;\n    text-indent: -5000px;\n    height: 30px;\n    width: 50px;\n    border-radius: 15px;\n    cursor: pointer;\n}\n\ninput#toggle + label:before {\n    content: \"\";\n    position: absolute;\n    display: block;\n    height: 30px;\n    width: 30px;\n    top: 0;\n    left: 0;\n    border-radius: 15px;\n    background: rgba(19,191,17,0);\n    -webkit-transition: .25s ease-in-out;\n    transition: .25s ease-in-out;\n}\n\ninput#toggle + label:after {\n    content: \"\";\n    position: absolute;\n    display: block;\n    height: 30px;\n    width: 30px;\n    top: 0;\n    left: 0px;\n    border-radius: 15px;\n    background: white;\n    box-shadow: inset 0 0 0 1px rgba(0,0,0,.2), 0 2px 4px rgba(0,0,0,.2);\n    -webkit-transition: .25s ease-in-out;\n    transition: .25s ease-in-out;\n}\n\ninput#toggle:checked + label:before {\n    width: 50px;\n    background: rgba(19,191,17,1);\n}\n\ninput#toggle:checked + label:after {\n    left: 20px;\n    box-shadow: inset 0 0 0 1px rgba(19,191,17,1), 0 2px 4px rgba(0,0,0,.2);\n}\n\n\nbody .ui-timepicker-wrapper {\n    width: 40%;\n}\n\n.logo {\n    height: 50px;\n}\n\n.logo:hover {\n    cursor: pointer;\n}\n\ntable#fc {\n    width: auto;\n    box-shadow: 0 0 5px #ccc;\n}\n\n.promocode-link:hover {\n    color: #000;\n}\n\n#root > div > div {\n    min-height: calc(100vh - 308px);\n}\n\n.wrapperOrderBlock {\n    width: 90%;\n    height: auto;\n    margin-left: auto;\n    margin-right: auto;\n    margin-top: 40px;\n\n}\n\n#orderForm {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n.orderBlock {\n    width: 60%;\n    margin-right: auto;\n    height: 80%;\n}\n\n.orderBox {\n    width: 30%;\n    margin-left: auto;\n    height: 60%;\n    border: 1px solid #ccc;\n    background-color: #f4f4f5;\n    padding: 4%;\n    border-radius: 6px;\n}\n\n.orderBox #summ {\n    font-weight: bold;\n    font-size: 2rem;\n}\n\n.orderBox p, .orderBox span {\n    font-size: 1.1rem;\n}\n\n.orderBox .order-amount, .orderBox #price{\n    font-weight: bold;\n    font-size: 1.3rem;\n}\n\n.orderBlock input[type=checkbox] {\n    margin-right: 5px;\n}\n\n#reserve {\n    background-color: #0070ff;\n    margin-top: 10px;\n    margin-left: 50%;\n    transform: translateX(-50%);\n    padding: 10px 24px;\n    height: auto;\n    font-size: 20px;\n}\n\n#reserve:hover {\n    background-color: #0844a4\n}\n\ninput[type=checkbox]:checked + label:before {\n\tcontent: \"\\2713\";\n\ttext-shadow: 1px 1px 1px rgba(0, 0, 0, .2);\n\tfont-size: 15px;\n\tcolor: #f3f3f3;\n\ttext-align: center;\n    line-height: 15px;\n}\n\n.wrapperNav {\n    margin-top: 40px;\n    width: 90%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    margin-left: auto;\n    margin-right: auto;\n}\n\n.navText {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    width: 100%;\n}\n\n.navText p strong {\n    font-weight: bold;\n    font-size: 1.7rem;\n    height: 100%;\n    margin-right: 2%;\n}\n.navText p {\n    font-size: 1.2rem;\n    height: 100%;\n    width: 100%;\n}\n.navButton {\n    width: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-top: 2%;\n    height: auto;\n}\n.wrapperPromoCreate {\n    width: 90%;\n    margin-top: 40px;\n    margin-left: auto;\n    margin-right: auto;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n   margin-bottom: 40px;\n}\n\n.wrapperPromoCreate h2 {\n    font-size: 1.7rem;\n    font-weight: bold;\n}\n#promoCreate {\n     width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n#promoCreate p input {\n    width: 100%;\n}\n\n#promoCreate a {\n    width: 4em;\n}\n\n#search {\n     width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n#search p,.promoShowContent {\n    margin-left: auto;\n    margin-right: auto;\n    width: 90%;\n}\n\n#search p input {\n    width: 100%;\n}\n\n.wrapperTable {\n    width: 100%;\n    height: auto;\n    margin-top: 2%;\n}\n\n.promoCodShow:nth-child(1) {\n    border-top-left-radius: 3px;\n    border-top-right-radius: 3px;\n}\n\n.promoCodShow:nth-child(n+2) {\n    border-bottom:1px solid #ccc;\n    border-left:1px solid #ccc;\n    border-right:1px solid #ccc;\n    border-top: none;\n}\n\n.deletepromo {\n    color: #0070ff;\n}\n\n.deletepromo:hover {\n    color: #0844a4;\n}\n\n.promoCodShow {\n    width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    border: 1px solid #ccc;\n    padding: 1%;\n}\n\n.vueCodShow {\n     width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    border: 1px solid #ccc;\n    padding: 1%;\n}\n\n.vueCodShow:nth-child(1) {\n    border-top-left-radius: 3px;\n    border-top-right-radius: 3px;\n    margin-top: 3%;\n}\n\n.vueCodShow:nth-child(n+2) {\n    border-bottom:1px solid #ccc;\n    border-left:1px solid #ccc;\n    border-right:1px solid #ccc;\n    border-top: none;\n}\n\n.vueMesg {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    height: auto;\n    margin-left: 2%;\n    font-size: 1rem;\n}\n\n.vueMesg a {\n    color: #0070ff;\n}\n\n.vueMesg a:hover {\n    color: #0844a4;\n}\n\n.vueMesg h2 ,.vueMesg p{\n    font-weight: bold;\n}\n\n.vueRightBlock {\n     display: -webkit-box;\n     display: -ms-flexbox;\n     display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    height: auto;\n    margin-right: 5%;\n}\n\n.vueRightBlock p {\n    font-weight: bold;\n    padding-right: 9%;\n}\n\n.pagination {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n}\n\ndiv.nav {\n    width: 100%;\n}\n\n.optionArr {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n\n .table td {\n    vertical-align: middle;\n}\n\n.wrapperTable1 {\n    width: 98vw;\n    overflow-x: auto;\n}\n\n.navButton{\n    margin-bottom: 4%;\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n}\n\n.navButton .firstButtonBlock{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n    flex-flow: row nowrap;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n}\n\n.navButton .firstButtonBlock .button.is-info {\n    margin-right: 1%;\n    margin-left: 0;\n    background-color: #0070ff;\n}\n\n.navButton .firstButtonBlock .button.is-info:hover {\n    background-color: #0844a4;\n}\n\n.navButton .firstButtonBlock .button {\n    margin-left: 1%;\n    cursor: default;\n}\n\n.control .checkbox {\n    margin-right: 2%;\n}\n\n.table.is-narrow,.filter-list {\n    margin-top: 3%;\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n}\n\n@media screen and (max-width:800px){\n    \n    header .nav {\n        width: 100%;\n    }\n\n    .nav-item, td {\n        font-size: 0.8rem;\n    }\n    \n    .nav-right_custom {\n        margin-left: 0;\n    }\n   \n    .nav .nav-right {\n        -webkit-box-pack: start;\n        -ms-flex-pack: start;\n        justify-content: flex-start;\n    }\n    \n    .nav-right_custom {\n        margin-left: auto;\n        margin-right: auto;\n    }\n\n}\n\n@media screen and (max-width:600px) {\n    .control .checkbox {\n        margin-bottom: 2%;\n    }\n\n    .navText p {\n        font-size: 0.65rem;\n    }\n   \n   .control.checkBoxBox {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: start;\n            -ms-flex-align: start;\n                align-items: flex-start;\n        -ms-flex-flow: column nowrap;\n            flex-flow: column nowrap;\n    }\n\n    .navText p strong {\n        font-size: 0.7rem;\n    }\n\n    .nav-item {\n        font-size: 0.7rem;\n    }\n\n    td {\n        font-size: 0.7rem;\n    }\n\n    #orderForm {\n        -ms-flex-flow: column nowrap;\n            flex-flow: column nowrap;\n    }\n\n    .orderBlock,.orderBox {\n        width: 100%;\n        margin: 0;\n        margin-top: 2%;\n        margin-bottom: 2%;\n    }\n\n    .navButton a {\n        font-size: 0.5rem;\n        height: auto;\n    }\n\n    .navButton .firstButtonBlock .button.is-info {\n        margin: 0;\n    }\n\n    .navButton{\n        width: 100%;\n    }\n}\n\n@media screen and (max-width: 380px) {\n    .nav-item {\n        font-size: 0.67rem;\n    }\n}\n\n@media screen and (max-width: 340px) {\n    .nav-item {\n        font-size: 0.5rem;\n    }\n}\n\n.slogan {\n    position: absolute;\n    top: 50%;\n    left: 20%;\n    -webkit-transform: translateY(-50%);\n    -ms-transform: translateY(-50%);\n    transform: translateY(-50%);\n    font-size: 1.1rem;\n    color: #00498E;\n}\n\n@media screen and (max-width: 1078px){\n    .slogan {\n        display: none;\n    }\n}\n", ""]);
+exports.push([module.i, "* {\n    margin: 0;\n    padding: 0;\n    text-decoration: none;\n    font-family: 'Raleway', sans-serif;\n}\n\na {\n    cursor: pointer;\n}\n\nhtml body {\n    line-height: 2;\n    background-color: white;\n    min-height: 100vh;\n}\n\n.toggleBox {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n\n.wrapper {\n  max-width:300px;\n  margin:94px auto 0 auto;\n  text-align:center;\n}\n\ninput#toggle {\n    max-height: 0;\n    max-width: 0;\n    opacity: 0;\n}\n\ninput#toggle + label {\n    display: inline-block;\n    position: relative;\n    box-shadow: inset 0 0 0px 1px #d5d5d5;\n    text-indent: -5000px;\n    height: 30px;\n    width: 50px;\n    border-radius: 15px;\n    cursor: pointer;\n}\n\ninput#toggle + label:before {\n    content: \"\";\n    position: absolute;\n    display: block;\n    height: 30px;\n    width: 30px;\n    top: 0;\n    left: 0;\n    border-radius: 15px;\n    background: rgba(19,191,17,0);\n    -webkit-transition: .25s ease-in-out;\n    transition: .25s ease-in-out;\n}\n\ninput#toggle + label:after {\n    content: \"\";\n    position: absolute;\n    display: block;\n    height: 30px;\n    width: 30px;\n    top: 0;\n    left: 0px;\n    border-radius: 15px;\n    background: white;\n    box-shadow: inset 0 0 0 1px rgba(0,0,0,.2), 0 2px 4px rgba(0,0,0,.2);\n    -webkit-transition: .25s ease-in-out;\n    transition: .25s ease-in-out;\n}\n\ninput#toggle:checked + label:before {\n    width: 50px;\n    background: rgba(19,191,17,1);\n}\n\ninput#toggle:checked + label:after {\n    left: 20px;\n    box-shadow: inset 0 0 0 1px rgba(19,191,17,1), 0 2px 4px rgba(0,0,0,.2);\n}\n\n\nbody .ui-timepicker-wrapper {\n    width: 40%;\n}\n\n.logo {\n    height: 50px;\n}\n\n.logo:hover {\n    cursor: pointer;\n}\n\ntable#fc {\n    width: auto;\n    box-shadow: 0 0 5px #ccc;\n}\n\n.promocode-link:hover {\n    color: #000;\n}\n\n#root > div > div {\n    min-height: calc(100vh - 308px);\n}\n\n.wrapperOrderBlock {\n    width: 90%;\n    height: auto;\n    margin-left: auto;\n    margin-right: auto;\n    margin-top: 40px;\n\n}\n\n#orderForm {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n.orderBlock {\n    width: 60%;\n    margin-right: auto;\n    height: 80%;\n}\n\n.orderBox {\n    width: 30%;\n    margin-left: auto;\n    height: 60%;\n    border: 1px solid #ccc;\n    background-color: #f4f4f5;\n    padding: 4%;\n    border-radius: 6px;\n}\n\n.orderBox #summ {\n    font-weight: bold;\n    font-size: 2rem;\n}\n\n.orderBox p, .orderBox span {\n    font-size: 1.1rem;\n}\n\n.orderBox .order-amount, .orderBox #price{\n    font-weight: bold;\n    font-size: 1.3rem;\n}\n\n.orderBlock input[type=checkbox] {\n    margin-right: 5px;\n}\n\n#reserve {\n    background-color: #0070ff;\n    margin-top: 10px;\n    margin-left: 50%;\n    transform: translateX(-50%);\n    padding: 10px 24px;\n    height: auto;\n    font-size: 20px;\n}\n\n#reserve:hover {\n    background-color: #0844a4\n}\n\ninput[type=checkbox]:checked + label:before {\n\tcontent: \"\\2713\";\n\ttext-shadow: 1px 1px 1px rgba(0, 0, 0, .2);\n\tfont-size: 15px;\n\tcolor: #f3f3f3;\n\ttext-align: center;\n    line-height: 15px;\n}\n\n.wrapperNav {\n    margin-top: 40px;\n    width: 90%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-align: start;\n        -ms-flex-align: start;\n            align-items: flex-start;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    margin-left: auto;\n    margin-right: auto;\n}\n\n.navText {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    width: 100%;\n}\n\n.navText p strong {\n    font-weight: bold;\n    font-size: 1.7rem;\n    height: 100%;\n    margin-right: 2%;\n}\n.navText p {\n    font-size: 1.2rem;\n    height: 100%;\n    width: 100%;\n}\n.navButton {\n    width: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    margin-top: 2%;\n    height: auto;\n}\n.wrapperPromoCreate {\n    width: 90%;\n    margin-top: 40px;\n    margin-left: auto;\n    margin-right: auto;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n   margin-bottom: 40px;\n}\n\n.wrapperPromoCreate h2 {\n    font-size: 1.7rem;\n    font-weight: bold;\n}\n#promoCreate {\n     width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n#promoCreate p input {\n    width: 100%;\n}\n\n#promoCreate a {\n    width: 4em;\n}\n\n#search {\n     width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n}\n\n#search p,.promoShowContent {\n    margin-left: auto;\n    margin-right: auto;\n    width: 90%;\n}\n\n#search p input {\n    width: 100%;\n}\n\n.wrapperTable {\n    width: 100%;\n    height: auto;\n    margin-top: 2%;\n}\n\n.promoCodShow:nth-child(1) {\n    border-top-left-radius: 3px;\n    border-top-right-radius: 3px;\n}\n\n.promoCodShow:nth-child(n+2) {\n    border-bottom:1px solid #ccc;\n    border-left:1px solid #ccc;\n    border-right:1px solid #ccc;\n    border-top: none;\n}\n\n.deletepromo {\n    color: #0070ff;\n}\n\n.deletepromo:hover {\n    color: #0844a4;\n}\n\n.promoCodShow {\n    width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    border: 1px solid #ccc;\n    padding: 1%;\n}\n\n.vueCodShow {\n     width: 100%;\n    height: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    border: 1px solid #ccc;\n    padding: 1%;\n}\n\n.vueCodShow:nth-child(1) {\n    border-top-left-radius: 3px;\n    border-top-right-radius: 3px;\n    margin-top: 3%;\n}\n\n.vueCodShow:nth-child(n+2) {\n    border-bottom:1px solid #ccc;\n    border-left:1px solid #ccc;\n    border-right:1px solid #ccc;\n    border-top: none;\n}\n\n.vueMesg {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    height: auto;\n    margin-left: 2%;\n    font-size: 1rem;\n}\n\n.vueMesg a {\n    color: #0070ff;\n}\n\n.vueMesg a:hover {\n    color: #0844a4;\n}\n\n.vueMesg h2 ,.vueMesg p{\n    font-weight: bold;\n}\n\n.vueRightBlock {\n     display: -webkit-box;\n     display: -ms-flexbox;\n     display: flex;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    height: auto;\n    margin-right: 5%;\n}\n\n.vueRightBlock p {\n    font-weight: bold;\n    padding-right: 9%;\n}\n\n.pagination {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n}\n\ndiv.nav {\n    width: 100%;\n}\n\n.optionArr {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n}\n\n .table td {\n    vertical-align: middle;\n}\n\n.wrapperTable1 {\n    width: 98vw;\n    overflow-x: auto;\n}\n\n.navButton{\n    margin-bottom: 4%;\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n}\n\n.navButton .firstButtonBlock{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n    flex-flow: row nowrap;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n}\n\n.navButton .firstButtonBlock .button.is-info {\n    margin-right: 1%;\n    margin-left: 0;\n    background-color: #0070ff;\n}\n\n.navButton .firstButtonBlock .button.is-info:hover {\n    background-color: #0844a4;\n}\n\n.navButton .firstButtonBlock .button {\n    margin-left: 1%;\n    cursor: default;\n}\n\n.control .checkbox {\n    margin-right: 2%;\n}\n\n.table.is-narrow,.filter-list {\n    margin-top: 3%;\n    width: 90%;\n    margin-left: auto;\n    margin-right: auto;\n}\n\n@media screen and (max-width:800px){\n    \n    header .nav {\n        width: 100%;\n    }\n\n    .nav-item, td {\n        font-size: 0.8rem;\n    }\n    \n    .nav-right_custom {\n        margin-left: 0;\n    }\n   \n    .nav .nav-right {\n        -webkit-box-pack: start;\n        -ms-flex-pack: start;\n        justify-content: flex-start;\n    }\n    \n    .nav-right_custom {\n        margin-left: auto;\n        margin-right: auto;\n    }\n\n}\n\n@media screen and (max-width:600px) {\n    .control .checkbox {\n        margin-bottom: 2%;\n    }\n\n    .navText p {\n        font-size: 0.65rem;\n    }\n   \n   .control.checkBoxBox {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: start;\n            -ms-flex-align: start;\n                align-items: flex-start;\n        -ms-flex-flow: column nowrap;\n            flex-flow: column nowrap;\n    }\n\n    .navText p strong {\n        font-size: 0.7rem;\n    }\n\n    .nav-item {\n        font-size: 0.7rem;\n    }\n\n    td {\n        font-size: 0.7rem;\n    }\n\n    #orderForm {\n        -ms-flex-flow: column nowrap;\n            flex-flow: column nowrap;\n    }\n\n    .orderBlock,.orderBox {\n        width: 100%;\n        margin: 0;\n        margin-top: 2%;\n        margin-bottom: 2%;\n    }\n\n    .navButton a {\n        font-size: 0.5rem;\n        height: auto;\n    }\n\n    .navButton .firstButtonBlock .button.is-info {\n        margin: 0;\n    }\n\n    .navButton{\n        width: 100%;\n    }\n}\n\n@media screen and (max-width: 380px) {\n    .nav-item {\n        font-size: 0.67rem;\n    }\n}\n\n@media screen and (max-width: 340px) {\n    .nav-item {\n        font-size: 0.5rem;\n    }\n}\n\n.slogan {\n    position: absolute;\n    top: 50%;\n    left: 20%;\n    -webkit-transform: translateY(-50%);\n    -ms-transform: translateY(-50%);\n    transform: translateY(-50%);\n    font-size: 1.1rem;\n    color: #00498E;\n}\n\n@media screen and (max-width: 1078px){\n    .slogan {\n        display: none;\n    }\n}\n\n.pages {\n    margin-right: 10px;\n    font-size: 18px;\n}\n\n.pagination a{\n    min-width: 90px;\n}", ""]);
 
 // exports
 
