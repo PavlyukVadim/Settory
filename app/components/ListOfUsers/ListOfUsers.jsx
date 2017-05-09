@@ -8,14 +8,14 @@ class ListOfUsers extends Component {
       return (
         <div key={i} className="vueCodShow">
           <div className="vueMesg">
-            <h2>{item.mail}</h2>
+            <h2>{item.email}</h2>
             <p>{item.phone}</p>
           </div>
           <div className="vueRightBlock">
             <p>Приєднався</p>
             <div className="vueMesg">
-              <h2>{item.dTime}</h2>
-              <Link to="users/1">Детальніше</Link>
+              <h2>{new Date(item.created_at).toLocaleDateString()}</h2>
+              <Link to={'users/' + item.id}>Детальніше</Link>
             </div>
           </div>
         </div>

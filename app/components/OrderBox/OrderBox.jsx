@@ -13,6 +13,7 @@ class OrderBox extends Component {
     this.dataPick = this.dataPick.bind(this);
     this.summa = this.summa.bind(this);
     this.inputsValidation = this.inputsValidation.bind(this);
+    this.fetchDisabledDates();
   }
 
   componentDidMount() {
@@ -20,6 +21,15 @@ class OrderBox extends Component {
     this.multiCheck();
     this.dataPick();
     $("#datapicker1").datepicker('setDate', now);
+  }
+
+  fetchDisabledDates() {
+    let hostname = 'http://localhost:3000';
+    fetch(`${hostname}/disabled_dates.json`, {
+            method: 'GET',
+            credentials: 'include'
+          })
+          .then(response => response.json());
   }
 
   makePay() {
