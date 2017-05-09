@@ -1,0 +1,22 @@
+#sign_in-component {
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+#sign_in-component .button {
+  margin: 20px 0;
+}
+
+#sign_in-component a {
+  display: block;
+  color: #0070FF;
+}
+
+#sign_in-component .field {
+  margin-bottom: 10px;
+}
+
+#sign_in-component input[type="checkbox"] {
+  margin-right: 5px;
+}
