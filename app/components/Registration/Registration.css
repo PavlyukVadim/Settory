@@ -1,0 +1,21 @@
+#registration-component {
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+#registration-component .button {
+  margin: 20px 0;
+}
+
+#registration-component a {
+  color: #0070FF;
+}
+
+#registration-component .field {
+  margin-bottom: 10px;
+}
+#registration-component .welcome {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
