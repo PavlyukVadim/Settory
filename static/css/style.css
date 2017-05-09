@@ -121,10 +121,11 @@ html body {
     margin: 0px;
 }
 
-.headerContentBlock p {
+.headerContentBlock p { 
     margin-top: 5%;
     font-size: 1.2rem;
     padding-right: 10%;
+    margin-left: 4px;
 }
 
 .headerContentBlock button {
@@ -162,6 +163,7 @@ html body {
 .bx-viewport {
     margin-left: 4px;
 }
+
 
 .headerContentBlock {
     left: 0;
@@ -1166,35 +1168,40 @@ html body .wrapperInfoBlock .box {
     }
 }
 
-#how-it-work, #why-we{
+#how-it-work, #why-we {
   background-color: #F5F5F5;
 }
 
-#how-it-work{
+#how-it-work {
   padding-top: 50px;
 }
 
 .site-map a {
- font-size: 16px;
- text-align: left;
+  font-size: 16px;
+  text-align: left;
 }
 
 #safety p {
   text-align: left;
 }
+
 #what-we-do .container {
   padding-top: 10px !important;
   padding-bottom: 0 !important;
 }
+
 #what-we-do h1 {
   text-align: center;
 }
+
 #what-we-do .columns {
    margin-bottom: 50px;
 }
+
 #what-we-do .mainContentChildImg {
   margin-bottom: 10px;
 }
+
 #what-we-do .mainContentChildText {
   margin-top: 10px;
 }

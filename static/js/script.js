@@ -30,10 +30,12 @@ setTimeout(function() {
     $('body').animate({'scrollTop': 0}, 1000);
     $('html').animate({'scrollTop': 0}, 1000);
   });
+
   $('.logo').click(() => {
     $('body').animate({'scrollTop': 0}, 1000);
     $('html').animate({'scrollTop': 0}, 1000);
   });
+
   $(window).scroll(() => {
     if ($(window).scrollTop() > 200 && $(window).scrollTop() < $(document).height() - $(window).height()) {
       $('.totop').addClass('active');
@@ -82,7 +84,7 @@ setTimeout(function() {
 
 })();
 
-(function scrollToComponent() {
+(function scrollToComponent() { 
   var navLinks = document.getElementsByClassName('nav-link');
   var navbar = document.getElementsByClassName('navbar')[0];
   var mapOfTargetElements = {};
@@ -100,7 +102,6 @@ setTimeout(function() {
     selector = navLinks[i].dataset.scrollTo;
     element = document.querySelectorAll(selector)[0];
     mapOfTargetElements[selector] = element;
-
     navLinks[i].onclick = (function(i) {
       return function() {
         if (!isScrolling) {
@@ -138,7 +139,7 @@ setTimeout(function() {
         speed = speed > step * 3 ? speed - step : speed;
       }
       var positionY = scrolled < to ? to - distance : to + distance;
-      window.scrollTo(0, positionY);
+      window.scrollTo(0, positionY); 
       if (distance <= shift) {
         isScrolling = false;
         isScrollingViaMenu = false;

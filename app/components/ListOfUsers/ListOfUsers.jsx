@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class ListOfUsers extends Component {
   
@@ -14,7 +15,7 @@ class ListOfUsers extends Component {
             <p>Приєднався</p>
             <div className="vueMesg">
               <h2>{item.dTime}</h2>
-              <a>Детальніше</a>
+              <Link to="users/1">Детальніше</Link>
             </div>
           </div>
         </div>

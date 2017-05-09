@@ -531,7 +531,7 @@ div.nav {
 }
 
 @media screen and (max-width:800px){
-    
+
     header .nav {
         width: 100%;
     }
@@ -539,17 +539,17 @@ div.nav {
     .nav-item, td {
         font-size: 0.8rem;
     }
-    
+       
     .nav-right_custom {
         margin-left: 0;
     }
-   
+
     .nav .nav-right {
         -webkit-box-pack: start;
         -ms-flex-pack: start;
         justify-content: flex-start;
     }
-    
+
     .nav-right_custom {
         margin-left: auto;
         margin-right: auto;
@@ -565,7 +565,7 @@ div.nav {
     .navText p {
         font-size: 0.65rem;
     }
-   
+
    .control.checkBoxBox {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -641,7 +641,7 @@ div.nav {
     color: #00498E;
 }
 
-@media screen and (max-width: 1078px){
+@media screen and (max-width: 1078px) {
     .slogan {
         display: none;
     }
