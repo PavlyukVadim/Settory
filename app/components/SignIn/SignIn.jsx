@@ -21,9 +21,9 @@ class SignIn extends Component {
                 <input className="input" type="password" />
               </p>
             </div>
-            <div class="field">
-              <p class="control">
-                <label class="checkbox">
+            <div className="field">
+              <p className="control">
+                <label className="checkbox">
                   <input type="checkbox" />
                    Запам'ятати мене
                 </label>
