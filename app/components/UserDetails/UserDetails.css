@@ -1,0 +1,19 @@
+#user-details-component {
+	margin-top: 40px;
+}
+
+#user-details-component h1 {
+	font-size: xx-large;
+}
+
+#user-details-component h2 {
+	font-size: x-large;
+} 
+
+#user-details-component h3 {
+	font-size: larger;
+}
+
+#user-details-component h5 {
+	font-size: large;
+}
