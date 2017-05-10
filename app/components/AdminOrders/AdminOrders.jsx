@@ -16,7 +16,7 @@ class AdminOrders extends Component {
     this.prevPage = this.prevPage.bind(this);
     this.getTBody = this.getTBody.bind(this);
     this.getPagination = this.getPagination.bind(this);
-    this.getValidOrderStatus = this.getValidOrderStatus.bind(this);
+    this.changeOrderStatus = this.changeOrderStatus.bind(this);
   }
 
   fetchOrders() {
@@ -76,6 +76,46 @@ class AdminOrders extends Component {
     });
   }
 
+  changeOrderStatus(e, orderId) {
+    let newStatus = e.target.value;
+    let orders = [].concat(this.state.orders);
+    let i;
+    let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
+    let token = document.cookie.slice(indexOfToken + 11);
+    let hostname = 'http://localhost:3000';
+    
+    for (i = 0; i < orders.length; i++) {
+      if (orders[i].id === orderId) {
+        orders[i].status = newStatus;
+        this.setState({
+          orders: orders
+        });
+        break;
+      }
+    }
+    /*var request = new XMLHttpRequest();
+    request.open("PUT", `${hostname}/orders/${orderId}`, true);
+    request.setRequestHeader("X-CSRF-TOKEN", token);*/
+    //request.setRequestHeader("Accept", 'application/json, text/plain, */*');
+    /*request.setRequestHeader("Content-Type", 'application/json;charset=UTF-8');
+    request.send(JSON.stringify({'status': newStatus}));*/
+    
+    token = decodeURIComponent(token);
+    fetch(`${hostname}/orders/${orderId}`, {
+            method: 'PUT',
+            credentials: 'same-origin',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json;charset=UTF-8',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-TOKEN': token,
+            },
+            body: JSON.stringify({
+              'status': newStatus
+            })
+          });
+  }
+
   getTBody() {
     if (!this.state.orders.length) {
       return;
@@ -84,11 +124,13 @@ class AdminOrders extends Component {
     let ordersOnPage = 10;
     let currPage = this.state.page;
     let currFilterByStatus = this.state.filterByStatus;
+    console.log(currFilterByStatus);
     let orders = this.state.orders.filter((order) => {
       if (currFilterByStatus === 'all' || currFilterByStatus === order.status) {
         return true;
       }
     });
+    console.log(orders);
     orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
     let tBody = orders.map((order, orderIndex) => {
       let optionsKeys = Object.keys(orders[orderIndex].options);
@@ -111,19 +153,19 @@ class AdminOrders extends Component {
           </td>
           <td><ul>{options}</ul></td>
           <td>{order.amount}</td>
-          <td>{this.getValidOrderStatus(order.status)}</td>
+          <td>
+            <select value={order.status}
+                    disabled={order.status === "done"}
+                    onChange={(e) => {this.changeOrderStatus(e, order.id)}}>
+              <option value="new">Нове замовлення</option>
+              <option value="in_progress">В роботі</option>
+              <option value="done">Завершене</option>
+            </select>
+          </td>
         </tr>
       );
     });
     return tBody;
-  }
-
-  getValidOrderStatus(status) {
-    switch(status) {
-      case 'new': return 'Нове замовлення'
-      case 'in_progress': return 'В роботі'
-      case 'done': return 'Завершене'
-    }
   }
 
   getPagination() {
@@ -141,7 +183,6 @@ class AdminOrders extends Component {
   }
 
   render() {
-    console.log(this.state.orders);
     return (
       <div>
         <div className="wrapperNav">

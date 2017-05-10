@@ -11427,7 +11427,7 @@ var AdminOrders = function (_Component) {
     _this.prevPage = _this.prevPage.bind(_this);
     _this.getTBody = _this.getTBody.bind(_this);
     _this.getPagination = _this.getPagination.bind(_this);
-    _this.getValidOrderStatus = _this.getValidOrderStatus.bind(_this);
+    _this.changeOrderStatus = _this.changeOrderStatus.bind(_this);
     return _this;
   }
 
@@ -11498,6 +11498,47 @@ var AdminOrders = function (_Component) {
       });
     }
   }, {
+    key: 'changeOrderStatus',
+    value: function changeOrderStatus(e, orderId) {
+      var newStatus = e.target.value;
+      var orders = [].concat(this.state.orders);
+      var i = void 0;
+      var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
+      var token = document.cookie.slice(indexOfToken + 11);
+      var hostname = 'http://localhost:3000';
+
+      for (i = 0; i < orders.length; i++) {
+        if (orders[i].id === orderId) {
+          orders[i].status = newStatus;
+          this.setState({
+            orders: orders
+          });
+          break;
+        }
+      }
+      /*var request = new XMLHttpRequest();
+      request.open("PUT", `${hostname}/orders/${orderId}`, true);
+      request.setRequestHeader("X-CSRF-TOKEN", token);*/
+      //request.setRequestHeader("Accept", 'application/json, text/plain, */*');
+      /*request.setRequestHeader("Content-Type", 'application/json;charset=UTF-8');
+      request.send(JSON.stringify({'status': newStatus}));*/
+
+      token = decodeURIComponent(token);
+      fetch(hostname + '/orders/' + orderId, {
+        method: 'PUT',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({
+          'status': newStatus
+        })
+      });
+    }
+  }, {
     key: 'getTBody',
     value: function getTBody() {
       var _this3 = this;
@@ -11509,11 +11550,13 @@ var AdminOrders = function (_Component) {
       var ordersOnPage = 10;
       var currPage = this.state.page;
       var currFilterByStatus = this.state.filterByStatus;
+      console.log(currFilterByStatus);
       var orders = this.state.orders.filter(function (order) {
         if (currFilterByStatus === 'all' || currFilterByStatus === order.status) {
           return true;
         }
       });
+      console.log(orders);
       orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
       var tBody = orders.map(function (order, orderIndex) {
         var optionsKeys = Object.keys(orders[orderIndex].options);
@@ -11578,23 +11621,33 @@ var AdminOrders = function (_Component) {
           _react2.default.createElement(
             'td',
             null,
-            _this3.getValidOrderStatus(order.status)
+            _react2.default.createElement(
+              'select',
+              { value: order.status,
+                disabled: order.status === "done",
+                onChange: function onChange(e) {
+                  _this3.changeOrderStatus(e, order.id);
+                } },
+              _react2.default.createElement(
+                'option',
+                { value: 'new' },
+                '\u041D\u043E\u0432\u0435 \u0437\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'in_progress' },
+                '\u0412 \u0440\u043E\u0431\u043E\u0442\u0456'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'done' },
+                '\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0435'
+              )
+            )
           )
         );
       });
       return tBody;
-    }
-  }, {
-    key: 'getValidOrderStatus',
-    value: function getValidOrderStatus(status) {
-      switch (status) {
-        case 'new':
-          return 'Нове замовлення';
-        case 'in_progress':
-          return 'В роботі';
-        case 'done':
-          return 'Завершене';
-      }
     }
   }, {
     key: 'getPagination',
@@ -11616,7 +11669,6 @@ var AdminOrders = function (_Component) {
     value: function render() {
       var _this4 = this;
 
-      console.log(this.state.orders);
       return _react2.default.createElement(
         'div',
         null,
