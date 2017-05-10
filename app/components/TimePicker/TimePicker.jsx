@@ -8,6 +8,7 @@ class TimePicker extends Component {
       orderDate: new Date()
     };
     this.timePick = this.timePick.bind(this);
+    this.updateTime = this.updateTime.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +32,7 @@ class TimePicker extends Component {
     let selectedTime = $("#datapicker1").datepicker('getDate');
     let currDate = new Date();
     this.setState({orderDate: selectedTime});
-    
+
     if (selectedTime.toDateString() === currDate.toDateString()) {
       let closestTime = currDate.getHours() + 3;
       if (closestTime >= 19) {
@@ -45,10 +46,19 @@ class TimePicker extends Component {
     }
     $('#forTime').timepicker('show');  
   }
+
+  updateTime(e) {
+    this.props.updateTime(e.target.value);
+  }
     
   render() {
     return (
-      <input className="input timepicker" id="forTime" onClick={this.timePick} type="text" required />
+      <input className="input timepicker" 
+             id="forTime"
+             onClick={this.timePick}
+             onBlur={this.updateTime}
+             type="text"
+             required />
     )
   }
 }

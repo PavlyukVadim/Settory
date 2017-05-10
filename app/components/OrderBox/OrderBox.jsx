@@ -1,16 +1,36 @@
 import React, { Component } from 'react';
 import TimePicker from '../TimePicker/TimePicker.jsx';
 
+/*options = [{title: 'windows', price: 300, selected: false},
+             {title: 'dishes', price: 100, selected: false},
+             {title: 'freezer', price: 150, selected: false},
+             {title: 'oven', price: 150, selected: false},
+             {title: 'iron', price: 125, selected: false},
+             {title: 'microwave', price: 150, selected: false},
+             {title: 'kitchenCabinet', price: 200, selected: false},
+             {title: 'hood', price: 150, selected: false},
+             {title: 'underware', price: 50, selected: false}];*/
+
 class OrderBox extends Component {
   
   constructor(props) {
     super(props);
+    this.options = { windows: false,
+                     dishes: false,
+                     freezer: false,
+                     oven: false,
+                     iron: false,
+                     microwave: false,
+                     kitchenCabinet: false,
+                     hood: false,
+                     underware: false };
     this.makePay = this.makePay.bind(this);
     this.decreaseNumberOfRooms = this.decreaseNumberOfRooms.bind(this);
     this.increaseNumberOfRooms = this.increaseNumberOfRooms.bind(this);
     this.decreaseNumberOfBathrooms = this.decreaseNumberOfBathrooms.bind(this);
     this.increaseNumberOfBathrooms = this.increaseNumberOfBathrooms.bind(this);
     this.dataPick = this.dataPick.bind(this);
+    this.timePick = this.timePick.bind(this);
     this.summa = this.summa.bind(this);
     this.inputsValidation = this.inputsValidation.bind(this);
     this.fetchDisabledDates();
@@ -33,11 +53,47 @@ class OrderBox extends Component {
   }
 
   makePay() {
-    let onAjaxSuccess = (data) => {
+    /*let onAjaxSuccess = (data) => {
       $('#form_responce').html(data); //И передаем эту форму в невидимое поле form_responce
       $('#form_responce form').submit() //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
     }
-    $.get('../payment/makeform.php', {price: $('#price').text()}, onAjaxSuccess);
+    $.get('../payment/makeform.php', {price: $('#price').text()}, onAjaxSuccess);*/
+    this.sendOrder();
+  }
+
+  sendOrder() {
+    let address = this.addressInput.value;
+    let numOfRooms = this.numberOfRoomsInput.value;
+    let dateOrder = this.dateOrderInput.value;
+    let timeOrder = this.timeOrder;
+    // these options didn't implement on back-end.
+    delete this.options.microwave;
+    delete this.options.kitchenCabinet;
+    delete this.options.hood;
+    delete this.options.underware;
+    
+    let opts = this.options;
+    let data = {
+      dae: {
+        amount: this.sum,
+        address: address,
+        num_of_rooms: numOfRooms,
+        date_order: dateOrder,
+        time_order: timeOrder,
+        options: opts
+      }
+    }
+    
+    let hostname = 'http://localhost:3000';
+    /*fetch(`${hostname}/orders`, {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify({
+            dae: data.dae
+        }),
+      })*/
+    $.post(`${hostname}/orders`, {'dae': data.dae});
+      //.then(response => response.json());
   }
 
   decreaseNumberOfRooms() {
@@ -73,21 +129,28 @@ class OrderBox extends Component {
     $('#forTime').val('');
   }
   
+  timePick(newTime) {
+    this.timeOrder = newTime;
+  }
+
   summa() {
-    let sum = 0;
-    if ($('#1stOpt').prop("checked")) sum += 300;
-    if ($('#2stOpt').prop("checked")) sum += 100;
-    if ($('#3stOpt').prop("checked")) sum += 150;
-    if ($('#4stOpt').prop("checked")) sum += 150;
-    if ($('#5stOpt').prop("checked")) sum += 125;
-    if ($('#6stOpt').prop("checked")) sum += 150;
-    if ($('#7stOpt').prop("checked")) sum += 200;
-    if ($('#8stOpt').prop("checked")) sum += 150;
-    if ($('#9stOpt').prop("checked")) sum += 50;
-    sum += $("input[name='roomQuantity']").val() * 100 + 400;
-    sum += ($("input[name='bathQuantity']").val() - 1) * 100;
+    this.sum = 0;
+    for (let option in this.options) {
+      this.options[option] = false;
+    }
+    if ($('#1stOpt').prop("checked")) { this.sum += 300; this.options.windows = true; }
+    if ($('#2stOpt').prop("checked")) { this.sum += 100; this.options.dishes = true; }
+    if ($('#3stOpt').prop("checked")) { this.sum += 150; this.options.freezer = true; }
+    if ($('#4stOpt').prop("checked")) { this.sum += 150; this.options.oven = true; }
+    if ($('#5stOpt').prop("checked")) { this.sum += 125; this.options.iron = true; }
+    if ($('#6stOpt').prop("checked")) { this.sum += 150; this.options.microwave = true; }
+    if ($('#7stOpt').prop("checked")) { this.sum += 200; this.options.kitchenCabinet = true; }
+    if ($('#8stOpt').prop("checked")) { this.sum += 150; this.options.hood = true; }
+    if ($('#9stOpt').prop("checked")) { this.sum += 50; this.options.underware = true; }
+    this.sum += $("input[name='roomQuantity']").val() * 100 + 400;
+    this.sum += ($("input[name='bathQuantity']").val() - 1) * 100;
     $('#price').empty();
-    $('#price').text(sum + ' грн');
+    $('#price').text(this.sum + ' грн');
   }
 
   inputsValidation() {
@@ -115,7 +178,11 @@ class OrderBox extends Component {
           <div className="orderBlock">
             <label className="label">Адреса квартири</label>
             <p className="control">
-              <input className="input" type="text" placeholder="вулиця Богдана Хмельницького 64,квартира13" required />
+              <input className="input"
+                     type="text"
+                     ref={(input) => {this.addressInput = input;}}
+                     placeholder="вулиця Богдана Хмельницького 64,квартира13" 
+                     required />
             </p>
             <label className="label">Кількість кімнат</label>
             <p className="control has-addons">
@@ -149,12 +216,13 @@ class OrderBox extends Component {
             <p className="control">
               <input type="text" className="input"
                      id="datapicker1"
+                     ref={(input) => {this.dateOrderInput = input;}}
                      onClick={this.dataPick}
                      required/>
             </p>
             <label className="label" id="time">На який час?</label>
             <p className="control">
-              <TimePicker/>
+              <TimePicker updateTime={this.timePick}/>
             </p>
             <label className="label">Додаткові опції</label>
             <p className="control checkBoxBox">

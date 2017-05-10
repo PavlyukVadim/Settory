@@ -12769,6 +12769,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/*options = [{title: 'windows', price: 300, selected: false},
+             {title: 'dishes', price: 100, selected: false},
+             {title: 'freezer', price: 150, selected: false},
+             {title: 'oven', price: 150, selected: false},
+             {title: 'iron', price: 125, selected: false},
+             {title: 'microwave', price: 150, selected: false},
+             {title: 'kitchenCabinet', price: 200, selected: false},
+             {title: 'hood', price: 150, selected: false},
+             {title: 'underware', price: 50, selected: false}];*/
+
 var OrderBox = function (_Component) {
   _inherits(OrderBox, _Component);
 
@@ -12777,12 +12787,22 @@ var OrderBox = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (OrderBox.__proto__ || Object.getPrototypeOf(OrderBox)).call(this, props));
 
+    _this.options = { windows: false,
+      dishes: false,
+      freezer: false,
+      oven: false,
+      iron: false,
+      microwave: false,
+      kitchenCabinet: false,
+      hood: false,
+      underware: false };
     _this.makePay = _this.makePay.bind(_this);
     _this.decreaseNumberOfRooms = _this.decreaseNumberOfRooms.bind(_this);
     _this.increaseNumberOfRooms = _this.increaseNumberOfRooms.bind(_this);
     _this.decreaseNumberOfBathrooms = _this.decreaseNumberOfBathrooms.bind(_this);
     _this.increaseNumberOfBathrooms = _this.increaseNumberOfBathrooms.bind(_this);
     _this.dataPick = _this.dataPick.bind(_this);
+    _this.timePick = _this.timePick.bind(_this);
     _this.summa = _this.summa.bind(_this);
     _this.inputsValidation = _this.inputsValidation.bind(_this);
     _this.fetchDisabledDates();
@@ -12811,11 +12831,48 @@ var OrderBox = function (_Component) {
   }, {
     key: 'makePay',
     value: function makePay() {
-      var onAjaxSuccess = function onAjaxSuccess(data) {
+      /*let onAjaxSuccess = (data) => {
         $('#form_responce').html(data); //И передаем эту форму в невидимое поле form_responce
-        $('#form_responce form').submit(); //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
+        $('#form_responce form').submit() //Сразу же автоматически сабмитим эту форму, так как всеравно клиент её не видит
+      }
+      $.get('../payment/makeform.php', {price: $('#price').text()}, onAjaxSuccess);*/
+      this.sendOrder();
+    }
+  }, {
+    key: 'sendOrder',
+    value: function sendOrder() {
+      var address = this.addressInput.value;
+      var numOfRooms = this.numberOfRoomsInput.value;
+      var dateOrder = this.dateOrderInput.value;
+      var timeOrder = this.timeOrder;
+      // these options didn't implement on back-end.
+      delete this.options.microwave;
+      delete this.options.kitchenCabinet;
+      delete this.options.hood;
+      delete this.options.underware;
+
+      var opts = this.options;
+      var data = {
+        dae: {
+          amount: this.sum,
+          address: address,
+          num_of_rooms: numOfRooms,
+          date_order: dateOrder,
+          time_order: timeOrder,
+          options: opts
+        }
       };
-      $.get('../payment/makeform.php', { price: $('#price').text() }, onAjaxSuccess);
+
+      var hostname = 'http://localhost:3000';
+      /*fetch(`${hostname}/orders`, {
+              method: 'POST',
+              credentials: 'include',
+              body: JSON.stringify({
+              dae: data.dae
+          }),
+        })*/
+      $.post(hostname + '/orders', { 'dae': data.dae });
+      //.then(response => response.json());
     }
   }, {
     key: 'decreaseNumberOfRooms',
@@ -12856,22 +12913,48 @@ var OrderBox = function (_Component) {
       $('#forTime').val('');
     }
   }, {
+    key: 'timePick',
+    value: function timePick(newTime) {
+      this.timeOrder = newTime;
+    }
+  }, {
     key: 'summa',
     value: function summa() {
-      var sum = 0;
-      if ($('#1stOpt').prop("checked")) sum += 300;
-      if ($('#2stOpt').prop("checked")) sum += 100;
-      if ($('#3stOpt').prop("checked")) sum += 150;
-      if ($('#4stOpt').prop("checked")) sum += 150;
-      if ($('#5stOpt').prop("checked")) sum += 125;
-      if ($('#6stOpt').prop("checked")) sum += 150;
-      if ($('#7stOpt').prop("checked")) sum += 200;
-      if ($('#8stOpt').prop("checked")) sum += 150;
-      if ($('#9stOpt').prop("checked")) sum += 50;
-      sum += $("input[name='roomQuantity']").val() * 100 + 400;
-      sum += ($("input[name='bathQuantity']").val() - 1) * 100;
+      this.sum = 0;
+      for (var option in this.options) {
+        this.options[option] = false;
+      }
+      if ($('#1stOpt').prop("checked")) {
+        this.sum += 300;this.options.windows = true;
+      }
+      if ($('#2stOpt').prop("checked")) {
+        this.sum += 100;this.options.dishes = true;
+      }
+      if ($('#3stOpt').prop("checked")) {
+        this.sum += 150;this.options.freezer = true;
+      }
+      if ($('#4stOpt').prop("checked")) {
+        this.sum += 150;this.options.oven = true;
+      }
+      if ($('#5stOpt').prop("checked")) {
+        this.sum += 125;this.options.iron = true;
+      }
+      if ($('#6stOpt').prop("checked")) {
+        this.sum += 150;this.options.microwave = true;
+      }
+      if ($('#7stOpt').prop("checked")) {
+        this.sum += 200;this.options.kitchenCabinet = true;
+      }
+      if ($('#8stOpt').prop("checked")) {
+        this.sum += 150;this.options.hood = true;
+      }
+      if ($('#9stOpt').prop("checked")) {
+        this.sum += 50;this.options.underware = true;
+      }
+      this.sum += $("input[name='roomQuantity']").val() * 100 + 400;
+      this.sum += ($("input[name='bathQuantity']").val() - 1) * 100;
       $('#price').empty();
-      $('#price').text(sum + ' грн');
+      $('#price').text(this.sum + ' грн');
     }
   }, {
     key: 'inputsValidation',
@@ -12915,7 +12998,13 @@ var OrderBox = function (_Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u0432\u0443\u043B\u0438\u0446\u044F \u0411\u043E\u0433\u0434\u0430\u043D\u0430 \u0425\u043C\u0435\u043B\u044C\u043D\u0438\u0446\u044C\u043A\u043E\u0433\u043E 64,\u043A\u0432\u0430\u0440\u0442\u0438\u0440\u043013', required: true })
+              _react2.default.createElement('input', { className: 'input',
+                type: 'text',
+                ref: function ref(input) {
+                  _this2.addressInput = input;
+                },
+                placeholder: '\u0432\u0443\u043B\u0438\u0446\u044F \u0411\u043E\u0433\u0434\u0430\u043D\u0430 \u0425\u043C\u0435\u043B\u044C\u043D\u0438\u0446\u044C\u043A\u043E\u0433\u043E 64,\u043A\u0432\u0430\u0440\u0442\u0438\u0440\u043013',
+                required: true })
             ),
             _react2.default.createElement(
               'label',
@@ -12987,6 +13076,9 @@ var OrderBox = function (_Component) {
               { className: 'control' },
               _react2.default.createElement('input', { type: 'text', className: 'input',
                 id: 'datapicker1',
+                ref: function ref(input) {
+                  _this2.dateOrderInput = input;
+                },
                 onClick: this.dataPick,
                 required: true })
             ),
@@ -12998,7 +13090,7 @@ var OrderBox = function (_Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement(_TimePicker2.default, null)
+              _react2.default.createElement(_TimePicker2.default, { updateTime: this.timePick })
             ),
             _react2.default.createElement(
               'label',
@@ -13863,6 +13955,7 @@ var TimePicker = function (_Component) {
       orderDate: new Date()
     };
     _this.timePick = _this.timePick.bind(_this);
+    _this.updateTime = _this.updateTime.bind(_this);
     return _this;
   }
 
@@ -13906,9 +13999,19 @@ var TimePicker = function (_Component) {
       $('#forTime').timepicker('show');
     }
   }, {
+    key: 'updateTime',
+    value: function updateTime(e) {
+      this.props.updateTime(e.target.value);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('input', { className: 'input timepicker', id: 'forTime', onClick: this.timePick, type: 'text', required: true });
+      return _react2.default.createElement('input', { className: 'input timepicker',
+        id: 'forTime',
+        onClick: this.timePick,
+        onBlur: this.updateTime,
+        type: 'text',
+        required: true });
     }
   }]);
 
