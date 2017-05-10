@@ -124,13 +124,11 @@ class AdminOrders extends Component {
     let ordersOnPage = 10;
     let currPage = this.state.page;
     let currFilterByStatus = this.state.filterByStatus;
-    console.log(currFilterByStatus);
     let orders = this.state.orders.filter((order) => {
       if (currFilterByStatus === 'all' || currFilterByStatus === order.status) {
         return true;
       }
     });
-    console.log(orders);
     orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
     let tBody = orders.map((order, orderIndex) => {
       let optionsKeys = Object.keys(orders[orderIndex].options);

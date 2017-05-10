@@ -11550,13 +11550,11 @@ var AdminOrders = function (_Component) {
       var ordersOnPage = 10;
       var currPage = this.state.page;
       var currFilterByStatus = this.state.filterByStatus;
-      console.log(currFilterByStatus);
       var orders = this.state.orders.filter(function (order) {
         if (currFilterByStatus === 'all' || currFilterByStatus === order.status) {
           return true;
         }
       });
-      console.log(orders);
       orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
       var tBody = orders.map(function (order, orderIndex) {
         var optionsKeys = Object.keys(orders[orderIndex].options);
@@ -11996,60 +11994,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function orderData(orderObj) {
-  this.orderNumber = orderObj.orderNumber;
-  this.mail = orderObj.mail;
-  this.phone = orderObj.phone;
-  this.address = orderObj.address;
-  this.numberOfRooms = orderObj.numberOfRooms;
-  this.time = orderObj.time;
-  this.date = orderObj.date;
-  this.options = orderObj.options;
-  this.price = orderObj.price;
-  this.status = orderObj.status;
-}
-
-var order1 = new orderData({
-  orderNumber: 1,
-  mail: 'sample.mail1@mail.com',
-  phone: '0935556644',
-  address: 'Atlantic City, NJ 08401',
-  numberOfRooms: 2,
-  time: '20:16',
-  date: '21/12/2016',
-  options: [1, 2],
-  price: 500,
-  status: 'Aктивно'
-});
-
-var order2 = new orderData({
-  orderNumber: 2,
-  mail: 'sample.mail1@mail.com',
-  phone: '093556544',
-  address: 'Atlantic City, NJ 08546',
-  numberOfRooms: 1,
-  time: '20:15',
-  date: '22/02/2009',
-  options: [1, 4],
-  price: 600,
-  status: 'Завершено'
-});
-
-var order3 = new orderData({
-  orderNumber: 3,
-  mail: 'sample.mail1@mail.com',
-  phone: '093556654',
-  address: 'Atlantic City, NJ 65335',
-  numberOfRooms: 3,
-  time: '12:56',
-  date: '22/02/2019',
-  options: [1, 3],
-  price: 700,
-  status: 'Очікується'
-});
-
-var ordersArr = [order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order1, order2, order3, order2, order2, order2];
-
 var ClientOrders = function (_Component) {
   _inherits(ClientOrders, _Component);
 
@@ -12059,32 +12003,57 @@ var ClientOrders = function (_Component) {
     var _this = _possibleConstructorReturn(this, (ClientOrders.__proto__ || Object.getPrototypeOf(ClientOrders)).call(this, props));
 
     _this.state = {
-      orders: ordersArr,
+      orders: [],
       page: 1,
-      numberOfPages: Math.floor(ordersArr.filter(function (order) {
-        return order.status === 'Очікується';
-      }).length / 10) + 1,
-      filterByStatus: 'Очікується'
+      numberOfPages: 0,
+      filterByStatus: 'new in_progress'
     };
+    _this.fetchOrders();
     _this.nextPage = _this.nextPage.bind(_this);
     _this.prevPage = _this.prevPage.bind(_this);
     _this.switchFilter = _this.switchFilter.bind(_this);
     _this.getTBody = _this.getTBody.bind(_this);
     _this.getPagination = _this.getPagination.bind(_this);
+    _this.getFormattedStatus = _this.getFormattedStatus.bind(_this);
     return _this;
   }
 
   _createClass(ClientOrders, [{
+    key: 'fetchOrders',
+    value: function fetchOrders() {
+      var _this2 = this;
+
+      var hostname = 'http://localhost:3000';
+      fetch(hostname + '/orders.json', {
+        method: 'GET',
+        credentials: 'include'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (arrayOfOrders) {
+        return _this2.setOrders(arrayOfOrders);
+      });
+    }
+  }, {
+    key: 'setOrders',
+    value: function setOrders(arrayOfOrders) {
+      this.setState({
+        orders: arrayOfOrders,
+        numberOfPages: Math.floor(arrayOfOrders.filter(function (order) {
+          return ~'new in_progress'.indexOf(order.status);
+        }).length / 10) + 1
+      });
+    }
+  }, {
     key: 'switchFilter',
     value: function switchFilter() {
-      var currFilterByStatus = this.state.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується';
+      var currFilterByStatus = this.state.filterByStatus === 'new in_progress' ? 'done' : 'new in_progress';
       var orders = this.state.orders.filter(function (order) {
-        return order.status === currFilterByStatus;
+        return ~currFilterByStatus.indexOf(order.status);
       });
       var newNumberOfPages = Math.floor(orders.length / 10) + 1;
       this.setState(function (prevState) {
         return {
-          filterByStatus: prevState.filterByStatus === 'Очікується' ? 'Завершено' : 'Очікується',
+          filterByStatus: currFilterByStatus,
           numberOfPages: newNumberOfPages
         };
       });
@@ -12117,17 +12086,23 @@ var ClientOrders = function (_Component) {
   }, {
     key: 'getTBody',
     value: function getTBody() {
-      var optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
+      var _this3 = this;
+
+      if (!this.state.orders.length) {
+        return;
+      }
+      var optionsArr = ['Миття посуду', 'Чистка холодильника', 'Прасування', 'Чистка духовки', 'Миття вікон'];
       var ordersOnPage = 10;
       var currPage = this.state.page;
       var currFilterByStatus = this.state.filterByStatus;
       var orders = this.state.orders.filter(function (order) {
-        return order.status === currFilterByStatus;
+        return ~currFilterByStatus.indexOf(order.status);
       });
       orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
       var tBody = orders.map(function (order, orderIndex) {
+        var optionsKeys = Object.keys(orders[orderIndex].options);
         var options = optionsArr.filter(function (optionTitle, index) {
-          return order.options.indexOf(index + 1) !== -1;
+          return order.options[optionsKeys[index]] === "true";
         }).map(function (option, index) {
           return _react2.default.createElement(
             'li',
@@ -12135,23 +12110,14 @@ var ClientOrders = function (_Component) {
             option
           );
         });
+
         return _react2.default.createElement(
           'tr',
           { key: orderIndex },
           _react2.default.createElement(
             'td',
             null,
-            order.orderNumber
-          ),
-          _react2.default.createElement(
-            'td',
-            null,
-            order.mail
-          ),
-          _react2.default.createElement(
-            'td',
-            null,
-            order.phone
+            order.id
           ),
           _react2.default.createElement(
             'td',
@@ -12161,14 +12127,13 @@ var ClientOrders = function (_Component) {
           _react2.default.createElement(
             'td',
             null,
-            order.numberOfRooms
+            order.num_of_rooms
           ),
           _react2.default.createElement(
             'td',
             null,
-            order.time,
-            ' ',
-            order.date
+            order.time_order.slice(11, 16) + ' ',
+            new Date(order.date_order).toLocaleDateString()
           ),
           _react2.default.createElement(
             'td',
@@ -12182,16 +12147,28 @@ var ClientOrders = function (_Component) {
           _react2.default.createElement(
             'td',
             null,
-            order.price
+            order.amount
           ),
           _react2.default.createElement(
             'td',
             null,
-            order.status
+            _this3.getFormattedStatus(order.status)
           )
         );
       });
       return tBody;
+    }
+  }, {
+    key: 'getFormattedStatus',
+    value: function getFormattedStatus(status) {
+      switch (status) {
+        case 'new':
+          return 'Очікується';
+        case 'in_progress':
+          return 'Очікується';
+        case 'done':
+          return 'Завершено';
+      }
     }
   }, {
     key: 'getPagination',
@@ -12287,24 +12264,6 @@ var ClientOrders = function (_Component) {
                       'strong',
                       null,
                       '#'
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement(
-                      'strong',
-                      null,
-                      '\u041F\u043E\u0448\u0442\u0430'
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'td',
-                    null,
-                    _react2.default.createElement(
-                      'strong',
-                      null,
-                      '\u041D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443'
                     )
                   ),
                   _react2.default.createElement(
