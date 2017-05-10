@@ -11451,7 +11451,7 @@ var AdminOrders = function (_Component) {
     value: function setOrders(arrayOfOrders) {
       this.setState({
         orders: arrayOfOrders,
-        numberOfPages: Math.floor(arrayOfOrders.length / 10) + 1
+        numberOfPages: Math.ceil(arrayOfOrders.length / 10)
       });
     }
   }, {
@@ -11488,7 +11488,7 @@ var AdminOrders = function (_Component) {
           return true;
         }
       });
-      var newNumberOfPages = Math.floor(orders.length / 10) + 1;
+      var newNumberOfPages = Math.ceil(orders.length / 10);
       this.setState(function (prevState) {
         return {
           page: 1,
@@ -12038,9 +12038,9 @@ var ClientOrders = function (_Component) {
     value: function setOrders(arrayOfOrders) {
       this.setState({
         orders: arrayOfOrders,
-        numberOfPages: Math.floor(arrayOfOrders.filter(function (order) {
+        numberOfPages: Math.ceil(arrayOfOrders.filter(function (order) {
           return ~'new in_progress'.indexOf(order.status);
-        }).length / 10) + 1
+        }).length / 10)
       });
     }
   }, {
@@ -12050,7 +12050,7 @@ var ClientOrders = function (_Component) {
       var orders = this.state.orders.filter(function (order) {
         return ~currFilterByStatus.indexOf(order.status);
       });
-      var newNumberOfPages = Math.floor(orders.length / 10) + 1;
+      var newNumberOfPages = Math.ceil(orders.length / 10);
       this.setState(function (prevState) {
         return {
           filterByStatus: currFilterByStatus,

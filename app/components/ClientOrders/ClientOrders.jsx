@@ -33,14 +33,14 @@ class ClientOrders extends Component {
   setOrders(arrayOfOrders) {
     this.setState({
       orders: arrayOfOrders,
-      numberOfPages: Math.floor(arrayOfOrders.filter((order) => ~'new in_progress'.indexOf(order.status)).length / 10) + 1
+      numberOfPages: Math.ceil(arrayOfOrders.filter((order) => ~'new in_progress'.indexOf(order.status)).length / 10)
     })
   }
 
   switchFilter() {
     let currFilterByStatus = this.state.filterByStatus === 'new in_progress' ? 'done' : 'new in_progress';
     let orders = this.state.orders.filter((order) => ~currFilterByStatus.indexOf(order.status));
-    let newNumberOfPages = Math.floor(orders.length / 10) + 1;
+    let newNumberOfPages = Math.ceil(orders.length / 10);
     this.setState((prevState) => {
       return {
         filterByStatus: currFilterByStatus,

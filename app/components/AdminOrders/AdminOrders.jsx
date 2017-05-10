@@ -32,7 +32,7 @@ class AdminOrders extends Component {
   setOrders(arrayOfOrders) {
     this.setState({
       orders: arrayOfOrders,
-      numberOfPages: Math.floor(arrayOfOrders.length / 10) + 1
+      numberOfPages: Math.ceil(arrayOfOrders.length / 10)
     })
   }
 
@@ -66,7 +66,7 @@ class AdminOrders extends Component {
         return true;
       }
     });
-    let newNumberOfPages = Math.floor(orders.length / 10) + 1; 
+    let newNumberOfPages = Math.ceil(orders.length / 10); 
     this.setState((prevState) => {
       return {
         page: 1,
