@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 function PromoCode(discount, dTime, code) {
-  this.discount = discount;
-  this.dTime = dTime;
+  this.percent = +discount;
+  this.end_date = dTime;
   this.code = code;
 }
 
@@ -11,23 +11,33 @@ class PromoCodes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      arrayOfPromoCodes: this.getInitialPromoCodes()
+      arrayOfPromoCodes: []
     };
+    this.fetchPromoCodes();
     this.addPromoCode = this.addPromoCode.bind(this);
     this.timePick = this.timePick.bind(this);
     this.getPromoCodes = this.getPromoCodes.bind(this);
     this.deletePromoCode = this.deletePromoCode.bind(this);
   }
 
-  getInitialPromoCodes() {
-    return [new PromoCode('10', '2012-10-10', 'PromoCode1'),
-            new PromoCode('20', '2012-11-11', 'PromoCode2'),
-            new PromoCode('30', '2012-12-12', 'PromoCode3')];
-
-  }
-
   componentDidMount() {
     this.timePick();
+  }
+  
+  fetchPromoCodes() {
+    let hostname = 'http://localhost:3000';
+    fetch(`${hostname}/admin_promos.json`, {
+            method: 'GET',
+            credentials: 'include'
+          })
+          .then(response => response.json())
+          .then(arrayOfPromoCodes => this.setPromoCodes(arrayOfPromoCodes));
+  }
+
+  setPromoCodes(arrayOfPromoCodes) {
+    this.setState({
+      arrayOfPromoCodes: arrayOfPromoCodes,
+    })
   }
 
   timePick() {
@@ -36,34 +46,62 @@ class PromoCodes extends Component {
     });
   }
 
-  deletePromoCode(i) {
+  deletePromoCode(promoId) {
     this.setState((prevState) => {
-      prevState.arrayOfPromoCodes.splice(i, 1);
       return {
-        arrayOfPromoCodes: prevState.arrayOfPromoCodes
+        arrayOfPromoCodes: prevState.arrayOfPromoCodes.filter((promo) => promo.id != promoId)
       };
     })
+
+    let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
+    let token = document.cookie.slice(indexOfToken + 11);
+    let hostname = 'http://localhost:3000';
+    token = decodeURIComponent(token);
+    fetch(`${hostname}/promos/${promoId}`, {
+            method: 'DELETE',
+            credentials: 'same-origin',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json;charset=UTF-8',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-TOKEN': token,
+            }
+          });
   }
 
   addPromoCode(e) {
     e.preventDefault();
+    let newPromoCode = new PromoCode(this.discountInput.value, this.dTimeInput.value, this.codeInput.value);
     this.setState((prevState) => {
-      let newPromoCode = new PromoCode(this.discountInput.value,
-                                       this.dTimeInput.value,
-                                       this.codeInput.value);
       prevState.arrayOfPromoCodes.push(newPromoCode);
       return {
         arrayOfPromoCodes: prevState.arrayOfPromoCodes
       };
-    })
+    });
+    
+    let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
+    let token = document.cookie.slice(indexOfToken + 11);
+    let hostname = 'http://localhost:3000';
+    token = decodeURIComponent(token);
+    fetch(`${hostname}/create_promo`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json;charset=UTF-8',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRF-TOKEN': token,
+            },
+            body: JSON.stringify(newPromoCode)
+          });
   }
 
   getPromoCodes() {
     let promoCodes = this.state.arrayOfPromoCodes.map((item, i) => {
       return (
         <div className="promoCodShow" key={i}>
-          <p>Промо на {item.discount}% дійсне до {item.dTime}, код:{item.code}</p>
-          <a className="deletepromo" onClick={() => this.deletePromoCode(i)}>Видалити</a>
+          <p>Промо на {item.percent}% дійсне до {item.end_date}, код:{item.code}</p>
+          <a className="deletepromo" onClick={() => this.deletePromoCode(item.id)}>Видалити</a>
         </div>
       );
     });

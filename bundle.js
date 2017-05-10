@@ -13215,8 +13215,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function PromoCode(discount, dTime, code) {
-  this.discount = discount;
-  this.dTime = dTime;
+  this.percent = +discount;
+  this.end_date = dTime;
   this.code = code;
 }
 
@@ -13229,8 +13229,9 @@ var PromoCodes = function (_Component) {
     var _this = _possibleConstructorReturn(this, (PromoCodes.__proto__ || Object.getPrototypeOf(PromoCodes)).call(this, props));
 
     _this.state = {
-      arrayOfPromoCodes: _this.getInitialPromoCodes()
+      arrayOfPromoCodes: []
     };
+    _this.fetchPromoCodes();
     _this.addPromoCode = _this.addPromoCode.bind(_this);
     _this.timePick = _this.timePick.bind(_this);
     _this.getPromoCodes = _this.getPromoCodes.bind(_this);
@@ -13239,14 +13240,31 @@ var PromoCodes = function (_Component) {
   }
 
   _createClass(PromoCodes, [{
-    key: 'getInitialPromoCodes',
-    value: function getInitialPromoCodes() {
-      return [new PromoCode('10', '2012-10-10', 'PromoCode1'), new PromoCode('20', '2012-11-11', 'PromoCode2'), new PromoCode('30', '2012-12-12', 'PromoCode3')];
-    }
-  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.timePick();
+    }
+  }, {
+    key: 'fetchPromoCodes',
+    value: function fetchPromoCodes() {
+      var _this2 = this;
+
+      var hostname = 'http://localhost:3000';
+      fetch(hostname + '/admin_promos.json', {
+        method: 'GET',
+        credentials: 'include'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (arrayOfPromoCodes) {
+        return _this2.setPromoCodes(arrayOfPromoCodes);
+      });
+    }
+  }, {
+    key: 'setPromoCodes',
+    value: function setPromoCodes(arrayOfPromoCodes) {
+      this.setState({
+        arrayOfPromoCodes: arrayOfPromoCodes
+      });
     }
   }, {
     key: 'timePick',
@@ -13257,26 +13275,56 @@ var PromoCodes = function (_Component) {
     }
   }, {
     key: 'deletePromoCode',
-    value: function deletePromoCode(i) {
+    value: function deletePromoCode(promoId) {
       this.setState(function (prevState) {
-        prevState.arrayOfPromoCodes.splice(i, 1);
         return {
-          arrayOfPromoCodes: prevState.arrayOfPromoCodes
+          arrayOfPromoCodes: prevState.arrayOfPromoCodes.filter(function (promo) {
+            return promo.id != promoId;
+          })
         };
+      });
+
+      var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
+      var token = document.cookie.slice(indexOfToken + 11);
+      var hostname = 'http://localhost:3000';
+      token = decodeURIComponent(token);
+      fetch(hostname + '/promos/' + promoId, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': token
+        }
       });
     }
   }, {
     key: 'addPromoCode',
     value: function addPromoCode(e) {
-      var _this2 = this;
-
       e.preventDefault();
+      var newPromoCode = new PromoCode(this.discountInput.value, this.dTimeInput.value, this.codeInput.value);
       this.setState(function (prevState) {
-        var newPromoCode = new PromoCode(_this2.discountInput.value, _this2.dTimeInput.value, _this2.codeInput.value);
         prevState.arrayOfPromoCodes.push(newPromoCode);
         return {
           arrayOfPromoCodes: prevState.arrayOfPromoCodes
         };
+      });
+
+      var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
+      var token = document.cookie.slice(indexOfToken + 11);
+      var hostname = 'http://localhost:3000';
+      token = decodeURIComponent(token);
+      fetch(hostname + '/create_promo', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify(newPromoCode)
       });
     }
   }, {
@@ -13292,16 +13340,16 @@ var PromoCodes = function (_Component) {
             'p',
             null,
             '\u041F\u0440\u043E\u043C\u043E \u043D\u0430 ',
-            item.discount,
+            item.percent,
             '% \u0434\u0456\u0439\u0441\u043D\u0435 \u0434\u043E ',
-            item.dTime,
+            item.end_date,
             ', \u043A\u043E\u0434:',
             item.code
           ),
           _react2.default.createElement(
             'a',
             { className: 'deletepromo', onClick: function onClick() {
-                return _this3.deletePromoCode(i);
+                return _this3.deletePromoCode(item.id);
               } },
             '\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438'
           )
