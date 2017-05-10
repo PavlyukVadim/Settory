@@ -1,82 +1,39 @@
 import React, { Component } from 'react';
 
-function orderData(orderObj) {
-  this.orderNumber = orderObj.orderNumber;
-  this.mail = orderObj.mail;
-  this.phone = orderObj.phone;
-  this.address = orderObj.address;
-  this.numberOfRooms = orderObj.numberOfRooms;
-  this.time = orderObj.time;
-  this.date = orderObj.date;
-  this.options = orderObj.options;
-  this.price = orderObj.price;
-  this.status = orderObj.status;
-}
-
-var order1 = new orderData({
-  orderNumber: 1,
-  mail: 'sample.mail1@mail.com',
-  phone: '0935556644',
-  address: 'Atlantic City, NJ 08401',
-  numberOfRooms: 2,
-  time: '20:16',
-  date: '21/12/2016',
-  options: [1, 2],
-  price: 500,
-  status: 'Aктивно'
-});
-
-var order2 = new orderData({
-  orderNumber: 2,
-  mail: 'sample.mail1@mail.com',
-  phone: '093556544',
-  address: 'Atlantic City, NJ 08546',
-  numberOfRooms: 1,
-  time: '20:15',
-  date: '22/02/2009',
-  options: [1, 4],
-  price: 600,
-  status: 'Завершено'
-});
-
-var order3 = new orderData({
-  orderNumber: 3,
-  mail: 'sample.mail1@mail.com',
-  phone: '093556654',
-  address: 'Atlantic City, NJ 65335',
-  numberOfRooms: 3,
-  time: '12:56',
-  date: '22/02/2019',
-  options: [1, 3],
-  price: 700,
-  status: 'Очікується'
-});
-
-var ordersArr = [order1,order2,order3,
-                order1,order2,order3,
-                order1,order2,order3,
-                order1,order2,order3,
-                order1,order2,order3,
-                order1,order2,order3,
-                order1,order2,order3,
-                order1,order2,order3];
-
-
 class AdminOrders extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      orders: ordersArr,
+      orders: [],
       page: 1,
-      numberOfPages: Math.floor(ordersArr.length / 10) + 1,
+      numberOfPages: 0,
       filterByStatus: 'all'
     };
+    this.fetchOrders();
     this.changeFilterByStatus = this.changeFilterByStatus.bind(this);
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.getTBody = this.getTBody.bind(this);
     this.getPagination = this.getPagination.bind(this);
+    this.getValidOrderStatus = this.getValidOrderStatus.bind(this);
+  }
+
+  fetchOrders() {
+    let hostname = 'http://localhost:3000';
+    fetch(`${hostname}/admin_orders.json`, {
+            method: 'GET',
+            credentials: 'include'
+          })
+          .then(response => response.json())
+          .then(arrayOfOrders => this.setOrders(arrayOfOrders));
+  }
+
+  setOrders(arrayOfOrders) {
+    this.setState({
+      orders: arrayOfOrders,
+      numberOfPages: Math.floor(arrayOfOrders.length / 10) + 1
+    })
   }
 
   nextPage() {
@@ -105,10 +62,7 @@ class AdminOrders extends Component {
   changeFilterByStatus() {
     let newValue = this.selectStatusFilter.value;
     let orders = this.state.orders.filter((order) => {
-      if (newValue === 'all' ||
-          newValue === 'active' && order.status === 'Aктивно' ||
-          newValue === 'completed' && order.status === 'Завершено' ||
-          newValue === 'expected' && order.status === 'Очікується') {
+      if (newValue === 'all'|| newValue === order.status) {
         return true;
       }
     });
@@ -123,41 +77,53 @@ class AdminOrders extends Component {
   }
 
   getTBody() {
-    let optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
+    if (!this.state.orders.length) {
+      return;
+    }
+    let optionsArr = ['Миття посуду', 'Чистка холодильника', 'Прасування', 'Чистка духовки', 'Миття вікон'];
     let ordersOnPage = 10;
     let currPage = this.state.page;
     let currFilterByStatus = this.state.filterByStatus;
     let orders = this.state.orders.filter((order) => {
-      if (currFilterByStatus === 'all' ||
-          currFilterByStatus === 'active' && order.status === 'Aктивно' ||
-          currFilterByStatus === 'completed' && order.status === 'Завершено' ||
-          currFilterByStatus === 'expected' && order.status === 'Очікується') {
+      if (currFilterByStatus === 'all' || currFilterByStatus === order.status) {
         return true;
       }
     });
     orders = orders.slice((currPage - 1) * ordersOnPage, currPage * ordersOnPage);
     let tBody = orders.map((order, orderIndex) => {
+      let optionsKeys = Object.keys(orders[orderIndex].options);
       let options = optionsArr.filter((optionTitle, index) => {
-        return order.options.indexOf(index + 1) !== -1;
+        return order.options[optionsKeys[index]] === "true";
       }).map((option, index) => {
         return (<li key={index}>{option}</li>);
       });
 
       return (
         <tr key={orderIndex}>
-          <td>{order.orderNumber}</td>
-          <td>{order.mail}</td>
-          <td>{order.phone}</td>
+          <td>{order.id}</td>
+          <td>{order.user.email}</td>
+          <td>{order.user.phone}</td>
           <td>{order.address}</td>
-          <td>{order.numberOfRooms}</td>
-          <td>{order.time} {order.date}</td>
+          <td>{order.num_of_rooms}</td>
+          <td>
+            {order.time_order.slice(11, 16) + ' '} 
+            {new Date(order.date_order).toLocaleDateString()} 
+          </td>
           <td><ul>{options}</ul></td>
-          <td>{order.price}</td>
-          <td>{order.status}</td>
+          <td>{order.amount}</td>
+          <td>{this.getValidOrderStatus(order.status)}</td>
         </tr>
       );
     });
     return tBody;
+  }
+
+  getValidOrderStatus(status) {
+    switch(status) {
+      case 'new': return 'Нове замовлення'
+      case 'in_progress': return 'В роботі'
+      case 'done': return 'Завершене'
+    }
   }
 
   getPagination() {
@@ -175,6 +141,7 @@ class AdminOrders extends Component {
   }
 
   render() {
+    console.log(this.state.orders);
     return (
       <div>
         <div className="wrapperNav">
@@ -183,9 +150,9 @@ class AdminOrders extends Component {
             <select defaultValue="all" 
                     onChange={this.changeFilterByStatus}
                     ref={(input) => {this.selectStatusFilter = input;}}>
-              <option value="active">Aктивні</option>
-              <option value="completed">Завершені</option>
-              <option value="expected">Очікуються</option>
+              <option value="new">Нове</option>
+              <option value="in_progress">В роботі</option>
+              <option value="done">Завершене</option>
               <option value="all">Усі</option>
             </select>
           </div>
