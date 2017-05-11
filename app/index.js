@@ -18,16 +18,15 @@ import './index.css';
 ReactDOM.render((
   <HashRouter>
     <div>
-		<Header user={1} />      
-      <Route path = "/forgot_password" component = {ForgotPassword} />
-      <Route path = "/sign_in" component = {SignIn} />
-      <Route path = "/sign_up" component = {Registration} />
-    	<Route path = "/newOrder" component = {OrderBox} />
-    	<Route path = "/promoCodes" component = {PromoCodes} />
-    	<Route path = "/allUsers" component = {AdminUsers} />
-      <Route path = "/user:id" component = {UserDetails} />
-    	<Route path = "/allOrders" component = {AdminOrders} />
-    	<Route path = "/yourOrders" component = {ClientOrders} />
+		<Header/>      
+    	<Route path = "/admin/newOrder" component = {OrderBox} />
+    	<Route path = "/admin/promoCodes" component = {PromoCodes} />
+    	<Route path = "/admin/allUsers" component = {AdminUsers} />
+      <Route path = "/admin/user:id" component = {UserDetails} />
+    	<Route path = "/admin/allOrders" component = {AdminOrders} />
+    	<Route path = "/admin/yourOrders" component = {ClientOrders} />
+      <Route path = "/user/newOrder" component = {OrderBox} />
+      <Route path = "/user/yourOrders" component = {ClientOrders} />
     	<Footer />
     </div>
   </HashRouter>

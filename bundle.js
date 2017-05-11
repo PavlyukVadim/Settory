@@ -240,6 +240,10 @@ process.off = noop;
 process.removeListener = noop;
 process.removeAllListeners = noop;
 process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
@@ -8332,6 +8336,20 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       return emptyFunction.thatReturnsNull;
     }
 
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        warning(
+          false,
+          'Invalid argument supplid to oneOfType. Expected an array of check functions, but ' +
+          'received %s at index %s.',
+          getPostfixForTypeWarning(checker),
+          i
+        );
+        return emptyFunction.thatReturnsNull;
+      }
+    }
+
     function validate(props, propName, componentName, location, propFullName) {
       for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
         var checker = arrayOfTypeCheckers[i];
@@ -8464,6 +8482,9 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   // This handles more types than `getPropType`. Only used for error messages.
   // See `createPrimitiveTypeChecker`.
   function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
     var propType = getPropType(propValue);
     if (propType === 'object') {
       if (propValue instanceof Date) {
@@ -8473,6 +8494,23 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       }
     }
     return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
   }
 
   // Returns class name of the object, if any.
@@ -12648,7 +12686,7 @@ var Header = function (_Component) {
   _createClass(Header, [{
     key: 'render',
     value: function render() {
-      if (this.props.user == 1) {
+      if (!~window.location.href.indexOf('#/user/')) {
         return _react2.default.createElement(
           'header',
           null,
@@ -12663,7 +12701,7 @@ var Header = function (_Component) {
                 { className: 'navbarLogo' },
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { to: '/newOrder' },
+                  { to: '/admin/newOrder' },
                   _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' })
                 )
               ),
@@ -12672,22 +12710,22 @@ var Header = function (_Component) {
                 { className: 'mobile' },
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
-                  { to: '/promoCodes', activeClassName: 'selected', className: 'nav-item' },
+                  { to: '/admin/promoCodes', activeClassName: 'selected', className: 'nav-item' },
                   '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434'
                 ),
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
-                  { to: '/allUsers', activeClassName: 'selected', className: 'nav-item' },
+                  { to: '/admin/allUsers', activeClassName: 'selected', className: 'nav-item' },
                   '\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456'
                 ),
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
-                  { to: '/allOrders', activeClassName: 'selected', className: 'nav-item' },
+                  { to: '/admin/allOrders', activeClassName: 'selected', className: 'nav-item' },
                   '\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
                 ),
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
-                  { to: '/yourOrders', activeClassName: 'selected', className: 'nav-item' },
+                  { to: '/admin/yourOrders', activeClassName: 'selected', className: 'nav-item' },
                   '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
                 ),
                 _react2.default.createElement(
@@ -12705,28 +12743,32 @@ var Header = function (_Component) {
           null,
           _react2.default.createElement(
             'div',
-            { className: 'nav' },
+            { className: 'wrapperHeader ' },
             _react2.default.createElement(
               'div',
-              { className: 'nav-left' },
+              { className: 'navbar' },
               _react2.default.createElement(
-                'a',
-                { className: 'nav-item', href: '../' },
-                'Settory'
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'nav-right_custom' },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/yourOrders', className: 'nav-item' },
-                '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
+                'div',
+                { className: 'navbarLogo' },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/user/newOrder' },
+                  _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' })
+                )
               ),
               _react2.default.createElement(
-                'a',
-                { className: 'nav-item', href: '../' },
-                '\u0412\u0438\u0439\u0442\u0438'
+                'div',
+                { className: 'mobile' },
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/user/yourOrders', activeClassName: 'selected', className: 'nav-item' },
+                  '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { className: 'nav-item', href: '../' },
+                  '\u0412\u0438\u0439\u0442\u0438'
+                )
               )
             )
           )
@@ -14175,16 +14217,15 @@ _reactDom2.default.render(_react2.default.createElement(
   _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_Header2.default, { user: 1 }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/forgot_password', component: _ForgotPassword2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign_in', component: _SignIn2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/sign_up', component: _Registration2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/newOrder', component: _OrderBox2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/promoCodes', component: _PromoCodes2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/allUsers', component: _AdminUsers2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/user:id', component: _UserDetails2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/allOrders', component: _AdminOrders2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/yourOrders', component: _ClientOrders2.default }),
+    _react2.default.createElement(_Header2.default, null),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/newOrder', component: _OrderBox2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/promoCodes', component: _PromoCodes2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/allUsers', component: _AdminUsers2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/user:id', component: _UserDetails2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/allOrders', component: _AdminOrders2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/yourOrders', component: _ClientOrders2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/user/newOrder', component: _OrderBox2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/user/yourOrders', component: _ClientOrders2.default }),
     _react2.default.createElement(_Footer2.default, null)
   )
 ), document.getElementById('root'));
