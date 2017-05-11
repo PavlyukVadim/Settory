@@ -12787,6 +12787,9 @@ var OrderBox = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (OrderBox.__proto__ || Object.getPrototypeOf(OrderBox)).call(this, props));
 
+    _this.state = {
+      isOrderValid: false
+    };
     _this.options = { windows: false,
       dishes: false,
       freezer: false,
@@ -12806,6 +12809,7 @@ var OrderBox = function (_Component) {
     _this.summa = _this.summa.bind(_this);
     _this.inputsValidation = _this.inputsValidation.bind(_this);
     _this.fetchDisabledDates();
+    _this.orderValidation = _this.orderValidation.bind(_this);
     return _this;
   }
 
@@ -12871,7 +12875,8 @@ var OrderBox = function (_Component) {
               dae: data.dae
           }),
         })*/
-      $.post(hostname + '/orders', { 'dae': data.dae });
+      $.post(hostname + '/orders', { 'dae': data.dae,
+        'promocode': '54' });
       //.then(response => response.json());
     }
   }, {
@@ -12916,6 +12921,17 @@ var OrderBox = function (_Component) {
     key: 'timePick',
     value: function timePick(newTime) {
       this.timeOrder = newTime;
+      this.orderValidation();
+    }
+  }, {
+    key: 'orderValidation',
+    value: function orderValidation() {
+      var address = this.addressInput && this.addressInput.value;
+      var timeOrder = this.timeOrder;
+      this.setState({
+        isOrderValid: !!address && timeOrder
+      });
+      console.log(address && timeOrder);
     }
   }, {
     key: 'summa',
@@ -13000,6 +13016,7 @@ var OrderBox = function (_Component) {
               { className: 'control' },
               _react2.default.createElement('input', { className: 'input',
                 type: 'text',
+                onChange: this.orderValidation,
                 ref: function ref(input) {
                   _this2.addressInput = input;
                 },
@@ -13175,9 +13192,14 @@ var OrderBox = function (_Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434, \u044F\u043A\u0449\u043E \u0454' })
+              _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434' })
             ),
-            _react2.default.createElement('input', { id: 'reserve', type: 'button', onClick: this.makePay, className: 'button is-info', defaultValue: '\u0417\u0430\u0431\u0440\u043E\u043D\u044E\u0432\u0430\u0442\u0438' })
+            _react2.default.createElement('input', { id: 'reserve',
+              type: 'button',
+              disabled: !this.state.isOrderValid,
+              onClick: this.makePay,
+              className: 'button is-info',
+              defaultValue: '\u0417\u0430\u0431\u0440\u043E\u043D\u044E\u0432\u0430\u0442\u0438' })
           )
         )
       );

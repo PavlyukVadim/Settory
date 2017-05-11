@@ -15,6 +15,9 @@ class OrderBox extends Component {
   
   constructor(props) {
     super(props);
+    this.state = {
+      isOrderValid: false
+    };
     this.options = { windows: false,
                      dishes: false,
                      freezer: false,
@@ -34,6 +37,7 @@ class OrderBox extends Component {
     this.summa = this.summa.bind(this);
     this.inputsValidation = this.inputsValidation.bind(this);
     this.fetchDisabledDates();
+    this.orderValidation = this.orderValidation.bind(this);
   }
 
   componentDidMount() {
@@ -92,7 +96,8 @@ class OrderBox extends Component {
             dae: data.dae
         }),
       })*/
-    $.post(`${hostname}/orders`, {'dae': data.dae});
+    $.post(`${hostname}/orders`, {'dae': data.dae,
+                                  'promocode': '54'});
       //.then(response => response.json());
   }
 
@@ -131,6 +136,16 @@ class OrderBox extends Component {
   
   timePick(newTime) {
     this.timeOrder = newTime;
+    this.orderValidation();
+  }
+
+  orderValidation() {
+    let address = this.addressInput && this.addressInput.value;
+    let timeOrder = this.timeOrder;
+    this.setState({
+      isOrderValid: !!address && timeOrder
+    })
+    console.log(address && timeOrder);
   }
 
   summa() {
@@ -180,6 +195,7 @@ class OrderBox extends Component {
             <p className="control">
               <input className="input"
                      type="text"
+                     onChange={this.orderValidation}
                      ref={(input) => {this.addressInput = input;}}
                      placeholder="вулиця Богдана Хмельницького 64,квартира13" 
                      required />
@@ -259,9 +275,14 @@ class OrderBox extends Component {
             <p className="order-amount">Сума замовлення: &nbsp;<span id="price"></span></p>
             <p>Ми зв{'\''}яжемось з вами за годину до прибирання :)</p>
             <p className="control">
-              <input className="input" type="text" placeholder="Промокод, якщо є" />
+              <input className="input" type="text" placeholder="Промокод" />
             </p>
-            <input id="reserve" type="button" onClick={this.makePay} className="button is-info" defaultValue="Забронювати" />
+            <input id="reserve"
+                   type="button"
+                   disabled={!this.state.isOrderValid}
+                   onClick={this.makePay}
+                   className="button is-info" 
+                   defaultValue="Забронювати" />
           </div>
         </form>
       </div>
