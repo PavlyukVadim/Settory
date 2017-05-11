@@ -12857,27 +12857,32 @@ var OrderBox = function (_Component) {
 
       var opts = this.options;
       var data = {
-        dae: {
-          amount: this.sum,
-          address: address,
-          num_of_rooms: numOfRooms,
-          date_order: dateOrder,
-          time_order: timeOrder,
-          options: opts
-        }
+        amount: this.sum,
+        address: address,
+        num_of_rooms: numOfRooms,
+        date_order: dateOrder,
+        time_order: timeOrder,
+        options: opts
       };
 
+      var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
+      var token = document.cookie.slice(indexOfToken + 11);
       var hostname = 'http://localhost:3000';
-      /*fetch(`${hostname}/orders`, {
-              method: 'POST',
-              credentials: 'include',
-              body: JSON.stringify({
-              dae: data.dae
-          }),
-        })*/
-      $.post(hostname + '/orders', { 'dae': data.dae,
-        'promocode': '54' });
-      //.then(response => response.json());
+      token = decodeURIComponent(token);
+      fetch(hostname + '/orders', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json;charset=UTF-8',
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({
+          'dae': data,
+          'promocode': '54'
+        })
+      });
     }
   }, {
     key: 'decreaseNumberOfRooms',
@@ -12931,7 +12936,6 @@ var OrderBox = function (_Component) {
       this.setState({
         isOrderValid: !!address && timeOrder
       });
-      console.log(address && timeOrder);
     }
   }, {
     key: 'summa',
