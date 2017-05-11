@@ -12845,10 +12845,13 @@ var OrderBox = function (_Component) {
   }, {
     key: 'sendOrder',
     value: function sendOrder() {
+      var _this2 = this;
+
       var address = this.addressInput.value;
       var numOfRooms = this.numberOfRoomsInput.value;
       var dateOrder = this.dateOrderInput.value;
       var timeOrder = this.timeOrder;
+      var promoCode = this.promoCodeInput.value;
       // these options didn't implement on back-end.
       delete this.options.microwave;
       delete this.options.kitchenCabinet;
@@ -12880,8 +12883,10 @@ var OrderBox = function (_Component) {
         },
         body: JSON.stringify({
           'dae': data,
-          'promocode': '54'
+          'promocode': promoCode
         })
+      }).then(function () {
+        _this2.props.history.push('/yourOrders');
       });
     }
   }, {
@@ -12999,7 +13004,7 @@ var OrderBox = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -13022,7 +13027,7 @@ var OrderBox = function (_Component) {
                 type: 'text',
                 onChange: this.orderValidation,
                 ref: function ref(input) {
-                  _this2.addressInput = input;
+                  _this3.addressInput = input;
                 },
                 placeholder: '\u0432\u0443\u043B\u0438\u0446\u044F \u0411\u043E\u0433\u0434\u0430\u043D\u0430 \u0425\u043C\u0435\u043B\u044C\u043D\u0438\u0446\u044C\u043A\u043E\u0433\u043E 64,\u043A\u0432\u0430\u0440\u0442\u0438\u0440\u043013',
                 required: true })
@@ -13043,7 +13048,7 @@ var OrderBox = function (_Component) {
               _react2.default.createElement('input', { className: 'input is-expanded',
                 type: 'text',
                 ref: function ref(input) {
-                  _this2.numberOfRoomsInput = input;
+                  _this3.numberOfRoomsInput = input;
                 },
                 onChange: this.multiCheck,
                 name: 'roomQuantity',
@@ -13073,7 +13078,7 @@ var OrderBox = function (_Component) {
               _react2.default.createElement('input', { className: 'input is-expanded',
                 type: 'text',
                 ref: function ref(input) {
-                  _this2.numberOfBathroomsInput = input;
+                  _this3.numberOfBathroomsInput = input;
                 },
                 onChange: this.multiCheck,
                 maxLength: 2,
@@ -13098,7 +13103,7 @@ var OrderBox = function (_Component) {
               _react2.default.createElement('input', { type: 'text', className: 'input',
                 id: 'datapicker1',
                 ref: function ref(input) {
-                  _this2.dateOrderInput = input;
+                  _this3.dateOrderInput = input;
                 },
                 onClick: this.dataPick,
                 required: true })
@@ -13196,7 +13201,12 @@ var OrderBox = function (_Component) {
             _react2.default.createElement(
               'p',
               { className: 'control' },
-              _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434' })
+              _react2.default.createElement('input', { className: 'input',
+                type: 'text',
+                ref: function ref(input) {
+                  _this3.promoCodeInput = input;
+                },
+                placeholder: '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434' })
             ),
             _react2.default.createElement('input', { id: 'reserve',
               type: 'button',

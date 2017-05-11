@@ -70,6 +70,7 @@ class OrderBox extends Component {
     let numOfRooms = this.numberOfRoomsInput.value;
     let dateOrder = this.dateOrderInput.value;
     let timeOrder = this.timeOrder;
+    let promoCode = this.promoCodeInput.value;
     // these options didn't implement on back-end.
     delete this.options.microwave;
     delete this.options.kitchenCabinet;
@@ -101,8 +102,10 @@ class OrderBox extends Component {
             },
             body: JSON.stringify({
               'dae': data,
-              'promocode': '54'
+              'promocode': promoCode
             })
+          }).then(() => {
+            this.props.history.push('/yourOrders');
           });
   }
 
@@ -279,7 +282,10 @@ class OrderBox extends Component {
             <p className="order-amount">Сума замовлення: &nbsp;<span id="price"></span></p>
             <p>Ми зв{'\''}яжемось з вами за годину до прибирання :)</p>
             <p className="control">
-              <input className="input" type="text" placeholder="Промокод" />
+              <input className="input"
+                     type="text"
+                     ref={(input) => {this.promoCodeInput = input;}}
+                     placeholder="Промокод" />
             </p>
             <input id="reserve"
                    type="button"
