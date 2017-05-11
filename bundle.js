@@ -11546,7 +11546,7 @@ var AdminOrders = function (_Component) {
       if (!this.state.orders.length) {
         return;
       }
-      var optionsArr = ['Миття посуду', 'Чистка холодильника', 'Прасування', 'Чистка духовки', 'Миття вікон'];
+      var optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
       var ordersOnPage = 10;
       var currPage = this.state.page;
       var currFilterByStatus = this.state.filterByStatus;
@@ -12091,7 +12091,7 @@ var ClientOrders = function (_Component) {
       if (!this.state.orders.length) {
         return;
       }
-      var optionsArr = ['Миття посуду', 'Чистка холодильника', 'Прасування', 'Чистка духовки', 'Миття вікон'];
+      var optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
       var ordersOnPage = 10;
       var currPage = this.state.page;
       var currFilterByStatus = this.state.filterByStatus;
@@ -12133,7 +12133,7 @@ var ClientOrders = function (_Component) {
             'td',
             null,
             order.time_order.slice(11, 16) + ' ',
-            new Date(order.date_order).toLocaleDateString()
+            order.date_order
           ),
           _react2.default.createElement(
             'td',
@@ -12922,7 +12922,7 @@ var OrderBox = function (_Component) {
     value: function dataPick(inter) {
       inter = inter || 0;
       $('#datapicker1').datepicker({
-        'dateFormat': 'dd MM yy',
+        'dateFormat': 'dd.mm.yy',
         'minDate': inter
       });
       $('#forTime').val('');

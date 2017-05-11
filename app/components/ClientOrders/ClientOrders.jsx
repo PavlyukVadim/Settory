@@ -76,7 +76,7 @@ class ClientOrders extends Component {
     if (!this.state.orders.length) {
       return;
     }
-    let optionsArr = ['Миття посуду', 'Чистка холодильника', 'Прасування', 'Чистка духовки', 'Миття вікон'];
+    let optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
     let ordersOnPage = 10;
     let currPage = this.state.page;
     let currFilterByStatus = this.state.filterByStatus;
@@ -97,7 +97,7 @@ class ClientOrders extends Component {
           <td>{order.num_of_rooms}</td>
           <td>
             {order.time_order.slice(11, 16) + ' '} 
-            {new Date(order.date_order).toLocaleDateString()} 
+            {order.date_order} 
           </td>
           <td><ul>{options}</ul></td>
           <td>{order.amount}</td>

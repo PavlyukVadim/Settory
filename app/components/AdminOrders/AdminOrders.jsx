@@ -120,7 +120,7 @@ class AdminOrders extends Component {
     if (!this.state.orders.length) {
       return;
     }
-    let optionsArr = ['Миття посуду', 'Чистка холодильника', 'Прасування', 'Чистка духовки', 'Миття вікон'];
+    let optionsArr = ['Миття вікон', 'Миття посуду', 'Чистка холодильника', 'Чистка духовки', 'Прасування'];
     let ordersOnPage = 10;
     let currPage = this.state.page;
     let currFilterByStatus = this.state.filterByStatus;

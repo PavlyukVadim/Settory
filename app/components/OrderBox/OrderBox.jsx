@@ -136,7 +136,7 @@ class OrderBox extends Component {
   dataPick(inter) {
     inter = inter || 0;
     $('#datapicker1').datepicker({
-      'dateFormat': 'dd MM yy',
+      'dateFormat': 'dd.mm.yy',
       'minDate': inter,
     });
     $('#forTime').val('');
