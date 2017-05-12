@@ -89,3 +89,7 @@ header .nav {
 .nav-item {
     font-weight: bold;
 }
+
+.admin-nav-links {
+    display: inline-block;
+}
