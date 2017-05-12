@@ -6,13 +6,15 @@ import './Footer.css';
 class Footer extends Component {
   
   render() {
+    let isAdmin = !~window.location.href.indexOf('#/user/');
+    let mediateRoute = isAdmin ? '/admin' : '/user';
     return (
       <footer>
         <div className="wrapperFooter">
           <div className="footerBlock">
             <div className="footerContent">
               <div className="footerContentBox">
-                <Link to="/newOrder">
+                <Link to={`${mediateRoute}/newOrder`}>
                   <img className="logo" src="./static/img/logo.png"></img>
                 </Link>
                 <div className="tags">
@@ -22,10 +24,14 @@ class Footer extends Component {
               </div>
               <div className="footerContentBox">
                 <div className="site-map">
-                  <Link to="/promoCodes">Промокод</Link>
-                  <Link to="/allUsers">Користувачі</Link>
-                  <Link to="/allOrders">Замовлення</Link>
-                  <Link to="/yourOrders">Ваші прибирання</Link>
+                  {isAdmin &&
+                    <div className="admin-nav-links">
+                      <Link to={`${mediateRoute}/promoCodes`}>Промокод</Link>
+                      <Link to={`${mediateRoute}/allUsers`}>Користувачі</Link>
+                      <Link to={`${mediateRoute}/allOrders`}>Замовлення</Link>
+                    </div>
+                  }
+                  <Link to={`${mediateRoute}/yourOrders`}>Ваші прибирання</Link>
                 </div>
               </div>
               <div className="footerContentBox iconBlock">

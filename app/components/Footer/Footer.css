@@ -217,3 +217,11 @@
     line-height: 24px;
     text-align: left;
 }
+
+.site-map > a {
+    line-height: 10px;
+}
+
+footer .admin-nav-links {
+    width: 145px;
+}
