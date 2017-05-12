@@ -11474,7 +11474,7 @@ var AdminOrders = function (_Component) {
     value: function fetchOrders() {
       var _this2 = this;
 
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       fetch(hostname + '/admin_orders.json', {
         method: 'GET',
         credentials: 'include'
@@ -11543,7 +11543,7 @@ var AdminOrders = function (_Component) {
       var i = void 0;
       var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
       var token = document.cookie.slice(indexOfToken + 11);
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
 
       for (i = 0; i < orders.length; i++) {
         if (orders[i].id === orderId) {
@@ -11939,7 +11939,7 @@ var AdminUsers = function (_Component) {
     value: function fetchUsers() {
       var _this2 = this;
 
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       (0, _isomorphicFetch2.default)(hostname + '/users.json', {
         method: 'GET',
         credentials: 'include'
@@ -12063,7 +12063,7 @@ var ClientOrders = function (_Component) {
     value: function fetchOrders() {
       var _this2 = this;
 
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       fetch(hostname + '/orders.json', {
         method: 'GET',
         credentials: 'include'
@@ -12555,105 +12555,7 @@ var Footer = function (_Component) {
 exports.default = Footer;
 
 /***/ }),
-/* 101 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(16);
-
-__webpack_require__(247);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ForgotPassword = function (_Component) {
-  _inherits(ForgotPassword, _Component);
-
-  function ForgotPassword() {
-    _classCallCheck(this, ForgotPassword);
-
-    return _possibleConstructorReturn(this, (ForgotPassword.__proto__ || Object.getPrototypeOf(ForgotPassword)).apply(this, arguments));
-  }
-
-  _createClass(ForgotPassword, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { id: 'forgot_password-component' },
-        _react2.default.createElement(
-          'div',
-          { className: 'container' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'title' },
-            '\u0417\u0430\u0431\u0443\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?'
-          ),
-          _react2.default.createElement(
-            'form',
-            null,
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'label',
-                { className: 'label' },
-                '\u0412\u0430\u0448 email'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: 'example@ukr.net' })
-              )
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'control' },
-              _react2.default.createElement(
-                'button',
-                { className: 'button' },
-                '\u041D\u0430\u0434\u0456\u0448\u043B\u0456\u0442\u044C \u043C\u0435\u043D\u0456 \u043D\u043E\u0432\u0438\u0439 \u043F\u0430\u0440\u043E\u043B\u044C'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/sign_in' },
-            '\u0423\u0432\u0456\u0439\u0442\u0438'
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/sign_up' },
-            '\u0417\u0430\u0440\u0435\u0454\u0441\u0442\u0440\u0443\u0432\u0430\u0442\u0438\u0441\u044F'
-          )
-        )
-      );
-    }
-  }]);
-
-  return ForgotPassword;
-}(_react.Component);
-
-exports.default = ForgotPassword;
-
-/***/ }),
+/* 101 */,
 /* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12842,7 +12744,7 @@ var OrderBox = function (_Component) {
   }, {
     key: 'fetchDisabledDates',
     value: function fetchDisabledDates() {
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       fetch(hostname + '/disabled_dates.json', {
         method: 'GET',
         credentials: 'include'
@@ -12888,7 +12790,7 @@ var OrderBox = function (_Component) {
 
       var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
       var token = document.cookie.slice(indexOfToken + 11);
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       token = decodeURIComponent(token);
       fetch(hostname + '/orders', {
         method: 'POST',
@@ -13303,7 +13205,7 @@ var PromoCodes = function (_Component) {
     value: function fetchPromoCodes() {
       var _this2 = this;
 
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       fetch(hostname + '/admin_promos.json', {
         method: 'GET',
         credentials: 'include'
@@ -13340,7 +13242,7 @@ var PromoCodes = function (_Component) {
 
       var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
       var token = document.cookie.slice(indexOfToken + 11);
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       token = decodeURIComponent(token);
       fetch(hostname + '/promos/' + promoId, {
         method: 'DELETE',
@@ -13367,7 +13269,7 @@ var PromoCodes = function (_Component) {
 
       var indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
       var token = document.cookie.slice(indexOfToken + 11);
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       token = decodeURIComponent(token);
       fetch(hostname + '/create_promo', {
         method: 'POST',
@@ -13503,282 +13405,8 @@ var PromoCodes = function (_Component) {
 exports.default = PromoCodes;
 
 /***/ }),
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(16);
-
-__webpack_require__(249);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Registration = function (_Component) {
-  _inherits(Registration, _Component);
-
-  function Registration() {
-    _classCallCheck(this, Registration);
-
-    return _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).apply(this, arguments));
-  }
-
-  _createClass(Registration, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { id: 'registration-component' },
-        _react2.default.createElement(
-          'div',
-          { className: 'container' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'title' },
-            '\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044F'
-          ),
-          _react2.default.createElement(
-            'p',
-            { className: 'welcome' },
-            '\u0412\u0456\u0442\u0430\u0454\u043C\u043E \u043D\u0430 ',
-            _react2.default.createElement(
-              'a',
-              null,
-              'Settory'
-            ),
-            '. \u0426\u0435 \u0432\u0430\u0448\u0430 \u043E\u0441\u043E\u0431\u0438\u0441\u0442\u0430',
-            _react2.default.createElement('br', null),
-            ' \u0434\u043E\u043C\u043E\u0433\u043E\u0441\u043F\u043E\u0434\u0430\u0440\u043A\u0430.'
-          ),
-          _react2.default.createElement(
-            'form',
-            null,
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'label',
-                { className: 'label' },
-                '\u0412\u0430\u0448 email'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: 'example@ukr.net' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'label',
-                { className: 'label' },
-                '\u0412\u0430\u0448 \u043F\u0430\u0440\u043E\u043B\u044C(8 \u0441\u0438\u043C\u0432\u043E\u043B\u0456\u0432 \u043C\u0456\u043D\u0456\u043C\u0443\u043C)'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement('input', { className: 'input', type: 'password' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'label',
-                { className: 'label' },
-                '\u041F\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0436\u0435\u043D\u043D\u044F \u043F\u0430\u0440\u043E\u043B\u044F'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement('input', { className: 'input', type: 'password' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'label',
-                { className: 'label' },
-                '\u0412\u0430\u0448 \u043D\u043E\u043C\u0435\u0440 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: '067 067 06 67' })
-              )
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'control' },
-              _react2.default.createElement(
-                'button',
-                { className: 'button is-success' },
-                '\u0417\u0430\u0440\u0435\u0454\u0441\u0442\u0440\u0443\u0432\u0430\u0442\u0438\u0441\u044C'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/sign_in' },
-            '\u0423\u0432\u0456\u0439\u0442\u0438'
-          )
-        )
-      );
-    }
-  }]);
-
-  return Registration;
-}(_react.Component);
-
-exports.default = Registration;
-
-/***/ }),
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(16);
-
-__webpack_require__(250);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SignIn = function (_Component) {
-  _inherits(SignIn, _Component);
-
-  function SignIn() {
-    _classCallCheck(this, SignIn);
-
-    return _possibleConstructorReturn(this, (SignIn.__proto__ || Object.getPrototypeOf(SignIn)).apply(this, arguments));
-  }
-
-  _createClass(SignIn, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { id: 'sign_in-component' },
-        _react2.default.createElement(
-          'div',
-          { className: 'container' },
-          _react2.default.createElement(
-            'h1',
-            { className: 'title' },
-            '\u0423\u0432\u0456\u0439\u0442\u0438 \u0434\u043E \u043F\u0440\u043E\u0444\u0456\u043B\u044E'
-          ),
-          _react2.default.createElement(
-            'form',
-            null,
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'label',
-                { className: 'label' },
-                '\u0412\u0430\u0448 email'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement('input', { className: 'input', type: 'text', placeholder: 'example@ukr.net' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'label',
-                { className: 'label' },
-                '\u0412\u0430\u0448 \u043F\u0430\u0440\u043E\u043B\u044C'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement('input', { className: 'input', type: 'password' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'field' },
-              _react2.default.createElement(
-                'p',
-                { className: 'control' },
-                _react2.default.createElement(
-                  'label',
-                  { className: 'checkbox' },
-                  _react2.default.createElement('input', { type: 'checkbox' }),
-                  '\u0417\u0430\u043F\u0430\u043C\'\u044F\u0442\u0430\u0442\u0438 \u043C\u0435\u043D\u0435'
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'p',
-              { className: 'control' },
-              _react2.default.createElement(
-                'button',
-                { className: 'button is-success' },
-                '\u0423\u0432\u0456\u0439\u0442\u0438'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/sign_up' },
-            '\u0417\u0430\u0440\u0435\u0454\u0441\u0442\u0440\u0443\u0432\u0430\u0442\u0438\u0441\u044F'
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/forgot_password' },
-            '\u0417\u0430\u0431\u0443\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?'
-          )
-        )
-      );
-    }
-  }]);
-
-  return SignIn;
-}(_react.Component);
-
-exports.default = SignIn;
-
-/***/ }),
+/* 105 */,
+/* 106 */,
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13823,7 +13451,7 @@ var UserDetails = function (_Component) {
     value: function fetchUser() {
       var _this2 = this;
 
-      var hostname = 'http://localhost:3000';
+      var hostname = this.props.hostname;
       var params = this.props.location.pathname;
       fetch('' + hostname + params + '.json', {
         method: 'GET',
@@ -14129,6 +13757,8 @@ exports.default = TimePicker;
 "use strict";
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -14171,21 +13801,13 @@ var _ClientOrders = __webpack_require__(99);
 
 var _ClientOrders2 = _interopRequireDefault(_ClientOrders);
 
-var _Registration = __webpack_require__(105);
-
-var _Registration2 = _interopRequireDefault(_Registration);
-
-var _SignIn = __webpack_require__(106);
-
-var _SignIn2 = _interopRequireDefault(_SignIn);
-
-var _ForgotPassword = __webpack_require__(101);
-
-var _ForgotPassword2 = _interopRequireDefault(_ForgotPassword);
-
 __webpack_require__(109);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getHostName() {
+  return window.location.origin;
+}
 
 _reactDom2.default.render(_react2.default.createElement(
   _reactRouterDom.HashRouter,
@@ -14194,14 +13816,30 @@ _reactDom2.default.render(_react2.default.createElement(
     'div',
     null,
     _react2.default.createElement(_Header2.default, null),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/newOrder', component: _OrderBox2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/promoCodes', component: _PromoCodes2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/allUsers', component: _AdminUsers2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/user:id', component: _UserDetails2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/allOrders', component: _AdminOrders2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/yourOrders', component: _ClientOrders2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/user/newOrder', component: _OrderBox2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/user/yourOrders', component: _ClientOrders2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/newOrder', render: function render(props) {
+        return _react2.default.createElement(_OrderBox2.default, _extends({ hostname: getHostName() }, props));
+      } }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/promoCodes', render: function render(props) {
+        return _react2.default.createElement(_PromoCodes2.default, _extends({ hostname: getHostName() }, props));
+      } }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/allUsers', render: function render(props) {
+        return _react2.default.createElement(_AdminUsers2.default, _extends({ hostname: getHostName() }, props));
+      } }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/user:id', render: function render(props) {
+        return _react2.default.createElement(_UserDetails2.default, _extends({ hostname: getHostName() }, props));
+      } }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/allOrders', render: function render(props) {
+        return _react2.default.createElement(_AdminOrders2.default, _extends({ hostname: getHostName() }, props));
+      } }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/admin/yourOrders', render: function render(props) {
+        return _react2.default.createElement(_ClientOrders2.default, _extends({ hostname: getHostName() }, props));
+      } }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/user/newOrder', render: function render(props) {
+        return _react2.default.createElement(_OrderBox2.default, _extends({ hostname: getHostName() }, props));
+      } }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/user/yourOrders', render: function render(props) {
+        return _react2.default.createElement(_ClientOrders2.default, _extends({ hostname: getHostName() }, props));
+      } }),
     _react2.default.createElement(_Footer2.default, null)
   )
 ), document.getElementById('root'));
@@ -14221,20 +13859,7 @@ exports.push([module.i, ".wrapperFooter {\n    width: 100%;\n    height: auto;\n
 
 
 /***/ }),
-/* 114 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(18)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "#forgot_password-component {\n  width: 30%;\n  margin: 0 auto;\n  margin-top: 40px;\n}\n\n#forgot_password-component .button {\n  margin: 20px 0;\n}\n\n#forgot_password-component a {\n  display: block;\n  color: #0070FF;\n}\n\n#forgot_password-component .field {\n  margin-bottom: 10px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 114 */,
 /* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14249,34 +13874,8 @@ exports.push([module.i, "header {\n    position: relative;\n}\n\nheader .nav {\n
 
 
 /***/ }),
-/* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(18)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "#registration-component {\n  width: 30%;\n  margin: 0 auto;\n  margin-top: 40px;\n}\n\n#registration-component .button {\n  margin: 20px 0;\n}\n\n#registration-component a {\n  color: #0070FF;\n}\n\n#registration-component .field {\n  margin-bottom: 10px;\n}\n#registration-component .welcome {\n  margin-bottom: 10px;\n  line-height: 1.5;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(18)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "#sign_in-component {\n  width: 30%;\n  margin: 0 auto;\n  margin-top: 40px;\n}\n\n#sign_in-component .button {\n  margin: 20px 0;\n}\n\n#sign_in-component a {\n  display: block;\n  color: #0070FF;\n}\n\n#sign_in-component .field {\n  margin-bottom: 10px;\n}\n\n#sign_in-component input[type=\"checkbox\"] {\n  margin-right: 5px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 116 */,
+/* 117 */,
 /* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28679,37 +28278,7 @@ if(false) {
 }
 
 /***/ }),
-/* 247 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(114);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(22)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!./ForgotPassword.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!./ForgotPassword.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 247 */,
 /* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28741,68 +28310,8 @@ if(false) {
 }
 
 /***/ }),
-/* 249 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(116);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(22)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!./Registration.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!./Registration.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 250 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(117);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(22)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!./SignIn.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!./SignIn.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 249 */,
+/* 250 */,
 /* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 

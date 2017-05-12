@@ -15,7 +15,7 @@ class AdminUsers extends Component {
   }
 
   fetchUsers() {
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     fetch(`${hostname}/users.json`, {
               method: 'GET',
               credentials: 'include'

@@ -48,7 +48,7 @@ class OrderBox extends Component {
   }
 
   fetchDisabledDates() {
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     fetch(`${hostname}/disabled_dates.json`, {
             method: 'GET',
             credentials: 'include'
@@ -89,7 +89,7 @@ class OrderBox extends Component {
     
     let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
     let token = document.cookie.slice(indexOfToken + 11);
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     token = decodeURIComponent(token);
     fetch(`${hostname}/orders`, {
             method: 'POST',

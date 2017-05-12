@@ -25,7 +25,7 @@ class PromoCodes extends Component {
   }
   
   fetchPromoCodes() {
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     fetch(`${hostname}/admin_promos.json`, {
             method: 'GET',
             credentials: 'include'
@@ -55,7 +55,7 @@ class PromoCodes extends Component {
 
     let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
     let token = document.cookie.slice(indexOfToken + 11);
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     token = decodeURIComponent(token);
     fetch(`${hostname}/promos/${promoId}`, {
             method: 'DELETE',
@@ -81,7 +81,7 @@ class PromoCodes extends Component {
     
     let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
     let token = document.cookie.slice(indexOfToken + 11);
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     token = decodeURIComponent(token);
     fetch(`${hostname}/create_promo`, {
             method: 'POST',

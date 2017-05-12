@@ -10,7 +10,7 @@ class UserDetails extends Component {
   }
 
   fetchUser() {
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     let params = this.props.location.pathname;
     fetch(`${hostname}${params}.json`, {
               method: 'GET',

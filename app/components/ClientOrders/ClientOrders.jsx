@@ -23,7 +23,7 @@ class ClientOrders extends Component {
   }
   
   fetchOrders() {
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     fetch(`${hostname}/orders.json`, {
             method: 'GET',
             credentials: 'include'

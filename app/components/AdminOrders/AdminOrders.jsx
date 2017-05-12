@@ -20,7 +20,7 @@ class AdminOrders extends Component {
   }
 
   fetchOrders() {
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     fetch(`${hostname}/admin_orders.json`, {
             method: 'GET',
             credentials: 'include'
@@ -82,7 +82,7 @@ class AdminOrders extends Component {
     let i;
     let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
     let token = document.cookie.slice(indexOfToken + 11);
-    let hostname = 'http://localhost:3000';
+    let hostname = this.props.hostname;
     
     for (i = 0; i < orders.length; i++) {
       if (orders[i].id === orderId) {

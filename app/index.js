@@ -10,23 +10,24 @@ import AdminUsers from './components/AdminUsers/AdminUsers.jsx';
 import UserDetails from './components/UserDetails/UserDetails.jsx';
 import AdminOrders from './components/AdminOrders/AdminOrders.jsx';
 import ClientOrders from './components/ClientOrders/ClientOrders.jsx';
-import Registration from './components/Registration/Registration.jsx';
-import SignIn from './components/SignIn/SignIn.jsx';
-import ForgotPassword from './components/ForgotPassword/ForgotPassword.jsx';
 import './index.css';
+
+function getHostName() {
+  return window.location.origin;
+}
 
 ReactDOM.render((
   <HashRouter>
     <div>
-		<Header/>      
-    	<Route path = "/admin/newOrder" component = {OrderBox} />
-    	<Route path = "/admin/promoCodes" component = {PromoCodes} />
-    	<Route path = "/admin/allUsers" component = {AdminUsers} />
-      <Route path = "/admin/user:id" component = {UserDetails} />
-    	<Route path = "/admin/allOrders" component = {AdminOrders} />
-    	<Route path = "/admin/yourOrders" component = {ClientOrders} />
-      <Route path = "/user/newOrder" component = {OrderBox} />
-      <Route path = "/user/yourOrders" component = {ClientOrders} />
+		<Header/>
+    	<Route path = "/admin/newOrder" render={props => <OrderBox hostname={getHostName()} {...props}/>}/>
+    	<Route path = "/admin/promoCodes" render={props => <PromoCodes hostname={getHostName()} {...props}/>}/>
+    	<Route path = "/admin/allUsers" render={props => <AdminUsers hostname={getHostName()} {...props}/>}/>
+      <Route path = "/admin/user:id" render={props => <UserDetails hostname={getHostName()} {...props}/>}/>
+    	<Route path = "/admin/allOrders" render={props => <AdminOrders hostname={getHostName()} {...props}/>}/>
+    	<Route path = "/admin/yourOrders" render={props => <ClientOrders hostname={getHostName()} {...props}/>}/>
+      <Route path = "/user/newOrder" render={props => <OrderBox hostname={getHostName()} {...props}/>}/>
+      <Route path = "/user/yourOrders" render={props => <ClientOrders hostname={getHostName()} {...props}/>}/>
     	<Footer />
     </div>
   </HashRouter>
