@@ -18,6 +18,8 @@ class ClientOrders extends Component {
     this.getTBody = this.getTBody.bind(this);
     this.getPagination = this.getPagination.bind(this);
     this.getFormattedStatus = this.getFormattedStatus.bind(this);
+    let isAdmin = !~window.location.href.indexOf('#/user/');
+    this.mediateRoute = isAdmin ? '/admin' : '/user';
   }
   
   fetchOrders() {
@@ -149,7 +151,7 @@ class ClientOrders extends Component {
                 </div>
                 <a className="button">Проведені прибирання</a>
               </div>
-              <Link to="/newOrder" className="button is-success order-cleaning">Замовити прибирання</Link>
+              <Link to={`${this.mediateRoute}/newOrder`} className="button is-success order-cleaning">Замовити прибирання</Link>
             </div>
           </div>
           <div className="wrapperTable1">

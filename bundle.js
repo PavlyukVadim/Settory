@@ -12053,6 +12053,8 @@ var ClientOrders = function (_Component) {
     _this.getTBody = _this.getTBody.bind(_this);
     _this.getPagination = _this.getPagination.bind(_this);
     _this.getFormattedStatus = _this.getFormattedStatus.bind(_this);
+    var isAdmin = !~window.location.href.indexOf('#/user/');
+    _this.mediateRoute = isAdmin ? '/admin' : '/user';
     return _this;
   }
 
@@ -12278,7 +12280,7 @@ var ClientOrders = function (_Component) {
               ),
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: '/newOrder', className: 'button is-success order-cleaning' },
+                { to: this.mediateRoute + '/newOrder', className: 'button is-success order-cleaning' },
                 '\u0417\u0430\u043C\u043E\u0432\u0438\u0442\u0438 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
               )
             )
@@ -12437,6 +12439,8 @@ var Footer = function (_Component) {
   _createClass(Footer, [{
     key: 'render',
     value: function render() {
+      var isAdmin = !~window.location.href.indexOf('#/user/');
+      var mediateRoute = isAdmin ? '/admin' : '/user';
       return _react2.default.createElement(
         'footer',
         null,
@@ -12454,7 +12458,7 @@ var Footer = function (_Component) {
                 { className: 'footerContentBox' },
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { to: '/newOrder' },
+                  { to: mediateRoute + '/newOrder' },
                   _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' })
                 ),
                 _react2.default.createElement(
@@ -12478,24 +12482,28 @@ var Footer = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'site-map' },
-                  _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/promoCodes' },
-                    '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434'
+                  isAdmin && _react2.default.createElement(
+                    'div',
+                    { className: 'admin-nav-links' },
+                    _react2.default.createElement(
+                      _reactRouterDom.Link,
+                      { to: mediateRoute + '/promoCodes' },
+                      '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434'
+                    ),
+                    _react2.default.createElement(
+                      _reactRouterDom.Link,
+                      { to: mediateRoute + '/allUsers' },
+                      '\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456'
+                    ),
+                    _react2.default.createElement(
+                      _reactRouterDom.Link,
+                      { to: mediateRoute + '/allOrders' },
+                      '\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
+                    )
                   ),
                   _react2.default.createElement(
                     _reactRouterDom.Link,
-                    { to: '/allUsers' },
-                    '\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456'
-                  ),
-                  _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/allOrders' },
-                    '\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
-                  ),
-                  _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/yourOrders' },
+                    { to: mediateRoute + '/yourOrders' },
                     '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
                   )
                 )
@@ -12686,94 +12694,62 @@ var Header = function (_Component) {
   _createClass(Header, [{
     key: 'render',
     value: function render() {
-      if (!~window.location.href.indexOf('#/user/')) {
-        return _react2.default.createElement(
-          'header',
-          null,
+      var isAdmin = !~window.location.href.indexOf('#/user/');
+      var mediateRoute = isAdmin ? '/admin' : '/user';
+      return _react2.default.createElement(
+        'header',
+        null,
+        _react2.default.createElement(
+          'div',
+          { className: 'wrapperHeader ' },
           _react2.default.createElement(
             'div',
-            { className: 'wrapperHeader ' },
+            { className: 'navbar' },
             _react2.default.createElement(
               'div',
-              { className: 'navbar' },
+              { className: 'navbarLogo' },
               _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: mediateRoute + '/newOrder' },
+                _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' })
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'mobile' },
+              isAdmin && _react2.default.createElement(
                 'div',
-                { className: 'navbarLogo' },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/admin/newOrder' },
-                  _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' })
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'mobile' },
+                { className: 'admin-nav-links' },
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
-                  { to: '/admin/promoCodes', activeClassName: 'selected', className: 'nav-item' },
+                  { to: mediateRoute + '/promoCodes', activeClassName: 'selected', className: 'nav-item' },
                   '\u041F\u0440\u043E\u043C\u043E\u043A\u043E\u0434'
                 ),
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
-                  { to: '/admin/allUsers', activeClassName: 'selected', className: 'nav-item' },
+                  { to: mediateRoute + '/allUsers', activeClassName: 'selected', className: 'nav-item' },
                   '\u041A\u043E\u0440\u0438\u0441\u0442\u0443\u0432\u0430\u0447\u0456'
                 ),
                 _react2.default.createElement(
                   _reactRouterDom.NavLink,
-                  { to: '/admin/allOrders', activeClassName: 'selected', className: 'nav-item' },
+                  { to: mediateRoute + '/allOrders', activeClassName: 'selected', className: 'nav-item' },
                   '\u0417\u0430\u043C\u043E\u0432\u043B\u0435\u043D\u043D\u044F'
-                ),
-                _react2.default.createElement(
-                  _reactRouterDom.NavLink,
-                  { to: '/admin/yourOrders', activeClassName: 'selected', className: 'nav-item' },
-                  '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
-                ),
-                _react2.default.createElement(
-                  'a',
-                  { className: 'nav-item', href: '../' },
-                  '\u0412\u0438\u0439\u0442\u0438'
-                )
-              )
-            )
-          )
-        );
-      } else {
-        return _react2.default.createElement(
-          'header',
-          null,
-          _react2.default.createElement(
-            'div',
-            { className: 'wrapperHeader ' },
-            _react2.default.createElement(
-              'div',
-              { className: 'navbar' },
-              _react2.default.createElement(
-                'div',
-                { className: 'navbarLogo' },
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/user/newOrder' },
-                  _react2.default.createElement('img', { className: 'logo', src: './static/img/logo.png' })
                 )
               ),
               _react2.default.createElement(
-                'div',
-                { className: 'mobile' },
-                _react2.default.createElement(
-                  _reactRouterDom.NavLink,
-                  { to: '/user/yourOrders', activeClassName: 'selected', className: 'nav-item' },
-                  '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
-                ),
-                _react2.default.createElement(
-                  'a',
-                  { className: 'nav-item', href: '../' },
-                  '\u0412\u0438\u0439\u0442\u0438'
-                )
+                _reactRouterDom.NavLink,
+                { to: mediateRoute + '/yourOrders', activeClassName: 'selected', className: 'nav-item' },
+                '\u0412\u0430\u0448\u0456 \u043F\u0440\u0438\u0431\u0438\u0440\u0430\u043D\u043D\u044F'
+              ),
+              _react2.default.createElement(
+                'a',
+                { className: 'nav-item', href: '../' },
+                '\u0412\u0438\u0439\u0442\u0438'
               )
             )
           )
-        );
-      }
+        )
+      );
     }
   }]);
 
@@ -14239,7 +14215,7 @@ exports = module.exports = __webpack_require__(18)(undefined);
 
 
 // module
-exports.push([module.i, ".wrapperFooter {\n    width: 100%;\n    height: auto;\n    background-color: #0070FF;\n    display: block;\n    padding-bottom: 10px;\n    font-size: 18px;\n    margin-top: 30px;\n}\n\n.footerBlock {\n    width: 100%;\n    margin-left: auto;\n    margin-right: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n\n.footerContent {\n    width: 100%;\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-around !important;\n    margin-top: 20px;\n}\n\n.wrapperFooter .footerBlock .iconBlock {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n}\n\n.icon-fa {\n    color: white;\n    margin: 0 10px;\n}\n\n.footerLogo {\n  position: relative;\n  width: 100px !important;\n  margin-bottom: 10px;\n}\n\n.footerLogo p {\n  height: 20px;\n  font-weight: bold;\n}\n\n.wrapperFooter a:hover {\n  color: #E8E8E8 !important;\n}\n\n.footerContent .button {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n    margin: 3%;\n    margin-left: 10%;\n    margin-right: 10%;\n    width: auto;\n    border-color: #b5b5b5;\n    padding: 0;\n    border-radius: 2px;\n}\n\n.footerBlock hr {\n    border: 1px solid white;\n    width: 100%;\n    margin: 2%;\n}\n\n.footerContentBox {\n    width: 33%;\n    text-align: center;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n\n}\n\n.footerDownloadPart {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-size: 2rem;\n    color: white;\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n}\n\n.footerDownloadPart a {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    color: white;\n}\n\n.footerFirstRow {\n     display: -webkit-box;\n     display: -ms-flexbox;\n     display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n\n.footerDownExample {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n}\n\n.footerDownExample a {\n    margin-left: 7%;\n}\n\n.footerDownExample a:hover {\n    color:white;\n}\n\n.footerContentBox p {\n    margin: 0;\n    margin-left: auto;\n    margin-right: auto;\n    line-height: 1.6;\n    color: white;\n}\n\n.footerContentBox a {\n    color: white;\n}\n\n.footerContentBox a:hover {\n    color: white;\n}\n\n.control.has-addons .select select {\n    border-color: #1f9de0;\n}\n\n.control.has-addons .select:after {\n    border-color:  #1f9de0;\n}\n\n.download .button {\n    width: 25%;\n    margin-left: 15%;\n    margin-right: 15%;\n}\n\n.footerContent.end {\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #1f9de0;\n    margin-bottom: 4%;\n}\n\n.footerContent.end a {\n    color: #1f9de0;\n}\n\n.site-map a {\n    display: block;\n    line-height: 24px;\n    text-align: left;\n}\n", ""]);
+exports.push([module.i, ".wrapperFooter {\n    width: 100%;\n    height: auto;\n    background-color: #0070FF;\n    display: block;\n    padding-bottom: 10px;\n    font-size: 18px;\n    margin-top: 30px;\n}\n\n.footerBlock {\n    width: 100%;\n    margin-left: auto;\n    margin-right: auto;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n\n.footerContent {\n    width: 100%;\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-around !important;\n    margin-top: 20px;\n}\n\n.wrapperFooter .footerBlock .iconBlock {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n}\n\n.icon-fa {\n    color: white;\n    margin: 0 10px;\n}\n\n.footerLogo {\n  position: relative;\n  width: 100px !important;\n  margin-bottom: 10px;\n}\n\n.footerLogo p {\n  height: 20px;\n  font-weight: bold;\n}\n\n.wrapperFooter a:hover {\n  color: #E8E8E8 !important;\n}\n\n.footerContent .button {\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n    margin: 3%;\n    margin-left: 10%;\n    margin-right: 10%;\n    width: auto;\n    border-color: #b5b5b5;\n    padding: 0;\n    border-radius: 2px;\n}\n\n.footerBlock hr {\n    border: 1px solid white;\n    width: 100%;\n    margin: 2%;\n}\n\n.footerContentBox {\n    width: 33%;\n    text-align: center;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: column nowrap;\n        flex-flow: column nowrap;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n\n}\n\n.footerDownloadPart {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    font-size: 2rem;\n    color: white;\n    -webkit-box-flex: 1;\n        -ms-flex-positive: 1;\n            flex-grow: 1;\n}\n\n.footerDownloadPart a {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    color: white;\n}\n\n.footerFirstRow {\n     display: -webkit-box;\n     display: -ms-flexbox;\n     display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n}\n\n.footerDownExample {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n}\n\n.footerDownExample a {\n    margin-left: 7%;\n}\n\n.footerDownExample a:hover {\n    color:white;\n}\n\n.footerContentBox p {\n    margin: 0;\n    margin-left: auto;\n    margin-right: auto;\n    line-height: 1.6;\n    color: white;\n}\n\n.footerContentBox a {\n    color: white;\n}\n\n.footerContentBox a:hover {\n    color: white;\n}\n\n.control.has-addons .select select {\n    border-color: #1f9de0;\n}\n\n.control.has-addons .select:after {\n    border-color:  #1f9de0;\n}\n\n.download .button {\n    width: 25%;\n    margin-left: 15%;\n    margin-right: 15%;\n}\n\n.footerContent.end {\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    color: #1f9de0;\n    margin-bottom: 4%;\n}\n\n.footerContent.end a {\n    color: #1f9de0;\n}\n\n.site-map a {\n    display: block;\n    line-height: 24px;\n    text-align: left;\n}\n\n.site-map > a {\n    line-height: 10px;\n}\n\nfooter .admin-nav-links {\n    width: 145px;\n}", ""]);
 
 // exports
 
@@ -14267,7 +14243,7 @@ exports = module.exports = __webpack_require__(18)(undefined);
 
 
 // module
-exports.push([module.i, "header {\n    position: relative;\n}\n\nheader .nav {\n    width: 90%;\n    border: 1px solid #ccc;\n    background-color: #f4f4f5;\n    margin-left: auto;\n    margin-right: auto;\n    border-radius: 2px;\n}\n\n.wrapperHeader {\n    background-color: white;\n    height: 112px;\n    max-height: 1000px;\n    position: relative;\n    display: flex;\n    flex-flow: column nowrap;\n    align-items: center;\n    justify-content: space-around;\n}\n\n.navbar {\n    -webkit-backface-visibility: hidden;\n    position: fixed;\n    top: 0;\n    z-index: 999;\n    width: 100%;\n    background-color: #0070ff;\n}\n\n.navbar .navbarLogo {\n    display: inline-block;\n    float: left;\n    margin-left: 5%;\n}\n\n\n.navbar .navbarLogo img {\n    margin-top: 12px;\n}\n\n.navbar .mobile {\n    display: inline-block;\n    color: #fff;\n    font-weight: bold;\n    font-size: 16px;\n    float: right;\n    margin-right: 5%;\n    padding: 10px;\n}\n\n\n.navbar .mobile a {\n    display: inline-block;\n    color: #fff;\n}\n\n.nav-right_custom {\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: auto;\n    margin-left: auto;\n}\n\n.nav-item {\n    height: 100%;\n}\n\n.nav-item.selected {\n    border-bottom: 2px solid #fff;\n}\n\n.nav-left .nav-item {\n    font-size: 1.2rem;\n}\n\n.nav-item {\n    font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "header {\n    position: relative;\n}\n\nheader .nav {\n    width: 90%;\n    border: 1px solid #ccc;\n    background-color: #f4f4f5;\n    margin-left: auto;\n    margin-right: auto;\n    border-radius: 2px;\n}\n\n.wrapperHeader {\n    background-color: white;\n    height: 112px;\n    max-height: 1000px;\n    position: relative;\n    display: flex;\n    flex-flow: column nowrap;\n    align-items: center;\n    justify-content: space-around;\n}\n\n.navbar {\n    -webkit-backface-visibility: hidden;\n    position: fixed;\n    top: 0;\n    z-index: 999;\n    width: 100%;\n    background-color: #0070ff;\n}\n\n.navbar .navbarLogo {\n    display: inline-block;\n    float: left;\n    margin-left: 5%;\n}\n\n\n.navbar .navbarLogo img {\n    margin-top: 12px;\n}\n\n.navbar .mobile {\n    display: inline-block;\n    color: #fff;\n    font-weight: bold;\n    font-size: 16px;\n    float: right;\n    margin-right: 5%;\n    padding: 10px;\n}\n\n\n.navbar .mobile a {\n    display: inline-block;\n    color: #fff;\n}\n\n.nav-right_custom {\n    -ms-flex-flow: row nowrap;\n        flex-flow: row nowrap;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    width: auto;\n    margin-left: auto;\n}\n\n.nav-item {\n    height: 100%;\n}\n\n.nav-item.selected {\n    border-bottom: 2px solid #fff;\n}\n\n.nav-left .nav-item {\n    font-size: 1.2rem;\n}\n\n.nav-item {\n    font-weight: bold;\n}\n\n.admin-nav-links {\n    display: inline-block;\n}\n", ""]);
 
 // exports
 
