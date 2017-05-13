@@ -13451,7 +13451,7 @@ var UserDetails = function (_Component) {
       var _this2 = this;
 
       var hostname = this.props.hostname;
-      var params = this.props.location.pathname;
+      var params = this.props.location.pathname.slice(6);
       fetch('' + hostname + params + '.json', {
         method: 'GET',
         credentials: 'include'

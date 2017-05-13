@@ -11,7 +11,7 @@ class UserDetails extends Component {
 
   fetchUser() {
     let hostname = this.props.hostname;
-    let params = this.props.location.pathname;
+    let params = this.props.location.pathname.slice(6);
     fetch(`${hostname}${params}.json`, {
               method: 'GET',
               credentials: 'include'
