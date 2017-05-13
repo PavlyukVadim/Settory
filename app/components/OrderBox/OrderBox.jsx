@@ -105,7 +105,9 @@ class OrderBox extends Component {
               'promocode': promoCode
             })
           }).then(() => {
-            this.props.history.push('/yourOrders');
+            let isAdmin = !~window.location.href.indexOf('#/user/');
+            let mediateRoute = isAdmin ? '/admin' : '/user';
+            this.props.history.push(`${mediateRoute}/yourOrders`);
           });
   }
 
