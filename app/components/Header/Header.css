@@ -93,3 +93,47 @@ header .nav {
 .admin-nav-links {
     display: inline-block;
 }
+
+/* adaptive */
+
+#icon-menu {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  #icon-menu {
+   margin: 0;
+   padding: 0;
+   color: #fff;
+   display: block;
+   position: absolute;
+   top: 50%;
+   right: 5%;
+   font-size: 25px;
+   transform: translateY(-30%);
+   -webkit-transform: translateY(-30%);
+   -ms-transform: translateY(-30%);
+   -moz-transform: translateY(-30%);
+  }
+}
+@media screen and (max-width: 768px) {
+   .mobile {
+     background-color: #0070FF;
+     border-top: 1px solid #fff;
+     text-align: center;
+     display: block;
+     position: absolute;
+     width: 100%;
+     top: 71px;
+     transition: 0.4s;
+   }
+   .mobile a {
+     display: block !important;
+   }
+}
+
+
+.mobile {
+ margin: 0;
+ padding: 0;
+ float: right;
+}
