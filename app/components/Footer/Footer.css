@@ -225,3 +225,77 @@
 footer .admin-nav-links {
     width: 145px;
 }
+
+@media screen and (max-width: 768px) {
+    .footerContentBox {
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 19px;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .headerContentBlock h1 {
+        font-size: 1.4rem;
+    }
+    .header {
+        height: 70%;
+    }
+
+    .navbarDownButton {
+        max-width: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footerContent {
+        display: block;
+    }
+
+    .first-screen {
+       padding: 4em 0;
+    }
+
+    .wrapperHeader {
+        background-color: white;
+        height: auto;
+    }
+
+    #safety .column{
+        text-align: center;
+    }
+
+     #safety .column img{
+        position: static;
+        left: 0;
+        transform: none;
+    }
+
+}
+
+@media screen and (max-width: 992px) {
+    .headerContentBlock, #slider {
+        position: static;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .headerContentBlock {
+        text-align: center;
+        transform: translateY(0);
+    }
+
+    .headerContentBlock button {
+        transform: translateX(0);
+        left: 0;
+    }
+
+    #slider {
+        height: auto;
+        margin-top: 85px;
+    }
+
+    #slider li img {
+        height: auto;
+    }
+}

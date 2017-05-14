@@ -1079,14 +1079,17 @@ html body .wrapperInfoBlock .box {
         height: auto;
     }*/
 }
+
 @media screen and (max-width: 700px) {
     #why-we .column .mainContentChildText.content h1 {
         font-size: 24px;
     }
+    
     .navbarLogo span {
         height: auto;
         font-size: 15px;
     }
+    
     .footerContent {
         -webkit-box-pack: center;
             -ms-flex-pack: center;
@@ -1097,11 +1100,17 @@ html body .wrapperInfoBlock .box {
     .wrapperCardBlock .card {
         width: 100%;
     }
-    .footerContentBox {
-        width: 50%;
-    }
+
     .footerContentBox.iconBlock {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footerContentBox {
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 19px;
     }
 }
 
