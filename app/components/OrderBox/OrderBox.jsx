@@ -16,7 +16,8 @@ class OrderBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOrderValid: false
+      isOrderValid: false,
+      isValidPromoCode: true
     };
     this.options = { windows: false,
                      dishes: false,
@@ -71,6 +72,8 @@ class OrderBox extends Component {
     let dateOrder = this.dateOrderInput.value;
     let timeOrder = this.timeOrder;
     let promoCode = this.promoCodeInput.value;
+    let isValidPromoCode = /.{6}[0-9]{2}/i.test(promoCode);
+    
     // these options didn't implement on back-end.
     delete this.options.microwave;
     delete this.options.kitchenCabinet;
@@ -87,6 +90,17 @@ class OrderBox extends Component {
       options: opts
     };
 
+    if (promoCode !== '' && !isValidPromoCode) {
+      this.setState(() => {
+        return {
+          isValidPromoCode: false
+        }
+      });
+      return;
+    } else if (isValidPromoCode) {
+      data.amount = 0.9 * data.amount;
+    }
+    
     let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
     let token = document.cookie.slice(indexOfToken + 11);
     let hostname = this.props.hostname;
@@ -196,9 +210,10 @@ class OrderBox extends Component {
   }
 
   render() {
+    console.log(this.state.isValidPromoCode)
     return (
       <div className="wrapperOrderBlock">
-        <ErrorPromo />
+        <ErrorPromo isValid={this.state.isValidPromoCode}/>
         <form id="orderForm">
           <div className="orderBlock">
             <label className="label">Адреса квартири</label>

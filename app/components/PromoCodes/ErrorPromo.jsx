@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import './ErrorPromo.css';
 
 class ErrorPromo extends Component {
@@ -17,11 +16,14 @@ class ErrorPromo extends Component {
         isShowError: !prevState.isShowError,
       };
     });
+    this.isErrorBoxClosed = true;
   }
 
   render() {
+    let isShouldShow = (this.state.isShowError || !this.props.isValid) && !this.isErrorBoxClosed;
+    this.isErrorBoxClosed = !this.isErrorBoxClosed;
     let styleObj = {
-      display: this.state.isShowError ? 'block' : 'none'
+      display: isShouldShow ? 'block' : 'none'
     }
 
     return (
