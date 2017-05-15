@@ -7,7 +7,7 @@ function PromoCode(discount, dTime, code) {
 }
 
 class PromoCodes extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ class PromoCodes extends Component {
   componentDidMount() {
     this.timePick();
   }
-  
+
   fetchPromoCodes() {
     let hostname = this.props.hostname;
     fetch(`${hostname}/admin_promos.json`, {
@@ -78,7 +78,7 @@ class PromoCodes extends Component {
         arrayOfPromoCodes: prevState.arrayOfPromoCodes
       };
     });
-    
+
     let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
     let token = document.cookie.slice(indexOfToken + 11);
     let hostname = this.props.hostname;
@@ -116,23 +116,23 @@ class PromoCodes extends Component {
           <h2>Промокоди</h2>
           <form id="promoCreate" onSubmit={ this.addPromoCode }>
             <p className="control has-addons">
-              <input className="input" type="text" 
+              <input className="input" type="text"
                      ref={(input) => { this.discountInput = input; }}
-                     placeholder="процент" 
+                     placeholder="процент"
                      required />
               <a className="button">%</a>
             </p>
             <p className="control has-addons">
               <input type="text" className="input"
                      id="datapicker2"
-                     onClick={ this.timePick } 
+                     onClick={ this.timePick }
                      ref={(input) => { this.dTimeInput = input; }}
-                     placeholder="день/місяць/рік" 
+                     placeholder="день/місяць/рік"
                      required />
               <a className="button">ДАТА</a>
             </p>
             <p className="control has-addons">
-              <input className="input" type="text" 
+              <input className="input" type="text"
                      ref={(input) => { this.codeInput = input; }}
                      placeholder="код" />
               <a className="button">КОД</a>

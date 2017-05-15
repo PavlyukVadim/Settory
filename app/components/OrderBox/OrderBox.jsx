@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TimePicker from '../TimePicker/TimePicker.jsx';
-
+import ErrorPromo from '../PromoCodes/ErrorPromo.jsx';
 /*options = [{title: 'windows', price: 300, selected: false},
              {title: 'dishes', price: 100, selected: false},
              {title: 'freezer', price: 150, selected: false},
@@ -12,7 +12,7 @@ import TimePicker from '../TimePicker/TimePicker.jsx';
              {title: 'underware', price: 50, selected: false}];*/
 
 class OrderBox extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +76,7 @@ class OrderBox extends Component {
     delete this.options.kitchenCabinet;
     delete this.options.hood;
     delete this.options.underware;
-    
+
     let opts = this.options;
     let data = {
       amount: this.sum,
@@ -86,7 +86,7 @@ class OrderBox extends Component {
       time_order: timeOrder,
       options: opts
     };
-    
+
     let indexOfToken = document.cookie.indexOf('XSRF-TOKEN=');
     let token = document.cookie.slice(indexOfToken + 11);
     let hostname = this.props.hostname;
@@ -143,7 +143,7 @@ class OrderBox extends Component {
     });
     $('#forTime').val('');
   }
-  
+
   timePick(newTime) {
     this.timeOrder = newTime;
     this.orderValidation();
@@ -180,7 +180,7 @@ class OrderBox extends Component {
   inputsValidation() {
     let numberOfRooms = +this.numberOfRoomsInput.value || 0;
     let numberOfBathrooms = +this.numberOfBathroomsInput.value || 0;
-    
+
     numberOfRooms = numberOfRooms > 10 ? numberOfRooms % 10 : numberOfRooms;
     numberOfRooms = numberOfRooms < 1 ? 1 : numberOfRooms;
     this.numberOfRoomsInput.value = numberOfRooms;
@@ -198,6 +198,7 @@ class OrderBox extends Component {
   render() {
     return (
       <div className="wrapperOrderBlock">
+        <ErrorPromo />
         <form id="orderForm">
           <div className="orderBlock">
             <label className="label">Адреса квартири</label>
@@ -206,19 +207,19 @@ class OrderBox extends Component {
                      type="text"
                      onChange={this.orderValidation}
                      ref={(input) => {this.addressInput = input;}}
-                     placeholder="вулиця Богдана Хмельницького 64,квартира13" 
+                     placeholder="вулиця Богдана Хмельницького 64,квартира13"
                      required />
             </p>
             <label className="label">Кількість кімнат</label>
             <p className="control has-addons">
               <a className="button" id="minus" onClick={this.decreaseNumberOfRooms}>-</a>
-              <input className="input is-expanded" 
+              <input className="input is-expanded"
                      type="text"
                      ref={(input) => {this.numberOfRoomsInput = input;}}
                      onChange={this.multiCheck}
                      name="roomQuantity"
                      min={1}
-                     defaultValue={1} 
+                     defaultValue={1}
                      maxLength={2}
                      required />
               <a className="button" id="plus" onClick={this.increaseNumberOfRooms}>+</a>
@@ -230,10 +231,10 @@ class OrderBox extends Component {
                      type="text"
                      ref={(input) => {this.numberOfBathroomsInput = input;}}
                      onChange={this.multiCheck}
-                     maxLength={2} 
-                     defaultValue={1} 
+                     maxLength={2}
+                     defaultValue={1}
                      name="bathQuantity"
-                     min={1} 
+                     min={1}
                      required />
               <a className="button" id="plus1" onClick={this.increaseNumberOfBathrooms}>+</a>
             </p>
@@ -293,7 +294,7 @@ class OrderBox extends Component {
                    type="button"
                    disabled={!this.state.isOrderValid}
                    onClick={this.makePay}
-                   className="button is-info" 
+                   className="button is-info"
                    defaultValue="Забронювати" />
           </div>
         </form>
