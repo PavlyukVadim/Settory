@@ -10,6 +10,7 @@ class Header extends Component {
       isShowMenu: false
     };
     this.showMenu = this.showMenu.bind(this);
+    this.exit = this.exit.bind(this);
   }
 
   showMenu() {
@@ -18,6 +19,12 @@ class Header extends Component {
         isShowMenu: !prevState.isShowMenu,
       };
     });
+  }
+
+  exit() {
+    document.cookie = 'XSRF-TOKEN' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = '_settory_session' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    //document.location = window.location.host + '/users';
   }
 
   render() {
@@ -48,7 +55,7 @@ class Header extends Component {
                   </div>
                 }
                 <NavLink to={`${mediateRoute}/yourOrders`} activeClassName="selected" className="nav-item">Ваші прибирання</NavLink>
-                <a className="nav-item" href="../">Вийти</a>
+                <a className="nav-item" onClick={this.exit} href='../users/sign_in'>Вийти</a>
               </div>
             </div>
           </div>

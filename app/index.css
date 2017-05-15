@@ -655,3 +655,13 @@ div.nav {
 .pagination a{
     min-width: 90px;
 }
+
+@media screen and (max-width: 768px) {
+    .orderBlock {
+        margin-top: 50px;
+    }
+
+    .nav-item {
+        font-size: 18px;
+    }
+}
