@@ -121,7 +121,7 @@ html body {
     margin: 0px;
 }
 
-.headerContentBlock p { 
+.headerContentBlock p {
     margin-top: 5%;
     font-size: 1.2rem;
     padding-right: 10%;
@@ -1084,12 +1084,12 @@ html body .wrapperInfoBlock .box {
     #why-we .column .mainContentChildText.content h1 {
         font-size: 24px;
     }
-    
+
     .navbarLogo span {
         height: auto;
         font-size: 15px;
     }
-    
+
     .footerContent {
         -webkit-box-pack: center;
             -ms-flex-pack: center;
@@ -1199,6 +1199,35 @@ html body .wrapperInfoBlock .box {
   padding-bottom: 0 !important;
 }
 
+@media screen and (max-width: 768px) {
+  #what-we-do .container {
+    padding: 0 !important;
+  }
+ .columns {
+   width: 100%;
+ }
+ .navbar {
+   width: 100%;
+ }
+  #what-we-do .column {
+    margin-bottom: 50px;
+    width: 100%;
+  }
+  .content{
+    padding: 0 1.5rem !important;
+  }
+  #what-we-do li {
+    text-align: left;
+    margin: 0 auto;
+  }
+  #why-we img, #what-we-do img {
+        width: 100%;
+  }
+  .mainContentChildImg {
+    width: 102.5%;
+  }
+}
+
 #what-we-do h1 {
   text-align: center;
 }
@@ -1213,4 +1242,11 @@ html body .wrapperInfoBlock .box {
 
 #what-we-do .mainContentChildText {
   margin-top: 10px;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
 }
